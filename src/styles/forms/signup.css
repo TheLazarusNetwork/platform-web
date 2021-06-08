@@ -21,7 +21,7 @@ body {
           flex-direction: column;
   font-family: 'Montserrat', sans-serif;
   height: 100vh;
-  margin: 0px 0 50px;
+  margin: 0px 0;
 }
 
 h1 {
@@ -121,6 +121,19 @@ input {
   min-height: 550px;
 }
 
+@media (max-width: 650px) {
+  .container {
+    width: 540px;
+  }
+}
+
+@media (max-width: 450px) {
+  .container {
+    width: 350px;
+    min-height: 600px;
+  }
+}
+
 .form-container {
   position: absolute;
   top: 0;
@@ -135,6 +148,18 @@ input {
   z-index: 2;
 }
 
+@media (max-width: 650px) {
+  .sign-in-container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 450px) {
+  .sign-in-container {
+    width: 80%;
+  }
+}
+
 .container.right-panel-active .sign-in-container {
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
@@ -147,6 +172,25 @@ input {
   z-index: 1;
 }
 
+@media (max-width: 650px) {
+  .sign-up-container {
+    margin: auto;
+    width: 62%;
+  }
+  .sign-up-container ul > p {
+    bottom: 0;
+    margin: -5px 0px -20px -20px;
+    padding: 0;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .sign-up-container {
+    width: 80%;
+  }
+}
+
 .container.right-panel-active .sign-up-container {
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
@@ -154,6 +198,20 @@ input {
   z-index: 5;
   -webkit-animation: show 0.6s;
           animation: show 0.6s;
+}
+
+@media (max-width: 650px) {
+  .container.right-panel-active .sign-up-container {
+    -webkit-transform: translateX(65%);
+            transform: translateX(65%);
+  }
+}
+
+@media (max-width: 450px) {
+  .container.right-panel-active .sign-up-container {
+    -webkit-transform: translateX(25%);
+            transform: translateX(25%);
+  }
 }
 
 @-webkit-keyframes show {
@@ -192,9 +250,37 @@ input {
   z-index: 100;
 }
 
+@media (max-width: 650px) {
+  .overlay-container {
+    width: 40%;
+    left: 60%;
+  }
+}
+
+@media (max-width: 450px) {
+  .overlay-container {
+    width: 20%;
+    left: 80%;
+  }
+}
+
 .container.right-panel-active .overlay-container {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
+}
+
+@media (max-width: 650px) {
+  .container.right-panel-active .overlay-container {
+    -webkit-transform: translateX(-150%);
+            transform: translateX(-150%);
+  }
+}
+
+@media (max-width: 450px) {
+  .container.right-panel-active .overlay-container {
+    -webkit-transform: translateX(-400%);
+            transform: translateX(-400%);
+  }
 }
 
 .overlay {
@@ -250,6 +336,20 @@ input {
   transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
 }
 
+@media (max-width: 450px) {
+  .overlay-panel h1, .overlay-panel p {
+    visibility: hidden;
+  }
+  .overlay-panel button {
+    -webkit-transform: rotateZ(270deg);
+            transform: rotateZ(270deg);
+    width: 200px;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+}
+
 .overlay-left {
   -webkit-transform: translateX(-20%);
           transform: translateX(-20%);
@@ -290,30 +390,5 @@ input {
   margin: 0 5px;
   height: 40px;
   width: 40px;
-}
-
-footer {
-  background-color: #222;
-  color: #fff;
-  font-size: 14px;
-  bottom: 0;
-  position: fixed;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 999;
-}
-
-footer p {
-  margin: 10px 0;
-}
-
-footer i {
-  color: #012690;
-}
-
-footer a {
-  color: #3c97bf;
-  text-decoration: none;
 }
 /*# sourceMappingURL=signup.css.map */

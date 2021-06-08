@@ -4,6 +4,10 @@ $base-color: #f1f4fe;
 $dark-blue: #012690;
 $white: #fff;
 $background : #f6f5f7;
+
+$mid: 650px;
+$small : 450px;
+
 * {
 	box-sizing: border-box;
 }
@@ -16,7 +20,7 @@ body {
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
-	margin: 0px 0 50px;
+	margin: 0px 0 ;
 }
 
 h1 {
@@ -101,6 +105,14 @@ input {
 	width: 768px;
 	max-width: 100%;
 	min-height: 550px;
+
+	@media (max-width: $mid) {
+		width: 540px;
+	}
+	@media (max-width: $small) {
+		width: 350px;
+		min-height: 600px;
+	}
 }
 
 .form-container {
@@ -114,10 +126,22 @@ input {
 	left: 0;
 	width: 50%;
 	z-index: 2;
+	@media (max-width: $mid) {
+		width: 60%;
+	
+	}
+	@media (max-width: $small) {
+		width: 80%;
+	}
 }
 
 .container.right-panel-active .sign-in-container {
 	transform: translateX(100%);
+	@media (max-width: $mid) {
+		
+	}
+	@media (max-width: $small) {
+	}
 }
 
 .sign-up-container {
@@ -125,6 +149,20 @@ input {
 	width: 50%;
 	opacity: 0;
 	z-index: 1;
+	@media (max-width: $mid) {
+		margin: auto;
+		width: 62%;
+	ul>p{
+		bottom: 0;
+		margin: -5px 0px -20px -20px ;
+		padding: 0;
+		font-size: 10px;
+		
+	}
+	}
+	@media (max-width: $small) {
+		width: 80%;
+	}
 }
 
 .container.right-panel-active .sign-up-container {
@@ -132,6 +170,13 @@ input {
 	opacity: 1;
 	z-index: 5;
 	animation: show 0.6s;
+	@media (max-width: $mid) {
+		transform: translateX(65%);
+		
+	}
+	@media (max-width: $small) {
+		transform: translateX(25%);
+	}
 }
 
 @keyframes show {
@@ -155,10 +200,27 @@ input {
 	overflow: hidden;
 	transition: transform 0.6s ease-in-out;
 	z-index: 100;
+
+	@media (max-width: $mid) {
+		width: 40%;
+		left: 60%;
+	}
+	@media (max-width: $small) {
+		width: 20%;
+		left: 80%;
+	}
+	
 }
 
 .container.right-panel-active .overlay-container{
 	transform: translateX(-100%);
+	@media (max-width: $mid) {
+		transform: translateX(-150%);
+	
+	}
+	@media (max-width: $small) {
+		transform: translateX(-400%);
+	}
 }
 
 .overlay {
@@ -193,6 +255,21 @@ input {
 	width: 50%;
 	transform: translateX(0);
 	transition: transform 0.6s ease-in-out;
+
+	@media (max-width: $mid) {
+		
+		
+	}
+	@media (max-width: $small) {
+		h1,p{
+			visibility: hidden;
+		}
+		button{
+			transform: rotateZ(270deg);
+			width: 200px;
+			align-self: center;
+		}
+	}
 }
 
 .overlay-left {
@@ -227,27 +304,3 @@ input {
 	width: 40px;
 }
 
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-footer i {
-    color: $dark-blue;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-}
