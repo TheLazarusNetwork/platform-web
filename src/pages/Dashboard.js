@@ -6,6 +6,7 @@ export default function Dashboard(props) {
   const signOutUser = () => {
     auth.logout();
   };
+
   const getdetails = async () => {
     let details;
     try {
@@ -16,7 +17,9 @@ export default function Dashboard(props) {
     }
     console.log(details);
   };
-  const verifyemail = async () => {
+
+
+  const verifyemail = async () => {   //sending user verification email 
     let verified;
     try {
       verified = await auth.sendVerificationEmail(
@@ -27,6 +30,7 @@ export default function Dashboard(props) {
     }
     console.log(verified);
   };
+  
   const createJWT = async() => {
     let jwt;
     try {

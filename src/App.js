@@ -3,13 +3,12 @@ import "./styles/App.css";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import PrivateRoute from "./api/PrivateRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import Auth from "./api/Auth";
-import Success from "./Components/Success";
-import Failure from "./Components/Failure";
-import VerificationPage from './Components/verificationPage'
+import Success from "./pages/redirects/Success";
+import Failure from "./pages/redirects/Failure";
+import VerificationPage from './pages/redirects/VerificationPage'
 
 const auth = new Auth();
 const App = () => {
@@ -27,7 +26,7 @@ const App = () => {
         <Route
           exact
           path="/signin"
-          render={(props) => <Login {...props} auth={auth} />}
+          render={(props) => <Signup {...props} auth={auth} />}
         />
         <Route
           exact

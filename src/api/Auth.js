@@ -24,7 +24,7 @@ class Auth {
 
     }, function (error) {
         console.log(error); // Failure
-        window.location='http://localhost:3000/failure'
+        window.location= location +"/failure"
     });
     setTimeout(() => {
       let promises = this.sdk.account.createSession(email, password);
@@ -67,7 +67,7 @@ class Auth {
 
     promise.then(function (response) {
       localStorage.removeItem('auth_state');
-      window.location= location +"/signup"
+      window.location= location +"/signup"  //redirect to signup page after user logs out
       console.log(response); // Success
     }, function (error) {
       console.log('AUTH', error);
@@ -99,7 +99,7 @@ class Auth {
   checkLogin() {
     this.sdk.account.get().then(function(response) {
       console.log(response)
-      window.location="http://localhost:3000/"
+      window.location= location +"/"
     }, function(error) {
       console.log(error)
     })
@@ -121,11 +121,11 @@ class Auth {
     
     promise.then(function (response){
       console.log(response); // Success
-      window.location='http://localhost:3000/success'
+      window.location= location +"/success"
       
   }, function (error) {
       console.log(error); // Failure
-      window.location='http://localhost:3000/failure'
+      window.location= location +"/failure"
 
     })
   }

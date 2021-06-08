@@ -1,26 +1,29 @@
 import React, { useState } from "react";
-// import "./../styles/forms/signup.css";
+import "./../styles/forms/signup.css";
 import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
-import SHA1 from './../api/shai'
-
+import SHA1 from '../functions/shai.js'
+import PasswordStrengthMeter from './../Components/PasswordStrengthMeter.js'
 export default function Signup(props) {
-  const [auth, setAuth] = useState(props.auth);
-  const [rightpanel, setrightpanel] = useState(false);
+  const [auth, setAuth] = useState(props.auth);     //auth class instance from auth.js
+  const [rightpanel, setrightpanel] = useState(false);        //right panel true for signup page 
+                                                              //false for signin page
+  const [password,setPassword] = useState("")
 
-  const handleSignup = (event) => {
+
+  const handleSignup = (event) => {       //takes all details from sign up form and create new account 
     event.preventDefault();
     var name = event.target.elements["name"].value;
     var email = event.target.elements["email"].value;
     var password = event.target.elements["password-box"].value;
     var repassword = event.target.elements["repassword"].value;
-    if (password !== repassword) {
+    if (password !== repassword) {                                    
       alert("Passwords do not match");
     } else {
-      auth.signup(email, password, name);
+      auth.signup(email, password, name);                         //calling auth method to create new account
     }
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = (event) => {                  // login function 
     event.preventDefault();
     var email = event.target.elements["inemail"].value;
     var password = event.target.elements["inpassword"].value;
@@ -30,9 +33,10 @@ export default function Signup(props) {
   };
 
   const handleGoogle = () => {};
-  var requestTimeout;
 
-  const passwordKeyPress = () => {
+
+  var requestTimeout;
+  const passwordKeyPress = () => {            // check for password breaches using pawnedpasswords api
     var password = document.getElementById("password-box").value;
     document.getElementById("iscompromised").innerHTML =
       "<span >&nbsp;We are checking if your password has ever been compromised...</span>";
@@ -125,7 +129,9 @@ export default function Signup(props) {
               placeholder="Password"
               id="password-box"
               onKeyUp={passwordKeyPress}
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
+            <PasswordStrengthMeter password={password}/>
             <input
               type="password"
               placeholder="Confirm Password"
