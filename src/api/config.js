@@ -1,4 +1,4 @@
 export const config = {
-  projectId: '60aa4ebf17428',
-  endpoint: 'https://horizon.lazarus.network/v1',
+  projectId: process.env.REACT_APP_PROJECT,
+  endpoint: process.env.REACT_APP_ENDPOINT,
 };
