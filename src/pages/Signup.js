@@ -1,42 +1,58 @@
 import React, { useState } from "react";
 import "./../styles/forms/signup.css";
 import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
-import SHA1 from '../functions/shai.js'
-import PasswordStrengthMeter from './../Components/PasswordStrengthMeter.js'
+import SHA1 from "../functions/shai.js";
+import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
+
 export default function Signup(props) {
-  const [auth, setAuth] = useState(props.auth);     //auth class instance from auth.js
-  const [rightpanel, setrightpanel] = useState(false);        //right panel true for signup page 
-                                                              //false for signin page
-  const [password,setPassword] = useState("")
+  const { history } = props;
+  const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
+  const [rightpanel, setrightpanel] = useState(false); //right panel true for signup page  ,false for signin page
+  const [password, setPassword] = useState(""); //for checking the password strength using password strength meter
 
-
-  const handleSignup = (event) => {       //takes all details from sign up form and create new account 
+  const handleSignup = async (event) => {
+    //takes all details from sign up form and create new account
     event.preventDefault();
     var name = event.target.elements["name"].value;
     var email = event.target.elements["email"].value;
     var password = event.target.elements["password-box"].value;
     var repassword = event.target.elements["repassword"].value;
-    if (password !== repassword) {                                    
+
+    if (password !== repassword) {
       alert("Passwords do not match");
     } else {
-      auth.signup(email, password, name);                         //calling auth method to create new account
+      const signupdata = await auth.signup(email, password, name); //calling auth method to create new account
+
+      if (signupdata) {
+        //if user signup success login user automatically
+        const logindata = await auth.login(email, password);
+
+        if (logindata) history.push("/success");
+        //signin success rediect to /success
+        else history.push("/failure"); //signin fail
+      } else history.push("/failure"); //signup fail
     }
   };
 
-  const handleLogin = (event) => {                  // login function 
+  const handleLogin = async (event) => {
+    // login function
     event.preventDefault();
     var email = event.target.elements["inemail"].value;
     var password = event.target.elements["inpassword"].value;
-    auth.login(email, password);
+
+    const logindata = await auth.login(email, password);
+
+    if (logindata) history.push("/success");
+    else history.push("/failure");
 
     auth.checkLogin();
   };
 
   const handleGoogle = () => {};
 
-
   var requestTimeout;
-  const passwordKeyPress = () => {            // check for password breaches using pawnedpasswords api
+  const passwordKeyPress = () => {
+    // check for password breaches using pawnedpasswords api
     var password = document.getElementById("password-box").value;
     document.getElementById("iscompromised").innerHTML =
       "<span >&nbsp;We are checking if your password has ever been compromised...</span>";
@@ -51,11 +67,9 @@ export default function Signup(props) {
   function passwordmodified() {
     var modifiedpassword = passwordInput.value;
     if (modifiedpassword !== passwordplain) {
-  
       passwordplain = modifiedpassword;
-  
-      if (passwordplain !== '') {
-  
+
+      if (passwordplain !== "") {
         var sha1pass = SHA1(passwordplain);
         sha1pass = sha1pass.toUpperCase();
         var subsha1pass = sha1pass.substring(5);
@@ -63,37 +77,43 @@ export default function Signup(props) {
           xhttp.abort();
         }
         xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             var xhttpresponse = this.responseText;
             if (xhttpresponse.indexOf(subsha1pass) !== -1) {
-  
               var passlist = xhttpresponse.split("\n");
               var pwnedcount = 0;
-              var timespell = 'times';
+              var timespell = "times";
               for (var i = 0; i < passlist.length; i++) {
                 if (subsha1pass == passlist[i].split(":")[0]) {
                   pwnedcount = passlist[i].split(":")[1];
-                  if (passlist[i].split(":")[1] == 1){ timespell = "time"; }
+                  if (passlist[i].split(":")[1] == 1) {
+                    timespell = "time";
+                  }
                 }
               }
-  
-              document.getElementById("iscompromised").innerHTML = '<span style="color: #ff0000;">Oh no! This password was found <b>'+ pwnedcount + '</b> '+ timespell + ' in compromised passwords databases! </span>';
-            }else {
-              document.getElementById("iscompromised").innerHTML = '<span style="color: #339966;">Good news, this password has never been breached!</span>';
+
+              document.getElementById("iscompromised").innerHTML =
+                '<span style="color: #ff0000;">Oh no! This password was found <b>' +
+                pwnedcount +
+                "</b> " +
+                timespell +
+                " in compromised passwords databases! </span>";
+            } else {
+              document.getElementById("iscompromised").innerHTML =
+                '<span style="color: #339966;">Good news, this password has never been breached!</span>';
             }
           }
         };
-  
-        xhttp.open('GET', 'https://api.pwnedpasswords.com/range/' + sha1pass.substring(0, 5));
+
+        xhttp.open(
+          "GET",
+          "https://api.pwnedpasswords.com/range/" + sha1pass.substring(0, 5)
+        );
         xhttp.send();
       }
-  
     }
   }
-  
- 
-  
 
   return (
     <>
@@ -129,16 +149,18 @@ export default function Signup(props) {
               placeholder="Password"
               id="password-box"
               onKeyUp={passwordKeyPress}
-              onChange={(e)=>{setPassword(e.target.value)}}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
-            <PasswordStrengthMeter password={password}/>
+            <PasswordStrengthMeter password={password} />
             <input
               type="password"
               placeholder="Confirm Password"
               id="repassword"
             />
             <button type="submit">Sign Up</button>
-          
+
             <ul className="hsimp-checks">
               <p id="iscompromised">
                 <span>
@@ -146,8 +168,7 @@ export default function Signup(props) {
                 </span>
               </p>
             </ul>
-            <ul id="password-checks" className="hsimp-checks">
-            </ul>
+            <ul id="password-checks" className="hsimp-checks"></ul>
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -206,8 +227,6 @@ export default function Signup(props) {
           </div>
         </div>
       </div>
-
     </>
   );
 }
-

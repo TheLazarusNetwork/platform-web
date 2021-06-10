@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 
+const location =
+  window.location.protocol + "//" + window.location.host + "/verify";
 export default function Dashboard(props) {
   const [auth, setAuth] = useState(props.auth);
 
@@ -18,20 +20,18 @@ export default function Dashboard(props) {
     console.log(details);
   };
 
-
-  const verifyemail = async () => {   //sending user verification email 
+  const verifyemail = async () => {
+    //sending user verification email
     let verified;
     try {
-      verified = await auth.sendVerificationEmail(
-        "http://localhost:3000/verify"
-      );
+      verified = await auth.sendVerificationEmail(location);
     } catch (e) {
       console.log(e);
     }
     console.log(verified);
   };
-  
-  const createJWT = async() => {
+
+  const createJWT = async () => {
     let jwt;
     try {
       jwt = await auth.createJWT();

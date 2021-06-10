@@ -1,15 +1,11 @@
 /* eslint-disable require-jsdoc */
-import {Route, Redirect} from 'react-router-dom';
-import {config} from './config'
 
+import { config } from "./config";
 
-import {Appwrite} from "appwrite";
+import { Appwrite } from "appwrite";
 const appwrite = new Appwrite();
-const location = window.location.protocol +"//" + window.location.host ;
-appwrite
-    .setEndpoint(config.endpoint) 
-    .setProject(config.projectId);
-
+const location = window.location.protocol + "//" + window.location.host;
+appwrite.setEndpoint(config.endpoint).setProject(config.projectId);
 
 class Auth {
   constructor() {
@@ -19,74 +15,75 @@ class Auth {
 
   async signup(email, password, name) {
     let promise = this.sdk.account.create(email, password, name);
-    let promises = this.sdk.account.createSession(email, password);
-     promise.then(function (response) {
-
-    }, function (error) {
+    return promise.then(
+      function (response) {
+        return response;
+      },
+      function (error) {
         console.log(error); // Failure
-        window.location= location +"/failure"
-    });
-    setTimeout(() => {
-      let promises = this.sdk.account.createSession(email, password);
+        return null;
+      }
+    );
 
-      promises.then(function (response) {
-          console.log(response); // Success
-          window.location= location +"/success"
-      }, function (error) {
-          alert(error); // Failure
-          window.location= location +"/failure"
-      });
-    }, 200)
   }
 
-  login(email, password)  {
+  login(email, password) {
     let promise = this.sdk.account.createSession(email, password);
-    promise.then(function (response) {
-        console.log(response); // Success
-        window.location= location +"/success"
-        
-    }, function (error) {
-        console.log(error); // Failure
-        window.location= location +"/failure"
-        
-    });
+    return promise.then(
+      function (response) {
+        return response;
+      },
+      function (error) {
+        return null;
+      }
+    );
   }
 
   google() {
-    let promise = this.sdk.account.createOAuth2Session('google', 'http://localhost:3000/success', 'http://localhost:3000/failure')
+    let promise = this.sdk.account.createOAuth2Session(
+      "google",
+      "http://localhost:3000/success",
+      "http://localhost:3000/failure"
+    );
 
-    promise.then(function (response) {
+    promise.then(
+      function (response) {
         console.log(response); // Success
-    }, function (error) {
+      },
+      function (error) {
         console.log(error); // Failure
-    });
+      }
+    );
   }
 
   logout() {
-    let promise = this.sdk.account.deleteSession('current');
+    let promise = this.sdk.account.deleteSession("current");
 
-    promise.then(function (response) {
-      localStorage.removeItem('auth_state');
-      window.location= location +"/signup"  //redirect to signup page after user logs out
-      console.log(response); // Success
-    }, function (error) {
-      console.log('AUTH', error);
-      console.log(error); // Failure
-    });
+    promise.then(
+      function (response) {
+        localStorage.removeItem("auth_state");
+        window.location = location + "/signup"; //redirect to signup page after user logs out
+        console.log(response); // Success
+      },
+      function (error) {
+        console.log("AUTH", error);
+        console.log(error); // Failure
+      }
+    );
   }
 
   checkAuthenticated() {
-     const promise = this.sdk.account.getSessions();
-     return promise.then(
-        function(response) {
-          localStorage.setItem('auth_state', 1);
-          console.log(response)
-          return response;
-        },
-        function(error) {
-          localStorage.removeItem('auth_state');
-          return null;
-        }
+    const promise = this.sdk.account.getSessions();
+    return promise.then(
+      function (response) {
+        localStorage.setItem("auth_state", 1);
+        console.log(response);
+        return response;
+      },
+      function (error) {
+        localStorage.removeItem("auth_state");
+        return null;
+      }
     );
   }
 
@@ -97,49 +94,55 @@ class Auth {
     return this.checkAuthenticated();
   }
   checkLogin() {
-    this.sdk.account.get().then(function(response) {
-      console.log(response)
-      window.location= location +"/"
-    }, function(error) {
-      console.log(error)
-    })
+    this.sdk.account.get().then(
+      function (response) {
+        console.log(response);
+        window.location = location + "/";
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
   }
-   
-  sendVerificationEmail(url){
 
+  sendVerificationEmail(url) {
     let promise = this.sdk.account.createVerification(url);
-    return promise.then(function (response){
-      return response
-    },function (error){
-      return null;
-    })
-  
+    return promise.then(
+      function (response) {
+        return response;
+      },
+      function (error) {
+        return null;
+      }
+    );
   }
 
-  updateVerification(userId, secret){
-    let promise = this.sdk.account.updateVerification(userId,secret);
-    
-    promise.then(function (response){
-      console.log(response); // Success
-      window.location= location +"/success"
-      
-  }, function (error) {
-      console.log(error); // Failure
-      window.location= location +"/failure"
+  updateVerification(userId, secret) {
+    let promise = this.sdk.account.updateVerification(userId, secret);
 
-    })
+    promise.then(
+      function (response) {
+        console.log(response); // Success
+        window.location = location + "/success";
+      },
+      function (error) {
+        console.log(error); // Failure
+        window.location = location + "/failure";
+      }
+    );
   }
 
-  createJWT(){
-    let  promise = this.sdk.account.createJWT();
-    return promise.then(function(response){
-      return response;
-    },function(e){
-      return e;
-    })
+  createJWT() {
+    let promise = this.sdk.account.createJWT();
+    return promise.then(
+      function (response) {
+        return response;
+      },
+      function (e) {
+        return e;
+      }
+    );
   }
-
-
 }
 
 export default Auth;

@@ -8,7 +8,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Auth from "./api/Auth";
 import Success from "./pages/redirects/Success";
 import Failure from "./pages/redirects/Failure";
-import VerificationPage from './pages/redirects/VerificationPage'
+import VerificationPage from "./pages/redirects/VerificationPage";
 
 const auth = new Auth();
 const App = () => {
@@ -22,16 +22,17 @@ const App = () => {
           auth={auth}
           component={Dashboard}
         />
-     
-        <Route
-          exact
-          path="/signin"
-          render={(props) => <Signup {...props} auth={auth} />}
-        />
+
         <Route
           exact
           path="/signup"
-          render={(props) => <Signup {...props} auth={auth} />}
+          render={(props) => {
+            return localStorage.getItem("auth_state") ? (
+              <Redirect to="/" />
+            ) : (
+              <Signup {...props} auth={auth} />
+            );
+          }}
         />
         <Route
           exact
@@ -44,10 +45,10 @@ const App = () => {
           render={(props) => <Success {...props} auth={auth} />}
         />
         <Route
-         exact
-         path="/verify"
-         render ={(props)=><VerificationPage {...props} auth={auth}/>}
-         />
+          exact
+          path="/verify"
+          render={(props) => <VerificationPage {...props} auth={auth} />}
+        />
       </div>
     </Router>
   );
