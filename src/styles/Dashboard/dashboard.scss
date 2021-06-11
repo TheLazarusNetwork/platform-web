@@ -1,0 +1,71 @@
+$lightblue: #f1f4fe;
+$darkgrey: #4d4f5c;
+$darkblue: rgb(28, 12, 172);
+$lightgrey: #d6d7de;
+* {
+  margin: 0;
+}
+
+.body {
+  width: 100vw;
+  display: flex;
+}
+
+.router {
+  display: flex;
+}
+
+.sidebar {
+  background-color: $lightblue !important;
+  color: $darkgrey !important;
+}
+.sidebar-content {
+  background-color: $lightblue;
+  color: $darkgrey;
+}
+.sidebar-menu {
+  background-color: #f1f4fe;
+  color: #4d4f5c;
+}
+.activeClicked > li {
+  background-color: $darkblue !important;
+  color: #fff !important;
+}
+.menuitem {
+  color: #000;
+}
+
+.label {
+  font-size: 10px;
+  opacity: 0.7;
+  margin: auto;
+  margin-left: 30px;
+  margin-bottom: -10px;
+}
+.toggled {
+  .label {
+    display: none;
+  }
+  .logout-btn > button {
+      
+    span {
+      display: none;
+    }
+   
+  }
+}
+
+.logout-btn {
+  button {
+    font-size: smaller;
+    width: 90%;
+    border: 0;
+    border-radius: 0;
+    background-color: $lightgrey;
+    height: max-content;
+     
+    span{
+        margin-left: 10px;
+    }
+  }
+}

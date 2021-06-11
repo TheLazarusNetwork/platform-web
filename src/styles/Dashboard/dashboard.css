@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+}
+
+.body {
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.router {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sidebar {
+  background-color: #f1f4fe !important;
+  color: #4d4f5c !important;
+}
+
+.sidebar-content {
+  background-color: #f1f4fe;
+  color: #4d4f5c;
+}
+
+.sidebar-menu {
+  background-color: #f1f4fe;
+  color: #4d4f5c;
+}
+
+.activeClicked > li {
+  background-color: #1c0cac !important;
+  color: #fff !important;
+}
+
+.menuitem {
+  color: #000;
+}
+
+.label {
+  font-size: 10px;
+  opacity: 0.7;
+  margin: auto;
+  margin-left: 30px;
+  margin-bottom: -10px;
+}
+
+.toggled .label {
+  display: none;
+}
+
+.toggled .logout-btn > button span {
+  display: none;
+}
+
+.logout-btn button {
+  font-size: smaller;
+  width: 90%;
+  border: 0;
+  border-radius: 0;
+  background-color: #d6d7de;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.logout-btn button span {
+  margin-left: 10px;
+}
+/*# sourceMappingURL=dashboard.css.map */
