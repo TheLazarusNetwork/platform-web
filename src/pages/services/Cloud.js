@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function DedicatedVPN() {
+export default function Cloud() {
     return (
         <div>
-            DedicatedVPN
+            cloud
         </div>
     )
 }

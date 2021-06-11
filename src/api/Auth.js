@@ -4,7 +4,8 @@ import { config } from "./config";
 
 import { Appwrite } from "appwrite";
 const appwrite = new Appwrite();
-const location = window.location.protocol + "//" + window.location.host;
+const location = process.env.REACT_APP_HOST_URL;
+
 appwrite.setEndpoint(config.endpoint).setProject(config.projectId);
 
 class Auth {
@@ -42,18 +43,18 @@ class Auth {
   google() {
     let promise = this.sdk.account.createOAuth2Session(
       "google",
-      "http://localhost:3000/success",
-      "http://localhost:3000/failure"
+      location +"/success",
+      location +"/failure"
     );
 
-    promise.then(
-      function (response) {
-        console.log(response); // Success
-      },
-      function (error) {
-        console.log(error); // Failure
-      }
-    );
+    // promise.then(
+    //   function (response) {
+    //     console.log(response); // Success
+    //   },
+    //   function (error) {
+    //     console.log(error); // Failure
+    //   }
+    // );
   }
 
   logout() {

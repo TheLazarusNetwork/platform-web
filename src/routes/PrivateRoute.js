@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 
-const PrivateRoute = ({appwrite: appwrite, component: Component, auth: auth, ...rest}) => (
+const PrivateRoute = ({ component: Component, auth: auth, ...rest}) => (
   <Route {...rest} render={(props) => {
     return localStorage.getItem('auth_state') ? <Component {...props} auth = {auth} /> : <Redirect to='/signup' />;
   }} />

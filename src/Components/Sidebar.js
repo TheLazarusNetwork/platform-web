@@ -53,7 +53,12 @@ const Sidebar = ({ auth }) => {
             </NavLink>
             <NavLink exact to="/dedivpn" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="shield-alt">
-                Dedicated VPN
+                Dedicated Network
+              </CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/cloud" activeClassName="activeClicked">
+              <CDBSidebarMenuItem className="menuitem" icon="cloud">
+                Cloud
               </CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/tunnel" activeClassName="activeClicked">

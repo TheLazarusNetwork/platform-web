@@ -3,7 +3,9 @@ import "./../styles/forms/signup.css";
 import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
 import SHA1 from "../functions/shai.js";
 import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
+import Auth from "../api/Auth";
 
+document.title ="Lazarus Networks-signup"
 export default function Signup(props) {
   const { history } = props;
   const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
@@ -48,7 +50,9 @@ export default function Signup(props) {
     auth.checkLogin();
   };
 
-  const handleGoogle = () => {};
+  const handleGoogle = () => {
+      auth.google()
+  };
 
   var requestTimeout;
   const passwordKeyPress = () => {
@@ -123,9 +127,9 @@ export default function Signup(props) {
       >
         <div className="form-container sign-up-container">
           <form onSubmit={handleSignup}>
-            <h1>Create Account</h1>
+            <h2>Create Account</h2>
             <div className="social-container">
-              <a href="#" className="social">
+              <a href="#" className="social" onClick ={handleGoogle}>
                 <i>
                   <FaGoogle />
                 </i>
@@ -175,7 +179,7 @@ export default function Signup(props) {
           <form onSubmit={handleLogin}>
             <h1>Sign in</h1>
             <div className="social-container">
-              <a href="#" className="social">
+              <a href="#" className="social" onClick={handleGoogle}>
                 <i>
                   <FaGoogle />
                 </i>
@@ -201,7 +205,7 @@ export default function Signup(props) {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
+              <h2>Welcome Back!</h2>
               <p>
                 To keep connected with us please login with your personal info
               </p>
@@ -214,7 +218,7 @@ export default function Signup(props) {
               </button>
             </div>
             <div className="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
+              <h2>Hello, Friend!</h2>
               <p>Enter your personal details and start journey with us</p>
               <button
                 className="ghost"

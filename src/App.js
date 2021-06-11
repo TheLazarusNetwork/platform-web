@@ -16,31 +16,48 @@ import VerificationPage from "./pages/redirects/VerificationPage";
 import Notfound from "./pages/redirects/404";
 import Sidebar from "./Components/Sidebar";
 import Billing from "./pages/Billing";
-import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import AnonymousVPN from "./pages/services/AnonymousVPN";
-import DedicatedVPN from "./pages/services/DedicatedVPN";
+import DedicatedNetwork from "./pages/services/DedicatedNetwork";
 import Tunnel from "./pages/services/Tunnel";
+import Cloud from "./pages/services/Cloud";
+
 const auth = new Auth();
+
 const App = () => {
   return (
     <Router>
       <div className="body">
         <PrivateRoute
-          appwrite={auth.sdk}
           path="/"
           auth={auth}
           component={Sidebar}
         />
         <Switch>
-          <Route exact path="/" auth={auth} component={Home} />
-          <Route exact path="/profile" auth={auth} component={Profile} />
-          <Route exact path="/billing" auth={auth} component={Billing} />
-          <Route exact path="/settings" auth={auth} component={Settings} />
-          <Route exact path="/anomvpn" auth={auth} component={AnonymousVPN} />
-          <Route exact path="/dedivpn" auth={auth} component={DedicatedVPN} />
-          <Route exact path="/tunnel" auth={auth} component={Tunnel} />
+          <PrivateRoute exact path="/" auth={auth} component={Dashboard} />
+          <PrivateRoute exact path="/profile" auth={auth} component={Profile} />
+          <PrivateRoute exact path="/billing" auth={auth} component={Billing} />
+          <PrivateRoute
+            exact
+            path="/settings"
+            auth={auth}
+            component={Settings}
+          />
+          <PrivateRoute
+            exact
+            path="/anomvpn"
+            auth={auth}
+            component={AnonymousVPN}
+          />
+          <PrivateRoute
+            exact
+            path="/dedivpn"
+            auth={auth}
+            component={DedicatedNetwork}
+          />
+          <PrivateRoute exact path="/tunnel" auth={auth} component={Tunnel} />
+          <PrivateRoute exact path="/cloud" auth={auth} component={Cloud} />
 
           <Route
             exact
