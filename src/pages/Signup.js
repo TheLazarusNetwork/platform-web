@@ -198,7 +198,7 @@ export default function Signup(props) {
             <span>or use your account</span>
             <input type="email" placeholder="Email" id="inemail" />
             <input type="password" placeholder="Password" id="inpassword" />
-            <a href="#">Forgot your password?</a>
+            <a href="/resetpassword" >Forgot your password?</a>
             <button type="submit">Sign In</button>
           </form>
         </div>

@@ -4,7 +4,7 @@ export default function DedicatedNetwork() {
     return (
         <div>
             DedicatedVPN
-           { console.log(  process.env.REACT_APP_HOSTURL + "/verify")}
+           { console.log(  process.env.REACT_APP_HOST_URL + "/verify")}
         </div>
     )
 }

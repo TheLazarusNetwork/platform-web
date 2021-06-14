@@ -13,7 +13,6 @@ const verificationURL = process.env.REACT_APP_HOST_URL + "/verify";
 
 export default function Dashboard(props) {
   const [auth, setAuth] = useState(props.auth);
-  const [darktheme, setdarktheme] = useState(false);
 
   const getdetails = async () => {
     let details;

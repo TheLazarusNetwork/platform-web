@@ -98,7 +98,7 @@ class Auth {
     this.sdk.account.get().then(
       function (response) {
         console.log(response);
-        window.location = location + "/";
+        window.location = location + "/dash/";
       },
       function (error) {
         console.log(error);
@@ -132,6 +132,35 @@ class Auth {
       }
     );
   }
+
+  createRecovery(email, url)
+  {
+    let promise = this.sdk.account.createRecovery(email, url);
+    promise.then(
+      function (response){
+        console.log(response);
+      },
+      function (error){
+        console.log(error)
+      }
+    )
+  }
+
+  updateRecovery(userId, secret, password)
+  {
+     let promise = this.sdk.account.updateRecovery(userId,secret,password,password);
+     promise.then(
+      function (response) {
+        console.log(response); // Success
+        window.location = location + "/success";
+      },
+      function (error) {
+        console.log(error); // Failure
+        window.location = location + "/failure";
+      }
+    );
+  }
+
 
   createJWT() {
     let promise = this.sdk.account.createJWT();

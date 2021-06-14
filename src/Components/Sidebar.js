@@ -28,7 +28,7 @@ const Sidebar = ({ auth }) => {
       <CDBSidebar className="sidebar">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a
-            href="/"
+            href="/dash/"
             className="text-decoration-none"
             style={{ color: "inherit" }}
           >
@@ -38,7 +38,7 @@ const Sidebar = ({ auth }) => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu className="sidebar-menu">
-            <NavLink exact to="/" activeClassName="activeClicked">
+            <NavLink exact to="/dash/" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="columns">
                 Dashboard
               </CDBSidebarMenuItem>
@@ -46,22 +46,22 @@ const Sidebar = ({ auth }) => {
 
             <div className="label"> Services</div>
 
-            <NavLink exact to="/anomvpn" activeClassName="activeClicked">
+            <NavLink exact to="/dash/anomvpn" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="user-lock">
                 Anonymous VPN
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/dedivpn" activeClassName="activeClicked">
+            <NavLink exact to="/dash/dedivpn" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="shield-alt">
                 Dedicated Network
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/cloud" activeClassName="activeClicked">
+            <NavLink exact to="/dash/cloud" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="cloud">
                 Cloud
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tunnel" activeClassName="activeClicked">
+            <NavLink exact to="/dash/tunnel" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="dungeon">
                 Tunnel
               </CDBSidebarMenuItem>
@@ -69,17 +69,17 @@ const Sidebar = ({ auth }) => {
 
             <div className="label"> User </div>
 
-            <NavLink exact to="/profile" activeClassName="activeClicked">
+            <NavLink exact to="/dash/profile" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="user">
                 Profile
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/billing" activeClassName="activeClicked">
+            <NavLink exact to="/dash/billing" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="file-invoice">
                 {"  "}Billing
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/settings" activeClassName="activeClicked">
+            <NavLink exact to="/dash/settings" activeClassName="activeClicked">
               <CDBSidebarMenuItem className="menuitem" icon="cog">
                 Settings
               </CDBSidebarMenuItem>

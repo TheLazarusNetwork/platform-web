@@ -23,6 +23,8 @@ import AnonymousVPN from "./pages/services/AnonymousVPN";
 import DedicatedNetwork from "./pages/services/DedicatedNetwork";
 import Tunnel from "./pages/services/Tunnel";
 import Cloud from "./pages/services/Cloud";
+import PasswordReset from "./Components/PasswordReset";
+import PasswordUpdate from "./pages/redirects/PasswordUpdate";
 
 const auth = new Auth();
 const ThemeContext = React.createContext();
@@ -37,39 +39,46 @@ const App = () => {
         <div className={darktheme ? "dark-theme" : "light-theme"}>
 
           <div className="body">
-            
-            <PrivateRoute path="/" auth={auth} component={Sidebar} />
+
+            <PrivateRoute path="/dash/" auth={auth} component={Sidebar} />
             <Switch>
-              <Route exact path="/" auth={auth} component={Dashboard} />
-              <Route exact path="/profile" auth={auth} component={Profile} />
-              <Route exact path="/billing" auth={auth} component={Billing} />
-              <Route exact path="/settings" auth={auth} component={Settings} />
+              <Route exact path="/dash/" auth={auth} component={Dashboard} />
+              <Route exact path="/dash/profile" auth={auth} component={Profile} />
+              <Route exact path="/dash/billing" auth={auth} component={Billing} />
+              <Route exact path="/dash/settings" auth={auth} component={Settings} />
               <PrivateRoute
                 exact
-                path="/anomvpn"
+                path="/dash/anomvpn"
                 auth={auth}
                 component={AnonymousVPN}
               />
               <PrivateRoute
                 exact
-                path="/dedivpn"
+                path="/dash/dedivpn"
                 auth={auth}
                 component={DedicatedNetwork}
               />
               <PrivateRoute
                 exact
-                path="/tunnel"
+                path="/dash/tunnel"
                 auth={auth}
                 component={Tunnel}
               />
-              <PrivateRoute exact path="/cloud" auth={auth} component={Cloud} />
+              <PrivateRoute exact path="/dash/cloud" auth={auth} component={Cloud} />
 
+              <Route 
+                exact
+                path="/"
+                render={(props) =>{
+                  return localStorage.getItem("auth_state")? (<Redirect to="/dash/"/>) : ( <Redirect to="/signup" />) 
+                }}
+                />
               <Route
                 exact
                 path="/signup"
                 render={(props) => {
                   return localStorage.getItem("auth_state") ? (
-                    <Redirect to="/" />
+                    <Redirect to="/dash/" />
                   ) : (
                     <Signup {...props} auth={auth} />
                   );
@@ -90,6 +99,16 @@ const App = () => {
                 path="/verify"
                 render={(props) => <VerificationPage {...props} auth={auth} />}
               />
+              <Route
+                exact
+                path="/resetpassword"
+                render={(props) =><PasswordReset auth={auth}/>}
+                />
+                 <Route
+                exact
+                path="/updatepassword"
+                render={(props) =><PasswordUpdate auth={auth}/>}
+                />
               <Route render={(props) => <Notfound />} />
             </Switch>
           </div>
