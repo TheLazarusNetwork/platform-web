@@ -1,9 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
-export default function Services() {
+export default function Settings(props) {
+    console.log(props)
+    // using the theme context from app.js 
+    // const {darktheme , setDarktheme } = useContext(ThemeContext)
+
     return (
+        <>
         <div>
-            settings
+            {/* <button onClick ={()=>setDarktheme(!darktheme)}>toggle theme</button> */}
         </div>
+        
+        </>
     )
+
 }

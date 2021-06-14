@@ -2,6 +2,7 @@ $lightblue: #f1f4fe;
 $darkgrey: #4d4f5c;
 $darkblue: rgb(28, 12, 172);
 $lightgrey: #d6d7de;
+
 * {
   margin: 0;
 }
@@ -15,25 +16,51 @@ $lightgrey: #d6d7de;
   display: flex;
 }
 
-.sidebar {
-  background-color: $lightblue !important;
-  color: $darkgrey !important;
+.light-theme {
+  .sidebar {
+    background-color: $lightblue !important;
+    color: $darkgrey !important;
+  }
+  .sidebar-content {
+    background-color: $lightblue;
+    color: $darkgrey;
+  }
+  .sidebar-menu {
+    background-color: #f1f4fe;
+    color: #4d4f5c;
+  }
+  .activeClicked > li {
+    background-color: $darkblue !important;
+    color: #fff !important;
+  }
+  .menuitem {
+    color: #000;
+  }
 }
-.sidebar-content {
-  background-color: $lightblue;
-  color: $darkgrey;
+
+.dark-theme {
+  .sidebar {
+    background-color: $darkgrey;
+  }
+  .sidebar-content {
+    background-color: $darkgrey;
+    color: $lightgrey;
+  }
+  .sidebar-menu {
+    background-color: $darkgrey;
+    color: $lightgrey;
+  }
+  .activeClicked > li {
+    background-color: $lightgrey !important;
+    color: $darkgrey !important;
+  }
+  .menuitem {
+    color: $lightgrey;
+  }
 }
-.sidebar-menu {
-  background-color: #f1f4fe;
-  color: #4d4f5c;
-}
-.activeClicked > li {
-  background-color: $darkblue !important;
-  color: #fff !important;
-}
-.menuitem {
-  color: #000;
-}
+
+
+
 
 .label {
   font-size: 10px;
@@ -47,15 +74,13 @@ $lightgrey: #d6d7de;
     display: none;
   }
   .logout-btn > button {
-      
     span {
       display: none;
     }
-   
   }
 }
 
-Navlink:hover{
+Navlink:hover {
   text-decoration: none;
 }
 
@@ -67,9 +92,9 @@ Navlink:hover{
     border-radius: 0;
     background-color: $lightgrey;
     height: max-content;
-     
-    span{
-        margin-left: 10px;
+
+    span {
+      margin-left: 10px;
     }
   }
 }

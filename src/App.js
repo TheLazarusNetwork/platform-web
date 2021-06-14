@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, createContext } from "react";
 import "./styles/App.css";
+import "./styles/Dashboard/dashboard.css";
 import {
   BrowserRouter as Router,
   Route,
@@ -24,71 +25,77 @@ import Tunnel from "./pages/services/Tunnel";
 import Cloud from "./pages/services/Cloud";
 
 const auth = new Auth();
+const ThemeContext = React.createContext();
 
 const App = () => {
-  return (
-    <Router>
-      <div className="body">
-        <PrivateRoute
-          path="/"
-          auth={auth}
-          component={Sidebar}
-        />
-        <Switch>
-          <PrivateRoute exact path="/" auth={auth} component={Dashboard} />
-          <PrivateRoute exact path="/profile" auth={auth} component={Profile} />
-          <PrivateRoute exact path="/billing" auth={auth} component={Billing} />
-          <PrivateRoute
-            exact
-            path="/settings"
-            auth={auth}
-            component={Settings}
-          />
-          <PrivateRoute
-            exact
-            path="/anomvpn"
-            auth={auth}
-            component={AnonymousVPN}
-          />
-          <PrivateRoute
-            exact
-            path="/dedivpn"
-            auth={auth}
-            component={DedicatedNetwork}
-          />
-          <PrivateRoute exact path="/tunnel" auth={auth} component={Tunnel} />
-          <PrivateRoute exact path="/cloud" auth={auth} component={Cloud} />
+  const [darktheme, setDarktheme] = useState(false);
 
-          <Route
-            exact
-            path="/signup"
-            render={(props) => {
-              return localStorage.getItem("auth_state") ? (
-                <Redirect to="/" />
-              ) : (
-                <Signup {...props} auth={auth} />
-              );
-            }}
-          />
-          <Route
-            exact
-            path="/failure"
-            render={(props) => <Failure {...props} auth={auth} />}
-          />
-          <Route
-            exact
-            path="/success"
-            render={(props) => <Success {...props} auth={auth} />}
-          />
-          <Route
-            exact
-            path="/verify"
-            render={(props) => <VerificationPage {...props} auth={auth} />}
-          />
-          <Route render={(props) => <Notfound />} />
-        </Switch>
-      </div>
-    </Router>
+  return (
+    <ThemeContext.Provider value={{ darktheme }}>  
+
+      <Router>
+        <div className={darktheme ? "dark-theme" : "light-theme"}>
+
+          <div className="body">
+            
+            <PrivateRoute path="/" auth={auth} component={Sidebar} />
+            <Switch>
+              <Route exact path="/" auth={auth} component={Dashboard} />
+              <Route exact path="/profile" auth={auth} component={Profile} />
+              <Route exact path="/billing" auth={auth} component={Billing} />
+              <Route exact path="/settings" auth={auth} component={Settings} />
+              <PrivateRoute
+                exact
+                path="/anomvpn"
+                auth={auth}
+                component={AnonymousVPN}
+              />
+              <PrivateRoute
+                exact
+                path="/dedivpn"
+                auth={auth}
+                component={DedicatedNetwork}
+              />
+              <PrivateRoute
+                exact
+                path="/tunnel"
+                auth={auth}
+                component={Tunnel}
+              />
+              <PrivateRoute exact path="/cloud" auth={auth} component={Cloud} />
+
+              <Route
+                exact
+                path="/signup"
+                render={(props) => {
+                  return localStorage.getItem("auth_state") ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <Signup {...props} auth={auth} />
+                  );
+                }}
+              />
+              <Route
+                exact
+                path="/failure"
+                render={(props) => <Failure {...props} auth={auth} />}
+              />
+              <Route
+                exact
+                path="/success"
+                render={(props) => <Success {...props} auth={auth} />}
+              />
+              <Route
+                exact
+                path="/verify"
+                render={(props) => <VerificationPage {...props} auth={auth} />}
+              />
+              <Route render={(props) => <Notfound />} />
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    </ThemeContext.Provider>
   );
 };
 

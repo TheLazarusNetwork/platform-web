@@ -8,12 +8,12 @@ import {
 import Sidebar from "../Components/Sidebar";
 import "./../styles/Dashboard/dashboard.css";
 
-
-document.title ="Lazarus Networks-dash"
+document.title = "Lazarus Networks-dash";
 const verificationURL = process.env.REACT_APP_HOST_URL + "/verify";
 
 export default function Dashboard(props) {
   const [auth, setAuth] = useState(props.auth);
+  const [darktheme, setdarktheme] = useState(false);
 
   const getdetails = async () => {
     let details;
@@ -47,5 +47,10 @@ export default function Dashboard(props) {
     console.log(jwt);
   };
 
-  return <div className="body">dashboard</div>;
+  return <>
+  <div >
+    dashboard
+    {}
+  </div>
+  </>;
 }

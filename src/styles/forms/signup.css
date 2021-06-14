@@ -184,7 +184,7 @@ input {
   }
   .sign-up-container ul > p {
     bottom: 0;
-    margin: -5px 0px -20px -20px;
+    margin: 5px 0px -20px -20px;
     padding: 0;
     font-size: 10px;
   }
@@ -346,7 +346,7 @@ input {
 }
 
 @media (max-width: 450px) {
-  .overlay-panel h1,
+  .overlay-panel h2,
   .overlay-panel p {
     visibility: hidden;
   }
