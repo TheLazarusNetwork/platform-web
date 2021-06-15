@@ -1,24 +1,18 @@
-import React from 'react';
-import {useEffect} from 'react';
+import React from "react";
+import { useEffect } from "react";
 
-
-const Failure = ({auth, history, location}) => {
-  console.log('IN FAILURE');
+const Failure = ({ auth, history, location }) => {
+  console.log("IN FAILURE");
   console.log(auth, history);
 
-  useEffect(()=>{
-    auth.checkAuthenticated()
-        .then((val)=>{
-          auth.setAuthenticated(val);
-          history.push('/signup');
-        });
+  useEffect(() => {
+    auth.checkAuthenticated().then((val) => {
+      auth.setAuthenticated(val);
+      history.push("/signup");
+    });
   }, []);
 
-
-  return (
-    <div> Error {location.search} </div>
-  );
+  return <div> Error {location.search} </div>;
 };
-
 
 export default Failure;

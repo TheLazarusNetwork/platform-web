@@ -1,5 +1,5 @@
 import React from "react";
-import {BiArrowBack} from 'react-icons/bi'
+import { BiArrowBack } from "react-icons/bi";
 
 export default function PasswordReset({ auth }) {
   const resetURL = process.env.REACT_APP_HOST_URL + "/updatepassword";
@@ -14,7 +14,6 @@ export default function PasswordReset({ auth }) {
 
   return (
     <>
-
       <div className="center">
         <h2>forgot password?</h2>
         <p>
@@ -25,7 +24,10 @@ export default function PasswordReset({ auth }) {
           <button type="submit"> Send Magic Link</button>
         </form>
 
-        <a href="/signup"><BiArrowBack/>go back to home</a>
+        <a href="/signup">
+          <BiArrowBack />
+          go back to home
+        </a>
       </div>
     </>
   );

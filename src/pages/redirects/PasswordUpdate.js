@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PasswordStrengthMeter from "../../Components/PasswordStrengthMeter";
 
 export default function PasswordUpdate(props) {
-    const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [auth, setAuth] = useState(props.auth);
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -10,14 +10,12 @@ export default function PasswordUpdate(props) {
   const secret = urlParams.get("secret");
 
   const updatenewPassword = (event) => {
-  
-
     event.preventDefault();
     var newpassword = event.target.elements["password"].value;
     var cpassword = event.target.elements["cpassword"].value;
 
     if (newpassword == cpassword) {
-      auth.updateRecovery(userId, secret, newpassword);
+      auth.updateRecovery(userId, secret, newpassword);               // updating new password after recovery using forgot password
     }
   };
 

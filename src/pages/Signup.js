@@ -3,14 +3,17 @@ import "./../styles/forms/signup.css";
 import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
 import SHA1 from "../functions/shai.js";
 import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
-import Auth from "../api/Auth";
+import SnackbarAlert from "./../utils/snackbar";
 
-document.title ="Lazarus Networks-signup"
+document.title = "Lazarus Networks-signup";
+
 export default function Signup(props) {
   const { history } = props;
   const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
   const [rightpanel, setrightpanel] = useState(false); //right panel true for signup page  ,false for signin page
   const [password, setPassword] = useState(""); //for checking the password strength using password strength meter
+  const [alertopen, setAlertopen] = useState(false);     
+  const [alertmsg, setAlertmsg] = useState(" ");
 
   const handleSignup = async (event) => {
     //takes all details from sign up form and create new account
@@ -20,43 +23,58 @@ export default function Signup(props) {
     var password = event.target.elements["password-box"].value;
     var repassword = event.target.elements["repassword"].value;
 
-    if (password !== repassword) {
-      alert("Passwords do not match");
+    if (password.toString().length < 7) {
+      // show alert if password length is less than 7 or both password do not match
+      setAlertmsg("password should be at least 6 letters");
+      setAlertopen(true);
+    } else if (password !== repassword) {
+      {
+        setAlertmsg("passwords do not match");
+        setAlertopen(true);
+      }
     } else {
-      const signupdata = await auth.signup(email, password, name); //calling auth method to create new account
+      const signupdata = await auth.signup(email, password, name); //calling auth.signup method to create new account
 
       if (signupdata) {
-        //if user signup success login user automatically
+        //if user signup successful then login user automatically using login funtion
         const logindata = await auth.login(email, password);
 
         if (logindata) history.push("/success");
         //signin success rediect to /success
-        else history.push("/failure"); //signin fail
+        setAlertmsg(" login failed");
+        setAlertopen(true); // signin after signup failed
       } else history.push("/failure"); //signup fail
     }
   };
 
+  // login function
   const handleLogin = async (event) => {
-    // login function
     event.preventDefault();
     var email = event.target.elements["inemail"].value;
     var password = event.target.elements["inpassword"].value;
 
-    const logindata = await auth.login(email, password);
+    const logindata = await auth.login(email, password); // calling the auth.signin function
 
     if (logindata) history.push("/success");
-    else history.push("/failure");
+    // if login successful , redirect to success page
+    else {
+      setAlertmsg(" login failed");
+      setAlertopen(true); // else show alert that login failed
+      // history.push("/failure");
+    }
 
     auth.checkLogin();
   };
 
   const handleGoogle = () => {
-      auth.google()
+    //google oauth
+    auth.google();
   };
+
+  // function to check for password breaches in any previous database breaches
 
   var requestTimeout;
   const passwordKeyPress = () => {
-    // check for password breaches using pawnedpasswords api
     var password = document.getElementById("password-box").value;
     document.getElementById("iscompromised").innerHTML =
       "<span >&nbsp;We are checking if your password has ever been compromised...</span>";
@@ -119,17 +137,26 @@ export default function Signup(props) {
     }
   }
 
+
   return (
     <>
+      <SnackbarAlert
+        message={alertmsg}
+        alertopen={alertopen}
+        setAlertopen={setAlertopen}
+        type="error"                   // type = error, success, info ,warning
+      />
       <div
-        className={`container ${rightpanel ? "right-panel-active" : ""} `}
+        className={`container ${rightpanel ? "right-panel-active" : ""} `}     // right panel active shows signup form
         id="container"
       >
         <div className="form-container sign-up-container">
-          <form onSubmit={handleSignup}>
+           {/*                                                              //signup form - name/email /password/ confirm password
+           */}
+          <form onSubmit={handleSignup}>                               
             <h2>Create Account</h2>
             <div className="social-container">
-              <a href="#" className="social" onClick ={handleGoogle}>
+              <a href="#" className="social" onClick={handleGoogle}>
                 <i>
                   <FaGoogle />
                 </i>
@@ -137,11 +164,6 @@ export default function Signup(props) {
               <a href="#" className="social">
                 <i>
                   <FaApple />
-                </i>
-              </a>
-              <a href="#" className="social">
-                <i>
-                  <FaMicrosoft />
                 </i>
               </a>
             </div>
@@ -152,18 +174,23 @@ export default function Signup(props) {
               type="password"
               placeholder="Password"
               id="password-box"
-              onKeyUp={passwordKeyPress}
+              onKeyUp={passwordKeyPress}                                  // on password change check for password breach
               onChange={(e) => {
-                setPassword(e.target.value);
+                setPassword(e.target.value);                
               }}
             />
-            <PasswordStrengthMeter password={password} />
+               {/*                                               // check password strength using password strength meter and show meter
+                */}
+            <PasswordStrengthMeter password={password} />           
             <input
               type="password"
               placeholder="Confirm Password"
               id="repassword"
             />
             <button type="submit">Sign Up</button>
+
+            {/*                                                    hsimp to display if the password was breach
+             */}
 
             <ul className="hsimp-checks">
               <p id="iscompromised">
@@ -173,6 +200,8 @@ export default function Signup(props) {
               </p>
             </ul>
             <ul id="password-checks" className="hsimp-checks"></ul>
+
+            {/* signin form with email signin and google oauth */}
           </form>
         </div>
         <div className="form-container sign-in-container">
@@ -189,16 +218,12 @@ export default function Signup(props) {
                   <FaApple />
                 </i>
               </a>
-              <a href="#" className="social">
-                <i>
-                  <FaMicrosoft />
-                </i>
-              </a>
+             
             </div>
             <span>or use your account</span>
             <input type="email" placeholder="Email" id="inemail" />
             <input type="password" placeholder="Password" id="inpassword" />
-            <a href="/resetpassword" >Forgot your password?</a>
+            <a href="/resetpassword">Forgot your password?</a>
             <button type="submit">Sign In</button>
           </form>
         </div>

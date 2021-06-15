@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 
 import { config } from "./config";
+import {Alert} from '@material-ui/lab'
 
 import { Appwrite } from "appwrite";
 const appwrite = new Appwrite();
@@ -25,7 +26,6 @@ class Auth {
         return null;
       }
     );
-
   }
 
   login(email, password) {
@@ -35,29 +35,23 @@ class Auth {
         return response;
       },
       function (error) {
+
         return null;
       }
     );
   }
 
-  google() {
+  google() {                                                         //google OAuth
     let promise = this.sdk.account.createOAuth2Session(
       "google",
-      location +"/success",
-      location +"/failure"
+      location + "/success",
+      location + "/failure"
     );
 
-    // promise.then(
-    //   function (response) {
-    //     console.log(response); // Success
-    //   },
-    //   function (error) {
-    //     console.log(error); // Failure
-    //   }
-    // );
+
   }
 
-  logout() {
+  logout() {                                                           // logout from current session and redirect to signup page
     let promise = this.sdk.account.deleteSession("current");
 
     promise.then(
@@ -73,7 +67,7 @@ class Auth {
     );
   }
 
-  checkAuthenticated() {
+  checkAuthenticated() {                                        // check if a session is currently active in current browser
     const promise = this.sdk.account.getSessions();
     return promise.then(
       function (response) {
@@ -94,6 +88,7 @@ class Auth {
   getAuthenticated() {
     return this.checkAuthenticated();
   }
+
   checkLogin() {
     this.sdk.account.get().then(
       function (response) {
@@ -118,7 +113,7 @@ class Auth {
     );
   }
 
-  updateVerification(userId, secret) {
+  updateVerification(userId, secret) {                                       
     let promise = this.sdk.account.updateVerification(userId, secret);
 
     promise.then(
@@ -133,23 +128,27 @@ class Auth {
     );
   }
 
-  createRecovery(email, url)
-  {
+  createRecovery(email, url) {                                          // create Recovery for forgot password
     let promise = this.sdk.account.createRecovery(email, url);
     promise.then(
-      function (response){
+      function (response) {
         console.log(response);
       },
-      function (error){
-        console.log(error)
+      function (error) {
+        console.log(error);
+        <Alert severity="error">This is an error alert — check it out!</Alert>
       }
-    )
+    );
   }
 
-  updateRecovery(userId, secret, password)
-  {
-     let promise = this.sdk.account.updateRecovery(userId,secret,password,password);
-     promise.then(
+  updateRecovery(userId, secret, password) {                          // updating new password
+    let promise = this.sdk.account.updateRecovery(
+      userId,
+      secret,
+      password,
+      password
+    );
+    promise.then(
       function (response) {
         console.log(response); // Success
         window.location = location + "/success";
@@ -160,7 +159,6 @@ class Auth {
       }
     );
   }
-
 
   createJWT() {
     let promise = this.sdk.account.createJWT();
