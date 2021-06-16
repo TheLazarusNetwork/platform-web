@@ -43,9 +43,9 @@ const App = () => {
             <PrivateRoute path="/dash/" auth={auth} component={Sidebar} />
             <Switch>
               <Route exact path="/dash/" auth={auth} component={Dashboard} />
-              <Route exact path="/dash/profile" auth={auth} component={Profile} />
-              <Route exact path="/dash/billing" auth={auth} component={Billing} />
-              <Route exact path="/dash/settings" auth={auth} component={Settings} />
+              <PrivateRoute exact path="/dash/profile" auth={auth} component={Profile} />
+              <PrivateRoute exact path="/dash/billing" auth={auth} component={Billing} />
+              <PrivateRoute exact path="/dash/settings" auth={auth} component={Settings} />
               <PrivateRoute
                 exact
                 path="/dash/anomvpn"

@@ -101,6 +101,18 @@ class Auth {
     );
   }
 
+  getAccount(){
+    let promise = this.sdk.account.get();
+     
+    return promise.then(
+      function(response){
+      return response;
+    },
+    function(error){
+      return null;
+    })
+  }
+
   sendVerificationEmail(url) {
     let promise = this.sdk.account.createVerification(url);
     return promise.then(

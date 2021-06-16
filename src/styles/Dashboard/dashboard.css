@@ -39,6 +39,10 @@
   color: #000;
 }
 
+.light-theme .logout-btn button {
+  background-color: #d6d7de;
+}
+
 .dark-theme .sidebar {
   background-color: #4d4f5c;
 }
@@ -62,6 +66,10 @@
   color: #d6d7de;
 }
 
+.dark-theme .logout-btn button {
+  background-color: #4d4f5c;
+}
+
 .label {
   font-size: 10px;
   opacity: 0.7;
@@ -78,6 +86,18 @@
   display: none;
 }
 
+@media (max-width: 650px) {
+  .dIYCww.toggled {
+    width: 70px !important;
+    min-width: 50px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+  .kfARSm.toggled {
+    padding-left: 5px !important;
+  }
+}
+
 Navlink:hover {
   text-decoration: none;
 }
@@ -87,7 +107,6 @@ Navlink:hover {
   width: 90%;
   border: 0;
   border-radius: 0;
-  background-color: #d6d7de;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
@@ -95,5 +114,163 @@ Navlink:hover {
 
 .logout-btn button span {
   margin-left: 10px;
+}
+
+.main {
+  height: 100vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.top-nav {
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #f1f4fe;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.top-nav .title {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.main {
+  width: 100%;
+}
+
+.main .profile-pic {
+  margin: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .profile-pic .pic-avatar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .profile-pic .pic-avatar .pic-description {
+  margin-left: 10px;
+}
+
+.main .profile-pic .pic-avatar .pic-description p {
+  font-size: 10px;
+  margin-top: 0px;
+}
+
+.main .profile-pic input {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+@media (max-width: 650px) {
+  .main .profile-pic {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .main .profile-pic input {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 450px) {
+  .main .profile-pic {
+    margin: 20px 10px;
+  }
+}
+
+.divider {
+  width: 90%;
+  margin: auto;
+  border-top: 1px solid #d6d7de;
+}
+
+.profile-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 50px 100px;
+  padding: 50px 100px;
+  background-color: #fff;
+}
+
+.profile-details .personal-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.profile-details .personal-details .textfield {
+  margin: auto;
+  margin-top: 30px;
+}
+
+@media (max-width: 650px) {
+  .profile-details {
+    margin: 30px 50px;
+    padding: 30px 40px;
+  }
+  .profile-details .personal-details {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .profile-details .personal-details .textfield {
+    margin: auto;
+    margin-top: 30px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile-details {
+    margin: 20px 20px;
+    padding: 15px 20px;
+  }
+  .profile-details .personal-details {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .profile-details .personal-details .textfield {
+    margin: auto;
+    margin-top: 30px;
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=dashboard.css.map */
