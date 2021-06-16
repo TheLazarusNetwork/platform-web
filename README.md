@@ -1,6 +1,6 @@
-#Lazarus Networks
+# Lazarus Networks
 
-##Webapp for securely accessing & managing  Lazarus Network Services, Organisations, Settings, Billing and User Profile
+## Webapp for securely accessing & managing  Lazarus Network Services, Organisations, Settings, Billing and User Profile
 
 ## Available Scripts
 
