@@ -19,7 +19,7 @@ export default function PasswordReset({ auth }) {
         <p>
           send a magic link to your registered email account to change password{" "}
         </p>
-        <form onSubmit={resetpassword}>
+        <form className="form" onSubmit={resetpassword}>
           <input type="email" placeholder="enter your email" id="email" />
           <button type="submit"> Send Magic Link</button>
         </form>

@@ -3,6 +3,7 @@ $darkgrey: #4d4f5c;
 $darkblue: rgb(28, 12, 172);
 $lightgrey: #d6d7de;
 $white: #fff;
+$textgrey : rgb(179, 181, 182);
 
 $mid: 650px;
 $small: 450px;
@@ -98,20 +99,18 @@ $small: 450px;
       display: none;
     }
   }
-
 }
 @media (max-width: $mid) {
-  .dIYCww.toggled{   
+  .dIYCww.toggled {
     width: 70px !important;
     min-width: 50px !important;
     margin: 0px !important;
     padding: 0px !important;
-
   }
-  .kfARSm.toggled{
+  .kfARSm.toggled {
     padding-left: 5px !important;
   }
-  }
+}
 
 Navlink:hover {
   text-decoration: none;
@@ -134,6 +133,7 @@ Navlink:hover {
   height: 100vh;
   overflow: scroll;
   overflow-x: hidden;
+  background-color: $white;
 }
 
 // top nav bar
@@ -181,6 +181,7 @@ Navlink:hover {
       height: fit-content;
       width: fit-content;
     }
+
     @media (max-width: $mid) {
       flex-direction: column;
       input {
@@ -199,37 +200,64 @@ Navlink:hover {
   border-top: 1px solid $lightgrey;
 }
 
-.profile-details {
+.details-box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 50px 100px;
   padding: 50px 100px;
   background-color: $white;
+  border-radius: 10px;
 
-  .personal-details {
+  .box-title {
+    font-family: sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .row {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    border-radius: 5px;
+    align-items: center;
+
     .textfield {
       margin: auto;
       margin-top: 30px;
     }
+    @media (min-width: $mid) {
+      .row-div{
+        max-width: 45%;
+      }
+    }
+  }
+
+  .info-txt{
+    font-size: 12px;
+    color: $textgrey;
   }
 
   @media (max-width: $mid) {
     margin: 30px 50px;
     padding: 30px 40px;
+    flex-direction: column;
 
-    .personal-details {
+    .row {
       flex-direction: column;
+      margin: 25px 0px;
 
-      .textfield{
-        margin: auto;
-        margin-top: 30px;
-        width: 100%;
-      }
+      align-items: flex-start;
+    }
+
+    .textfield {
+      margin: auto;
+      margin-top: 30px;
+      width: 100%;
     }
   }
+
   @media (max-width: $small) {
     margin: 20px 20px;
     padding: 15px 20px;
@@ -243,5 +271,23 @@ Navlink:hover {
         width: 100%;
       }
     }
+  }
+}
+.save-btn {
+  margin: 20px;
+  float: right;
+}
+
+// settings page
+.MuiAppBar-colorPrimary {
+  background-color: $darkblue;
+
+  a:hover {
+    color: $lightgrey;
+    text-decoration: none;
+  }
+
+  .PrivateTabIndicator-colorSecondary-4 {
+    background-color: $white;
   }
 }

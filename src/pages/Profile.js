@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile({ auth }) {
   const [username, setUsername] = useState("");
-  const [useremail ,setUseremail] = useState("");
+  const [useremail, setUseremail] = useState("");
   const [avatar, setavatar] = useState();
   const classes = useStyles();
 
@@ -32,19 +32,16 @@ export default function Profile({ auth }) {
   const fetchData = async () => {
     const userdata = await auth.getAccount();
     setUsername(userdata.name);
-    setUseremail(userdata.email)
+    setUseremail(userdata.email);
   };
   useEffect(() => {
     fetchData();
   }, []);
 
   const handlechange = (event) => {
-    if(event.label =="name")
-    setUsername(event.target.value);
-    if(event.label == "email")
-    setUseremail(event.target.value)
+    if (event.label == "name") setUsername(event.target.value);
+    if (event.label == "email") setUseremail(event.target.value);
   };
-  
 
   return (
     <>
@@ -63,60 +60,64 @@ export default function Profile({ auth }) {
 
         <div className="divider" />
 
-        <div className="profile-details">
-          <div className="title">Personal details</div>
-          <div className="personal-details">
-            <TextField
-            className= "textfield"
-              id="outlined-helperText"
-              label="name"
-              value={username}
-              onChange={handlechange}
-              variant="outlined"
-            />
+        <div className="details-box shadow ">
+          <div className="box-title">Personal details</div>
+          <div className="inner-details">
+            <div className="row">
               <TextField
-              className= "textfield"
-              id="outlined-helperText"
-              label="email"
-              value={useremail}
-              onChange={handlechange}
-              variant="outlined"
-            />
+                className="textfield"
+                id="outlined-helperText"
+                label="name"
+                value={username}
+                onChange={handlechange}
+                variant="outlined"
+              />
+              <TextField
+                className="textfield"
+                id="outlined-helperText"
+                label="email"
+                value={useremail}
+                onChange={handlechange}
+                variant="outlined"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="profile-details">
-          <div className="title">Other Details</div>
-          <div className="personal-details">
-          <TextField
-            className= "textfield"
-              id="outlined-helperText"
-              label="address line"
-              
-              variant="outlined"
-            />
+        <div className="details-box shadow">
+          <div className="box-title">Other Details</div>
+          <div className="inner-details">
+            <div className="row">
               <TextField
-              className= "textfield"
-              id="outlined-helperText"
-              label="landmark"
-              
-              variant="outlined"
-            />
+                className="textfield"
+                id="outlined-helperText"
+                label="address line"
+                variant="outlined"
+              />
               <TextField
-              className= "textfield"
-              id="outlined-helperText"
-              label="city"
-              
-              variant="outlined"
-            />
+                className="textfield"
+                id="outlined-helperText"
+                label="landmark"
+                variant="outlined"
+              />
+            </div>
+            <div className="row">
               <TextField
-              className= "textfield"
-              id="outlined-helperText"
-              label="country"
-              
-              variant="outlined"
-            />
+                className="textfield"
+                id="outlined-helperText"
+                label="city"
+                variant="outlined"
+              />
+              <TextField
+                className="textfield"
+                id="outlined-helperText"
+                label="country"
+                variant="outlined"
+              />
+            </div>
+            <button className= "save-btn">Save changes</button>
           </div>
+          
         </div>
       </div>
     </>

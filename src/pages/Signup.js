@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./../styles/forms/signup.css";
 import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
-import SHA1 from "../functions/shai.js";
+import SHA1 from "../functions/SHA1.js";
 import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
 import SnackbarAlert from "./../utils/snackbar";
 
@@ -153,7 +153,7 @@ export default function Signup(props) {
         <div className="form-container sign-up-container">
            {/*                                                              //signup form - name/email /password/ confirm password
            */}
-          <form onSubmit={handleSignup}>                               
+          <form className="form" onSubmit={handleSignup}>                               
             <h2>Create Account</h2>
             <div className="social-container">
               <a href="#" className="social" onClick={handleGoogle}>
@@ -205,7 +205,7 @@ export default function Signup(props) {
           </form>
         </div>
         <div className="form-container sign-in-container">
-          <form onSubmit={handleLogin}>
+          <form className="form" onSubmit={handleLogin}>
             <h1>Sign in</h1>
             <div className="social-container">
               <a href="#" className="social" onClick={handleGoogle}>
