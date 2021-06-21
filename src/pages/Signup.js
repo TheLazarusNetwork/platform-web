@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./../styles/forms/signup.css";
 import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
-import SHA1 from "../functions/SHA1.js";
 import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
 import SnackbarAlert from "./../utils/snackbar";
+import Passwordbreach from "../Components/Passwordbreach";
 
 document.title = "Lazarus Networks-signup";
 
@@ -12,7 +12,7 @@ export default function Signup(props) {
   const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
   const [rightpanel, setrightpanel] = useState(false); //right panel true for signup page  ,false for signin page
   const [password, setPassword] = useState(""); //for checking the password strength using password strength meter
-  const [alertopen, setAlertopen] = useState(false);     
+  const [alertopen, setAlertopen] = useState(false);
   const [alertmsg, setAlertmsg] = useState(" ");
 
   const handleSignup = async (event) => {
@@ -73,87 +73,22 @@ export default function Signup(props) {
 
   // function to check for password breaches in any previous database breaches
 
-  var requestTimeout;
-  const passwordKeyPress = () => {
-    var password = document.getElementById("password-box").value;
-    document.getElementById("iscompromised").innerHTML =
-      "<span >&nbsp;We are checking if your password has ever been compromised...</span>";
-
-    clearTimeout(requestTimeout);
-    requestTimeout = setTimeout(passwordmodified, 2000);
-  };
-  var passwordInput = document.getElementById("password-box");
-  var passwordplain = "";
-  var xhttp;
-
-  function passwordmodified() {
-    var modifiedpassword = passwordInput.value;
-    if (modifiedpassword !== passwordplain) {
-      passwordplain = modifiedpassword;
-
-      if (passwordplain !== "") {
-        var sha1pass = SHA1(passwordplain);
-        sha1pass = sha1pass.toUpperCase();
-        var subsha1pass = sha1pass.substring(5);
-        if (xhttp) {
-          xhttp.abort();
-        }
-        xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            var xhttpresponse = this.responseText;
-            if (xhttpresponse.indexOf(subsha1pass) !== -1) {
-              var passlist = xhttpresponse.split("\n");
-              var pwnedcount = 0;
-              var timespell = "times";
-              for (var i = 0; i < passlist.length; i++) {
-                if (subsha1pass == passlist[i].split(":")[0]) {
-                  pwnedcount = passlist[i].split(":")[1];
-                  if (passlist[i].split(":")[1] == 1) {
-                    timespell = "time";
-                  }
-                }
-              }
-
-              document.getElementById("iscompromised").innerHTML =
-                '<span style="color: #ff0000;">Oh no! This password was found <b>' +
-                pwnedcount +
-                "</b> " +
-                timespell +
-                " in compromised passwords databases! </span>";
-            } else {
-              document.getElementById("iscompromised").innerHTML =
-                '<span style="color: #339966;">Good news, this password has never been breached!</span>';
-            }
-          }
-        };
-
-        xhttp.open(
-          "GET",
-          "https://api.pwnedpasswords.com/range/" + sha1pass.substring(0, 5)
-        );
-        xhttp.send();
-      }
-    }
-  }
-
-
   return (
     <>
       <SnackbarAlert
         message={alertmsg}
         alertopen={alertopen}
         setAlertopen={setAlertopen}
-        type="error"                   // type = error, success, info ,warning
+        type="error" // type = error, success, info ,warning
       />
       <div
-        className={`container ${rightpanel ? "right-panel-active" : ""} `}     // right panel active shows signup form
+        className={`container ${rightpanel ? "right-panel-active" : ""} `} // right panel active shows signup form
         id="container"
       >
         <div className="form-container sign-up-container">
-           {/*                                                              //signup form - name/email /password/ confirm password
+          {/*                                                              //signup form - name/email /password/ confirm password
            */}
-          <form className="form" onSubmit={handleSignup}>                               
+          <form className="form" onSubmit={handleSignup}>
             <h2>Create Account</h2>
             <div className="social-container">
               <a href="#" className="social" onClick={handleGoogle}>
@@ -174,14 +109,13 @@ export default function Signup(props) {
               type="password"
               placeholder="Password"
               id="password-box"
-              onKeyUp={passwordKeyPress}                                  // on password change check for password breach
+              // onKeyUp={passwordKeyPress} // on password change check for password breach
               onChange={(e) => {
-                setPassword(e.target.value);                
+                setPassword(e.target.value);
               }}
             />
-               {/*                                               // check password strength using password strength meter and show meter
-                */}
-            <PasswordStrengthMeter password={password} />           
+            
+            <PasswordStrengthMeter password={password} />
             <input
               type="password"
               placeholder="Confirm Password"
@@ -189,18 +123,7 @@ export default function Signup(props) {
             />
             <button type="submit">Sign Up</button>
 
-            {/*                                                    hsimp to display if the password was breach
-             */}
-
-            <ul className="hsimp-checks">
-              <p id="iscompromised">
-                <span>
-                  This password was not compromised in any database breach!!
-                </span>
-              </p>
-            </ul>
-            <ul id="password-checks" className="hsimp-checks"></ul>
-
+            <Passwordbreach password={password} />
             {/* signin form with email signin and google oauth */}
           </form>
         </div>
@@ -218,7 +141,6 @@ export default function Signup(props) {
                   <FaApple />
                 </i>
               </a>
-             
             </div>
             <span>or use your account</span>
             <input type="email" placeholder="Email" id="inemail" />

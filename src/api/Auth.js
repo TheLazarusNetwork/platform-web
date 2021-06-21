@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 
 import { config } from "./config";
-import {Alert} from '@material-ui/lab'
+import { Alert } from "@material-ui/lab";
 
 import { Appwrite } from "appwrite";
 const appwrite = new Appwrite();
@@ -35,23 +35,22 @@ class Auth {
         return response;
       },
       function (error) {
-
         return null;
       }
     );
   }
 
-  google() {                                                         //google OAuth
+  google() {
+    //google OAuth
     let promise = this.sdk.account.createOAuth2Session(
       "google",
       location + "/success",
       location + "/failure"
     );
-
-
   }
 
-  logout() {                                                           // logout from current session and redirect to signup page
+  logout() {
+    // logout from current session and redirect to signup page
     let promise = this.sdk.account.deleteSession("current");
 
     promise.then(
@@ -67,7 +66,8 @@ class Auth {
     );
   }
 
-  checkAuthenticated() {                                        // check if a session is currently active in current browser
+  checkAuthenticated() {
+    // check if a session is currently active in current browser
     const promise = this.sdk.account.getSessions();
     return promise.then(
       function (response) {
@@ -101,16 +101,17 @@ class Auth {
     );
   }
 
-  getAccount(){
+  getAccount() {
     let promise = this.sdk.account.get();
-     
+
     return promise.then(
-      function(response){
-      return response;
-    },
-    function(error){
-      return null;
-    })
+      function (response) {
+        return response;
+      },
+      function (error) {
+        return null;
+      }
+    );
   }
 
   sendVerificationEmail(url) {
@@ -125,7 +126,7 @@ class Auth {
     );
   }
 
-  updateVerification(userId, secret) {                                       
+  updateVerification(userId, secret) {
     let promise = this.sdk.account.updateVerification(userId, secret);
 
     promise.then(
@@ -140,7 +141,8 @@ class Auth {
     );
   }
 
-  createRecovery(email, url) {                                          // create Recovery for forgot password
+  createRecovery(email, url) {
+    // create Recovery for forgot password
     let promise = this.sdk.account.createRecovery(email, url);
     promise.then(
       function (response) {
@@ -148,12 +150,13 @@ class Auth {
       },
       function (error) {
         console.log(error);
-        <Alert severity="error">This is an error alert — check it out!</Alert>
+        <Alert severity="error">This is an error alert — check it out!</Alert>;
       }
     );
   }
 
-  updateRecovery(userId, secret, password) {                          // updating new password
+  updateRecovery(userId, secret, password) {
+    // updating new password
     let promise = this.sdk.account.updateRecovery(
       userId,
       secret,
@@ -172,6 +175,44 @@ class Auth {
     );
   }
 
+  updatePassword(newpassword, currentpassword) {
+    let promise = this.sdk.account.updatePassword(newpassword, currentpassword);
+
+    return promise.then(
+      function (response) {
+        return response;
+      },
+      function (error) {
+        return null;
+      }
+    );
+  }
+  updatename(name) {
+    let promise = this.sdk.account.updateName(name);
+
+    return promise.then(
+      function (response) {
+        console.log(response); // Success
+        return response
+      },
+      function (error) {
+        console.log(error); // Failure
+        return null
+      }
+    );
+  }
+  updateemail(email, password) {
+    let promise = this.sdk.account.updateEmail(email, password);
+
+    promise.then(
+      function (response) {
+        console.log(response); // Success
+      },
+      function (error) {
+        console.log(error); // Failure
+      }
+    );
+  }
   createJWT() {
     let promise = this.sdk.account.createJWT();
     return promise.then(

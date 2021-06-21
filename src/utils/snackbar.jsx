@@ -9,8 +9,8 @@ export default function SnackbarAlert({ message, alertopen, setAlertopen, type }
     <React.Fragment>
       <Snackbar
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: "top",
+          horizontal: "right",
         }}
         open={alertopen}
         autoHideDuration={3000}

@@ -4,6 +4,9 @@ import { Avatar, TextField } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Auth from "../api/Auth";
+import Modalui from "../Components/Modal";
+import Dialog from "../Components/Dialog";
+import SnackbarAlert from "../utils/snackbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,31 +25,81 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile({ auth }) {
   const [username, setUsername] = useState("");
   const [useremail, setUseremail] = useState("");
+  const [password, setPassword] = useState("");
   const [avatar, setavatar] = useState();
+  const [diopen, setDiopen] = useState(false);
+  const [update, setupdate] = useState(false);
+  const [alertopen, setAlertopen] = useState(false);
+  const [alertmsg, setAlertmsg] = useState(" ");
+  const [alerttype, setAlertype] = useState("error");
   const classes = useStyles();
+  const [userdata, setuserdata] = useState({});
 
-  // const filechange = (event) => {
-  //   let img = event.target.files[0];
-  //   setavatar(URL.createObjectURL(img));
-  // };
   const fetchData = async () => {
-    const userdata = await auth.getAccount();
-    setUsername(userdata.name);
-    setUseremail(userdata.email);
+    const data = await auth.getAccount();
+
+    setuserdata(data);
+    setUsername(data.name);
+    setUseremail(data.email);
+    console.log(  data,  userdata , username, useremail);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  const handlechange = (event) => {
-    if (event.label == "name") setUsername(event.target.value);
-    if (event.label == "email") setUseremail(event.target.value);
+  const handlesubmit = (event) => {
+    event.preventDefault();
+
+    if (userdata.name == username && userdata.email == useremail) {
+      setAlertmsg("Password and name are same");
+      setAlertopen(true);
+    } else {
+      setDiopen(true);
+      setupdate(false);
+    }
   };
+
+  useEffect(async () => {
+    if (update) {
+      if (username != userdata.name) {
+        console.log(`"${username}"` );
+        const nameupdate = await auth.updatename(username);
+        if(nameupdate)
+        {
+          setAlertmsg("Name Successfully changed");
+          setAlertype("success");
+          setAlertopen(true);
+        }
+        else{
+          setAlertmsg("Name change failed")
+          setAlertype("error")
+          setAlertopen(true)
+        }
+      }
+      if (useremail != userdata.email) {
+        console.log(useremail);
+        const emailupdate = await auth.updateemail(useremail , password);
+      }
+    }
+  }, [update]);
 
   return (
     <>
+      <SnackbarAlert
+        message={alertmsg}
+        alertopen={alertopen}
+        setAlertopen={setAlertopen}
+        type={alerttype} // type = error, success, info ,warning
+      />
       <div className="main">
         <Topnav page="Profile" />
+        <Dialog
+          diopen={diopen}
+          setDiopen={setDiopen}
+          setPassword={setPassword}
+          setUpdate={setupdate}
+        />
         <div className="profile-pic">
           <div className="pic-avatar">
             <Avatar className={classes.large}>{avatar}</Avatar>
@@ -63,24 +116,27 @@ export default function Profile({ auth }) {
         <div className="details-box shadow ">
           <div className="box-title">Personal details</div>
           <div className="inner-details">
-            <div className="row">
-              <TextField
-                className="textfield"
-                id="outlined-helperText"
-                label="name"
-                value={username}
-                onChange={handlechange}
-                variant="outlined"
-              />
-              <TextField
-                className="textfield"
-                id="outlined-helperText"
-                label="email"
-                value={useremail}
-                onChange={handlechange}
-                variant="outlined"
-              />
-            </div>
+            <form onSubmit={handlesubmit}>
+              <div className="row">
+                <input
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                ></input>
+                <input
+                  className="textfield"
+                  label="email"
+                  value={useremail}
+                  onChange={(e) => {
+                    setUseremail(e.target.value);
+                  }}
+                />
+              </div>
+              <button type="submit" className="save-btn">
+                update changes
+              </button>
+            </form>
           </div>
         </div>
 
@@ -88,36 +144,35 @@ export default function Profile({ auth }) {
           <div className="box-title">Other Details</div>
           <div className="inner-details">
             <div className="row">
-              <TextField
+              <input
                 className="textfield"
                 id="outlined-helperText"
-                label="address line"
+                placeholder="address line"
                 variant="outlined"
               />
-              <TextField
+              <input
                 className="textfield"
                 id="outlined-helperText"
-                label="landmark"
+                placeholder="landmark"
                 variant="outlined"
               />
             </div>
             <div className="row">
-              <TextField
+              <input
                 className="textfield"
                 id="outlined-helperText"
-                label="city"
+                placeholder="city"
                 variant="outlined"
               />
-              <TextField
+              <input
                 className="textfield"
                 id="outlined-helperText"
-                label="country"
+                placeholder="country"
                 variant="outlined"
               />
             </div>
-            <button className= "save-btn">Save changes</button>
+            <button className="save-btn">Save changes</button>
           </div>
-          
         </div>
       </div>
     </>

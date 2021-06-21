@@ -46,10 +46,13 @@ export default function Dashboard(props) {
     console.log(jwt);
   };
 
+
+
   return <>
   <div >
     dashboard
-    
+    <button onClick={createJWT}>jwt</button>
+
   </div>
   </>;
 }

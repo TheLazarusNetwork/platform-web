@@ -327,4 +327,22 @@ Navlink:hover {
 .MuiAppBar-colorPrimary .PrivateTabIndicator-colorSecondary-4 {
   background-color: #fff;
 }
+
+.table-div {
+  margin: 50px 100px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+@media (max-width: 650px) {
+  .table-div {
+    margin: 30px 40px;
+  }
+}
+
+@media (max-width: 450px) {
+  .table-div {
+    margin: 40px 20px;
+  }
+}
 /*# sourceMappingURL=dashboard.css.map */

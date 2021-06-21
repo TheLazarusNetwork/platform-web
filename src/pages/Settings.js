@@ -12,6 +12,9 @@ import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { BasicTable, StickyHeadTable } from "../utils/table";
+import Passwordbreach from "../Components/Passwordbreach";
+import SnackbarAlert from "../utils/snackbar";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Settings() {
+export default function Settings({auth}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -94,13 +97,13 @@ export default function Settings() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <Personalisation />
+          <Personalisation auth={auth} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Security />
+          <Security auth ={auth}/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Page Three
+         <OrganisationSettings auth ={auth}/>
         </TabPanel>
       </div>
     </div>
@@ -111,9 +114,9 @@ export default function Settings() {
 const languages = ["English", "Hindi"];
 const themes = ["dark", "light"];
 
-const Personalisation = () => {
+const Personalisation = ({auth}) => {
   const [language, setLanguage] = useState("English");
-  const [theme, setTheme] = useState("light ");
+  const [theme, setTheme] = useState("light");
   const [notification, setNotification] = useState({
     checkedA: true,
     checkedB: true,
@@ -210,75 +213,171 @@ const Personalisation = () => {
 
 //security page
 
-const Security = () => {
-  const [auth, setAuth] = useState({
+const Security = ({auth}) => {
+  const [alertopen, setAlertopen] = useState(false);
+  const [alertmsg, setAlertmsg] = useState(" ");
+  const [alerttype, setAlertype] = useState("error")
+  const [password, setPassword] = useState(" "); //for checking the password strength using password strength meter
+  const [mfauth, setMfauth] = useState({
     checkedA: true,
   });
 
   const handleswitchChange = (event) => {
-    setAuth({
-      ...auth,
+   setMfauth({
+      ...mfauth,
       [event.target.name]: event.target.checked,
     });
   };
-  const handlepasswordchange =()=>{
 
-  }
+  const handlepasswordchange = async(event) => {
+    event.preventDefault();
+    var currentpassword = event.target.elements["currentpassword"].value;
+    var newpassword = event.target.elements["newpassword"].value;
+    var repassword = event.target.elements["repeatpassword"].value;
+
+    if (newpassword.toString().length < 7) {
+      // show alert if password length is less than 7 or both password do not match
+      setAlertype("error")
+      setAlertmsg("password should be at least 6 letters");
+      setAlertopen(true);
+    } else if (newpassword !== repassword) {
+      {
+        setAlertype('error')
+        setAlertmsg("passwords do not match");
+        setAlertopen(true);
+      }
+    } else {
+     const passwordchanged = await auth.updatePassword(newpassword,currentpassword);
+     if(passwordchanged)
+     {
+       setAlertype('success');
+       setAlertmsg("password Changed successfully")
+       setAlertopen(true);
+     }
+     else{
+      setAlertype('error');
+      setAlertmsg("password Changed unsuccessful")
+      setAlertopen(true);
+     }
+    }
+  };
 
   return (
     <>
+      <SnackbarAlert
+        message={alertmsg}
+        alertopen={alertopen}
+        setAlertopen={setAlertopen}
+        type={alerttype} // type = error, success, info ,warning
+      />
       <div>
         <div className="details-box shadow ">
           <div className="inner-details">
-            <form>
             <div className="box-title">Change Password</div>
-            <div className="row">
-              <div className="row-div">
-                <p className="info-txt">
-                  <AiOutlineExclamationCircle /> New password must be different
-                  from old password
-                </p>
+            <form onSubmit={handlepasswordchange}>
+              <div className="row">
+                <div className="row-div">
+                  <p className="info-txt">
+                    <AiOutlineExclamationCircle /> New password must be
+                    different from old password
+                  </p>
 
-                <p className="info-txt">
-                  <AiOutlineExclamationCircle /> Password must be atleast 6
-                  characters
-                </p>
+                  <p className="info-txt">
+                    <AiOutlineExclamationCircle /> Password must be atleast 6
+                    characters
+                  </p>
+                </div>
+
+                <div className="row-div">
+                  <input
+                    type="password"
+                    placeholder="current password"
+                    id="currentpassword"
+                  ></input>
+                  <input
+                    id="newpassword"
+                    type="password"
+                    placeholder="new password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  ></input>
+                  <input
+                    id="repeatpassword"
+                    type="password"
+                    placeholder="confirm new password"
+                  ></input>
+                  <Passwordbreach password={password} />
+                </div>
               </div>
-              <div className="row-div">
-                <input id='password' placeholder="current password"></input>
-                <input id='newpassword' placeholder="new password"></input>
-                <input id='cpassword' placeholder="confirm new password"></input>
-              </div>
-            </div>
-            <button onClick={handlepasswordchange} className="save-btn">save changes</button>
+              <button type="submit" className="save-btn">
+                save changes
+              </button>
             </form>
           </div>
         </div>
         <div className="details-box shadow ">
           <div className="inner-details">
-            <div className="box-title">2 Factor Authentication</div>
+            <div className="box-title">Multi Factor authentication</div>
             <div className="row">
               <div className="row-div">
                 <p className="info-txt">
-                  Settings up 2 factor authentication makes your account more
+                  Settings up multifactor mfaauthentication makes your account more
                   secure
                 </p>
               </div>
               <FormControlLabel
                 control={
                   <Switch
-                    checked={auth.checkedA}
+                    checked={mfauth.checkedA}
                     onChange={handleswitchChange}
                     name="checkedA"
                     color="primary"
                   />
                 }
-                label="Setup 2 factor Auth"
+                label="Setup Multifactor auth"
               />
             </div>
           </div>
+        </div>
+
+        <div className="details-box shadow ">
+          <div className="inner-details">
+            <form>
+              <div className="box-title">Contact Information</div>
+              <div className="row">
+                <div className="row-div">
+                  <p className="info-txt">
+                    <AiOutlineExclamationCircle /> this email /contact will be
+                    used for 2 factor mfaauthentication
+                  </p>
+                </div>
+                <div className="row-div">
+                  <input
+                    id="contact"
+                    type="tel"
+                    placeholder="contact number"
+                  ></input>
+                  <input id="email" type="email" placeholder="email"></input>
+                </div>
+              </div>
+              <button onClick={handlepasswordchange} className="save-btn">
+                save changes
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="table-div">
+          <StickyHeadTable />
         </div>
       </div>
     </>
   );
 };
+
+
+//Organisational settings
+ const OrganisationSettings =()=>{
+
+ }
