@@ -144,6 +144,129 @@ Navlink:hover {
   letter-spacing: 1px;
 }
 
+.main .grey-back {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #d6d7de;
+  width: 80%;
+  padding: 30px;
+  margin: 30px auto;
+  border-radius: 10px;
+}
+
+.main .mini-details-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px;
+  padding: 10px 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 30%;
+}
+
+.main .mini-details-box .content {
+  text-align: left;
+}
+
+.main .mini-details-box h6 {
+  margin: 0;
+  font-weight: 600;
+  font-size: small;
+}
+
+.main .flex-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 90%;
+  margin: auto;
+}
+
+@media (max-width: 650px) {
+  .main .flex-div {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.main .mid-details-box {
+  min-width: 30%;
+  margin: 20px 10px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.main .mid-details-box .title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.main .mid-details-box .activity-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 5px;
+}
+
+.main .mid-details-box .activity-section h6 {
+  font-size: small;
+  margin: 0;
+}
+
+.main .mid-details-box .activity-section p {
+  font-size: 10px;
+}
+
+.main .MuiTableCell-root {
+  border: 0;
+}
+
+.main .MuiTableHead-root {
+  border-bottom: #d6d7de solid 1px;
+}
+
+@media (max-width: 650px) {
+  .main .grey-back {
+    padding: 20px;
+    margin: 30px auto;
+    width: 90%;
+  }
+  .main .mini-details-box {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .main .grey-back {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding: 15px;
+  }
+  .main .mini-details-box {
+    width: 95%;
+  }
+}
+
 .main {
   width: 100%;
 }

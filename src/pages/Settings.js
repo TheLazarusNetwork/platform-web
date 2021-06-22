@@ -368,9 +368,10 @@ const Security = ({auth}) => {
           </div>
         </div>
 
-        <div className="table-div">
-          <StickyHeadTable />
-        </div>
+        <div className="table mid-details-box shadow">
+            <div className="title"> Current Active Sessions</div>
+            <BasicTable/>
+            </div>
       </div>
     </>
   );
@@ -380,4 +381,9 @@ const Security = ({auth}) => {
 //Organisational settings
  const OrganisationSettings =()=>{
 
+  return(
+    <>
+    <h3>organisation settings page</h3>
+    </>
+  );
  }

@@ -3,7 +3,7 @@ $darkgrey: #4d4f5c;
 $darkblue: rgb(28, 12, 172);
 $lightgrey: #d6d7de;
 $white: #fff;
-$textgrey : rgb(179, 181, 182);
+$textgrey: rgb(179, 181, 182);
 
 $mid: 650px;
 $small: 450px;
@@ -153,6 +153,97 @@ Navlink:hover {
   }
 }
 
+//dashboard page
+.main {
+  .grey-back {
+    display: flex;
+    background-color: $lightgrey;
+    width: 80%;
+    padding: 30px;
+    margin: 30px auto;
+    border-radius: 10px;
+  }
+  .mini-details-box {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px 30px;
+    background-color: $white;
+    border-radius: 10px;
+    width: 30%;
+
+    .content {
+      text-align: left;
+    }
+    h6 {
+      margin: 0;
+      font-weight: 600;
+      font-size: small;
+    }
+  }
+
+  .flex-div{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+
+    @media (max-width:$mid) {
+      flex-direction: column;
+    }
+  }
+  .mid-details-box {
+
+    min-width: 30%;
+    margin: 20px 10px;
+    padding: 15px;
+    border-radius: 5px;
+    .title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .activity-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 5px ;
+      h6 {
+        font-size: small;
+        margin: 0;
+      }
+      p {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .MuiTableCell-root {
+   border: 0;
+ }
+ .MuiTableHead-root{
+    border-bottom: #d6d7de solid 1px;
+ }
+  @media (max-width: $mid) {
+    .grey-back {
+      padding: 20px;
+      margin: 30px auto;
+      width: 90%;
+    }
+    .mini-details-box {
+      padding: 10px;
+    }
+  }
+  @media (max-width: $small) {
+    .grey-back {
+      flex-direction: column;
+      padding: 15px;
+    }
+    .mini-details-box {
+      width: 95%;
+    }
+  }
+}
+
 //profile page
 
 .main {
@@ -228,13 +319,13 @@ Navlink:hover {
       margin-top: 30px;
     }
     @media (min-width: $mid) {
-      .row-div{
+      .row-div {
         max-width: 45%;
       }
     }
   }
 
-  .info-txt{
+  .info-txt {
     font-size: 12px;
     color: $textgrey;
   }
@@ -274,13 +365,13 @@ Navlink:hover {
   }
 }
 
-
 .save-btn {
   margin: 20px;
   float: right;
 }
 
 // settings page
+
 .MuiAppBar-colorPrimary {
   background-color: $darkblue;
 
@@ -294,18 +385,15 @@ Navlink:hover {
   }
 }
 
-.table-div{
+.table-div {
   margin: 50px 100px;
   // padding: 50px 100px;
   background-color: $white;
   border-radius: 10px;
   @media (max-width: $mid) {
     margin: 30px 40px;
-    
-  }  
+  }
   @media (max-width: $small) {
     margin: 40px 20px;
-    
   }
-
 }
