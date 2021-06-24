@@ -1,0 +1,103 @@
+.table-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.grey-btn {
+  border-radius: 2px;
+  margin: 5px;
+  width: 45%;
+  padding: 10px 5px;
+  background-color: #4d4f5c;
+}
+
+.card {
+  background-color: #f1f4fe;
+  border: 0px;
+  padding: 15px 15px;
+  position: relative;
+  margin-top: 10px;
+  min-height: 100px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.card p {
+  color: #b3b5b6;
+  margin-top: 20px;
+  font-size: smaller;
+}
+
+.card .card-icon {
+  position: absolute;
+  top: 5%;
+  right: 15px;
+}
+
+.card .card-delete {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
+
+.card:hover {
+  -webkit-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.service-details li {
+  color: #4d4f5c;
+  font-size: small;
+}
+
+.center {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+.flex-div {
+  width: 100%;
+}
+
+.pricing-div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 15px 5px;
+  padding: 20px 10px;
+  background-color: #f1f4fe;
+  border-radius: 5px;
+}
+
+.pricing-div .title {
+  font-size: large;
+}
+
+.pricing-div ul {
+  list-style: none;
+  font-size: small;
+  margin-top: 10px;
+}
+
+.pricing-div .price {
+  font-size: 30px;
+  margin: auto;
+  text-align: center;
+}
+
+.save-btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 10px;
+  border-radius: 5px;
+  float: right !important;
+}
+/*# sourceMappingURL=billing.css.map */

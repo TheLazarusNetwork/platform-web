@@ -1,0 +1,100 @@
+$lightblue: #f1f4fe;
+$darkgrey: #4d4f5c;
+$darkblue: rgb(28, 12, 172);
+$lightgrey: #d6d7de;
+$white: #fff;
+$textgrey: rgb(179, 181, 182);
+
+$mid: 650px;
+$small: 450px;
+
+.table-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.grey-btn {
+  border-radius: 2px;
+  margin: 5px;
+  width: 45%;
+  padding: 10px 5px;
+  background-color: $darkgrey;
+}
+.card {
+  background-color: $lightblue;
+  border: 0px;
+  padding: 15px 15px;
+  position: relative;
+  margin-top: 10px;
+  min-height: 100px;
+  transition: 0.5s;
+
+  p {
+    color: $textgrey;
+    margin-top: 20px;
+    font-size: smaller;
+  }
+
+  .card-icon {
+    position: absolute;
+    top: 5%;
+    right: 15px;
+  }
+
+  .card-delete {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+  }
+}
+.card:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+//services information page
+
+.service-details {
+  li {
+    color: $darkgrey;
+    font-size: small;
+  }
+}
+.center {
+  width: fit-content;
+  margin: auto;
+  // text-align: center;
+}
+.flex-div {
+  width: 100%;
+}
+.pricing-div {
+    flex: 1;
+  margin: 15px 5px;
+  padding: 20px 10px;
+  background-color: $lightblue;
+  border-radius: 5px;
+  .title {
+    font-size: large;
+  }
+
+  ul {
+    list-style: none;
+    font-size: small;
+    margin-top: 10px;
+  }
+  .price {
+    font-size: 30px;
+    margin: auto;
+    text-align: center;
+  }
+}
+
+.save-btn{
+    width: fit-content;
+   
+    margin: 10px ;
+    border-radius: 5px;
+    float: right !important;
+
+}
