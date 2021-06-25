@@ -66,7 +66,10 @@ $small: 450px;
   // text-align: center;
 }
 .flex-div {
-  width: 100%;
+  width: max-content;
+  margin: auto;
+  justify-content: space-evenly;
+  
 }
 .pricing-div {
     flex: 1;
@@ -98,3 +101,9 @@ $small: 450px;
     float: right !important;
 
 }
+
+.box-title{
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
