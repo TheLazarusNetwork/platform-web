@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+}
+
+.top-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 30px;
+  margin-bottom: 5px;
+}
+
+.top-div .grey-btn {
+  font-size: 10px;
+  width: auto;
+}
+
+.main-title {
+  font-weight: 700;
+  font-size: large;
+}
+
+.org-box {
+  padding: 10px 20px;
+  width: 90%;
+  margin: 10px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.org-box .role {
+  font-size: smaller;
+}
+/*# sourceMappingURL=organisation.css.map */

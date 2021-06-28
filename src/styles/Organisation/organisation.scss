@@ -1,0 +1,46 @@
+$lightblue: #f1f4fe;
+$darkgrey: #4d4f5c;
+$darkblue: rgb(28, 12, 172);
+$lightgrey: #d6d7de;
+$white: #fff;
+$textgrey: rgb(179, 181, 182);
+
+$mid: 650px;
+$small: 450px;
+
+* {
+  margin: 0;
+}
+.top-div{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    margin-bottom: 5px;
+    .grey-btn{
+        font-size: 10px;
+        width: auto;
+
+    }
+}
+.main-title{
+     
+     font-weight: 700;
+     font-size: large;
+}
+
+.org-box{
+    padding: 10px 20px;
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    .role{
+        font-size: smaller;
+    }
+    @media (max-width:$mid) {
+       
+    }
+}

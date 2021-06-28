@@ -25,6 +25,7 @@ import Tunnel from "./pages/services/Tunnel";
 import Cloud from "./pages/services/Cloud";
 import PasswordReset from "./Components/PasswordReset";
 import PasswordUpdate from "./pages/redirects/PasswordUpdate";
+import Organisations from "./pages/Organisations";
 
 const auth = new Auth();
 const ThemeContext = React.createContext();
@@ -52,6 +53,7 @@ const App = () => {
                 auth={auth}
                 component={AnonymousVPN}
               />
+    
               <PrivateRoute
                 exact
                 path="/dash/dedivpn"
@@ -65,7 +67,7 @@ const App = () => {
                 component={Tunnel}
               />
               <PrivateRoute exact path="/dash/cloud" auth={auth} component={Cloud} />
-
+              <PrivateRoute exact path="/dash/organisations" auth={auth} component={Organisations} />
               <Route 
                 exact
                 path="/"

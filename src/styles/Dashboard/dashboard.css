@@ -144,6 +144,24 @@ Navlink:hover {
   letter-spacing: 1px;
 }
 
+.top-nav .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.top-nav .icons icon {
+  margin: 0px 10px;
+}
+
+.vertical-divider {
+  border-left: 1px solid #d6d7de;
+  height: 90%;
+}
+
 .main .grey-back {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -350,7 +368,7 @@ Navlink:hover {
 }
 
 .details-box .box-title {
-  font-family: sans-serif;
+  font-family: 'Exo', sans-serif;
   font-weight: 700;
   margin-bottom: 10px;
 }

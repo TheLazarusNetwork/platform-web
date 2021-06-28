@@ -151,6 +151,18 @@ Navlink:hover {
     font-weight: bold;
     letter-spacing: 1px;
   }
+
+  .icons {
+    display: flex;
+    align-items: center;
+    icon {
+      margin: 0px 10px;
+    }
+  }
+}
+.vertical-divider{
+  border-left: 1px solid $lightgrey;
+  height: 90%;
 }
 
 //dashboard page
@@ -182,18 +194,17 @@ Navlink:hover {
     }
   }
 
-  .flex-div{
+  .flex-div {
     display: flex;
     flex-direction: row;
     width: 90%;
     margin: auto;
 
-    @media (max-width:$mid) {
+    @media (max-width: $mid) {
       flex-direction: column;
     }
   }
   .mid-details-box {
-
     min-width: 30%;
     margin: 20px 10px;
     padding: 15px;
@@ -206,7 +217,7 @@ Navlink:hover {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      margin: 5px ;
+      margin: 5px;
       h6 {
         font-size: small;
         margin: 0;
@@ -218,11 +229,11 @@ Navlink:hover {
   }
 
   .MuiTableCell-root {
-   border: 0;
- }
- .MuiTableHead-root{
+    border: 0;
+  }
+  .MuiTableHead-root {
     border-bottom: #d6d7de solid 1px;
- }
+  }
   @media (max-width: $mid) {
     .grey-back {
       padding: 20px;
@@ -301,7 +312,7 @@ Navlink:hover {
   border-radius: 10px;
 
   .box-title {
-    font-family: sans-serif;
+    font-family: 'Exo', sans-serif;
     font-weight: 700;
     margin-bottom: 10px;
   }
