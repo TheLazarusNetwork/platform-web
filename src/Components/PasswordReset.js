@@ -15,6 +15,8 @@ export default function PasswordReset({ auth }) {
     let email = event.target.elements["email"].value;
     let url = resetURL;
     auth.createRecovery(email, url);
+
+    //show success alert to user after password recovery link sent
     setAlertype('success');
        setAlertmsg("password link sent")
        setAlertopen(true);
@@ -31,7 +33,7 @@ export default function PasswordReset({ auth }) {
       <div className="center">
         <h2>forgot password?</h2>
         <p>
-          send a magic link to your registered email account to change password{" "}
+          send a magic link to your registered email account to change password
         </p>
         <form className="form" onSubmit={resetpassword}>
           <input type="email" placeholder="enter your email" id="email" />

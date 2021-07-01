@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
 
 const location = process.env.REACT_APP_HOST_URL;
 
-const manageOrg=()=>{
- 
+const manageOrg = () => {
+  //change location to organisations page
   window.location = location + "/dash/organisations";
-}
+};
 
 export default function OrgsModal({ show, onClose }) {
   const classes = useStyles();
@@ -42,25 +42,31 @@ export default function OrgsModal({ show, onClose }) {
           <div>
             <div className="main-title">All Organisations</div>
             <div className="divider"></div>
+            {/* current org box */}
             <div className="tag">current organisation</div>
             <div className="org-box">
               <div className="name">Organisation name</div>
               <div className="role">Admin</div>
-              
             </div>
             <div className="tag">recent Organisation</div>
             <div className="org-box">
+              {/* recent organisation box  */}
               <div className="name">Organisation name</div>
               <div className="role">Admin</div>
               <div>
+                {/* button to go the this organisation */}
                 <icon className="btn">
                   <BiRightTopArrowCircle />
                 </icon>
               </div>
             </div>
           </div>
-          <div className='center'>
-            <button className='simple-btn' onClick={manageOrg}>Manage  All Organisation</button>
+
+          {/* button to go to the all organisations page */}
+          <div className="center">
+            <button className="simple-btn" onClick={manageOrg}>
+              Manage All Organisation
+            </button>
           </div>
         </div>
       </Modal>

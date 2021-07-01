@@ -43,4 +43,12 @@
 .org-box .role {
   font-size: smaller;
 }
+
+.simple-btn {
+  background-color: #d6d7de;
+  color: #4d4f5c;
+  padding: 7px 10px;
+  border-radius: 2px;
+  margin-left: 10px;
+}
 /*# sourceMappingURL=organisation.css.map */

@@ -15,6 +15,7 @@ export default function FormDialog({diopen , setDiopen, setPassword, setUpdate})
 
   return (
     <div>
+      {/* dialog box to enter password when user wants to change email */}
       <Dialog open={diopen} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Change email</DialogTitle>
         <DialogContent>

@@ -3,7 +3,6 @@ import SHA1 from "../functions/SHA1";
 
 export default function Passwordbreach(props) {
   var { password } = props;
-
   const [pass, setpass] = useState(password);
   var requestTimeout;
 
