@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Topnav from "../Components/Topnav";
 import { BasicTable } from "../utils/table";
 import TextField from "@material-ui/core/TextField";
@@ -6,6 +6,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import "./../styles/Dashboard/billing.css";
 import { RiMastercardFill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
 
 const currencies = [
   {
@@ -26,11 +31,23 @@ const currencies = [
   },
 ];
 
+const onSubmit = () => {
+ 
+};
+
 export default function Billing() {
   const [currency, setCurrency] = React.useState("EUR");
   const handleChange = (event) => {
     setCurrency(event.target.value);
   };
+  const [openform, setOpenform] = useState(false);
+  const [newcard, setNewcard] = useState({
+    name: "",
+    number: "",
+    exp: "",
+    cvv: "",
+  });
+
   return (
     <>
       {/* <SnackbarAlert
@@ -95,9 +112,20 @@ export default function Billing() {
           <div className="mid-details-box ">
             <div className="title">My Cards</div>
             <div>
-              <button className="grey-btn">Add new Card</button>
+              <button className="grey-btn" onClick={() => setOpenform(true)}>
+                Add new Card
+              </button>
               <button className="grey-btn">Create Card</button>
             </div>
+            {openform && (
+              <Dialogform
+                open={openform}
+                setOpen={setOpenform}
+                onSubmit={onSubmit}
+                newcard={newcard}
+                setNewcard={setNewcard}
+              />
+            )}
             <div className="cards">
               <div className="card">
                 <div>Card Holder's name</div>
@@ -108,7 +136,6 @@ export default function Billing() {
                   <MdDelete />
                 </icon>
                 <p> xxxx-xxxx-xxxx-1234</p>
-                
               </div>
               <div className="card">
                 <div>Card Holder's name</div>
@@ -119,7 +146,6 @@ export default function Billing() {
                   <MdDelete />
                 </icon>
                 <p> xxxx-xxxx-xxxx-1234</p>
-                
               </div>
               <div className="card">
                 <div>Card Holder's name</div>
@@ -130,12 +156,55 @@ export default function Billing() {
                   <MdDelete />
                 </icon>
                 <p> xxxx-xxxx-xxxx-1234</p>
-                
               </div>
             </div>
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+function Dialogform({ open, setOpen, handleSubmit }) {
+  const [step, setStep] = useState(1);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">
+          Create New Organisation
+        </DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText>
+              To subscribe to this website, please enter your email address here. We will send updates
+              occasionally.
+            </DialogContentText> */}
+          <div className="divider"></div>
+          <input placeholder="Organisation name"></input>
+          <input placeholder="address"></input>
+          <input placeholder="city"></input>
+          <input placeholder="country"></input>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={() => setStep(step + 1)} color="primary">
+            Next
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }

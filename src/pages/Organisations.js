@@ -99,7 +99,7 @@ export default function Organisations() {
   );
 }
 
-function Dialogform({ open, setOpen , handleSubmit}) {
+function Dialogform({ open, setOpen }) {
   const [step, setStep] = useState(1);
   const handleClickOpen = () => {
     setOpen(true);
