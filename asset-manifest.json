@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/TheLazarusNetwork/platform-web/static/css/main.2468f78c.chunk.css",
+    "main.js": "/TheLazarusNetwork/platform-web/static/js/main.2c5b94e1.chunk.js",
+    "main.js.map": "/TheLazarusNetwork/platform-web/static/js/main.2c5b94e1.chunk.js.map",
+    "runtime-main.js": "/TheLazarusNetwork/platform-web/static/js/runtime-main.ec9ef76d.js",
+    "runtime-main.js.map": "/TheLazarusNetwork/platform-web/static/js/runtime-main.ec9ef76d.js.map",
+    "static/css/2.95388862.chunk.css": "/TheLazarusNetwork/platform-web/static/css/2.95388862.chunk.css",
+    "static/js/2.a795373d.chunk.js": "/TheLazarusNetwork/platform-web/static/js/2.a795373d.chunk.js",
+    "static/js/2.a795373d.chunk.js.map": "/TheLazarusNetwork/platform-web/static/js/2.a795373d.chunk.js.map",
+    "index.html": "/TheLazarusNetwork/platform-web/index.html",
+    "static/css/2.95388862.chunk.css.map": "/TheLazarusNetwork/platform-web/static/css/2.95388862.chunk.css.map",
+    "static/css/main.2468f78c.chunk.css.map": "/TheLazarusNetwork/platform-web/static/css/main.2468f78c.chunk.css.map",
+    "static/js/2.a795373d.chunk.js.LICENSE.txt": "/TheLazarusNetwork/platform-web/static/js/2.a795373d.chunk.js.LICENSE.txt",
+    "static/media/all.min.css": "/TheLazarusNetwork/platform-web/static/media/fa-solid-900.efbd5d20.eot"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ec9ef76d.js",
+    "static/css/2.95388862.chunk.css",
+    "static/js/2.a795373d.chunk.js",
+    "static/css/main.2468f78c.chunk.css",
+    "static/js/main.2c5b94e1.chunk.js"
+  ]
+}
