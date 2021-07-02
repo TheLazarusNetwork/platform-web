@@ -5,9 +5,13 @@ import ServiceDetails from "../../Components/ServiceDetails";
 import CircularProgressBar from "../../utils/progressbar";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
+import { BsToggleOff, BsToggleOn } from "react-icons/bs";
+import { AiFillDelete } from "react-icons/ai";
+import {FaFileDownload} from 'react-icons/fa'
+
 
 export default function AnonymousVPN() {
-  const [active, setactive] = useState(true);
+  const [active, setactive] = useState(false);
   return (
     <>
       {/* <SnackbarAlert
@@ -77,13 +81,19 @@ const AVPN = () => {
           <div className="name">Region Name</div>
           <div className="role">Code</div>
           <div>
-            <button className="simple-btn" onClick={()=>setShowc(!showc)}>see all clients</button>
-            <button className="simple-btn" onClick={()=>setCreate(!create)}>create new client</button>
+            <button className="simple-btn" onClick={() => setShowc(!showc)}>
+              see all clients
+            </button>
+            <button className="simple-btn" onClick={() => setCreate(!create)}>
+              create new client
+            </button>
           </div>
         </div>
       </div>
-      {showc && <ShowClient show={showc} onClose={()=>setShowc(false)}/>}
-      {create && <CreateClient show={create} onClose={()=>setCreate(false)}/>}
+      {showc && <ShowClient show={showc} onClose={() => setShowc(false)} />}
+      {create && (
+        <CreateClient show={create} onClose={() => setCreate(false)} />
+      )}
     </>
   );
 };
@@ -101,18 +111,17 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 400,
+    width: 550,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
 }));
 
-
 function ShowClient({ show, onClose }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-
+  const [enabled, setEnabled] = useState(false);
   return (
     <div>
       <Modal open={show} onClose={onClose}>
@@ -120,13 +129,25 @@ function ShowClient({ show, onClose }) {
           <div className="main-title">All Clients</div>
           <div className="divider"></div>
 
+{/*AVPN client information  */}
           <div className="org-box">
-            <div className="name">Organisation name</div>
-            <div className="role">Admin</div>
+            {/* config file download btn */}
+          <FaFileDownload/>
+            <div className="name">client email</div>
+            <div className="role">device</div>
             <div>
               {/* button to go the this organisation */}
               <icon className="btn">
+                {enabled ? (
+                  <BsToggleOn onClick={() => setEnabled(false)} color="green" />
+                ) : (
+                  <BsToggleOff onClick={() => setEnabled(true)} />
+                )}
                 
+              </icon>
+              {/* delete this client  */}
+              <icon className='btn'>
+                <AiFillDelete />
               </icon>
             </div>
           </div>
@@ -136,6 +157,7 @@ function ShowClient({ show, onClose }) {
   );
 }
 
+//modal to open create new client form
 function CreateClient({ show, onClose }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -144,19 +166,16 @@ function CreateClient({ show, onClose }) {
     <div>
       <Modal open={show} onClose={onClose}>
         <div style={modalStyle} className={classes.paper}>
-          <div className="main-title">All Clients</div>
+          <div className="main-title">Create New Client</div>
           <div className="divider"></div>
 
-          <div className="org-box">
-            <div className="name">Organisation name</div>
-            <div className="role">Admin</div>
-            <div>
-              {/* button to go the this organisation */}
-              <icon className="btn">
-                
-              </icon>
-            </div>
-          </div>
+          <form>
+            <input placeholder='name'></input>
+            <input type='email' placeholder='email'></input>
+            <input placeholder='device'></input>
+            <button className='save-btn' type='submit'>create client</button>
+          </form>
+
         </div>
       </Modal>
     </div>

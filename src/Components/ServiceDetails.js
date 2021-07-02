@@ -1,57 +1,90 @@
-import React from 'react'
+import React, { useState } from "react";
+import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 
 export default function ServiceDetails() {
-    return (
-      <>
-        <div className="details-box shadow">
-          <div className="box-title">About </div>
-          <ul className="service-details">
-            <li>sdkjfldsd alsdkfjlask laskdjfsladk lkajsdfd lkasdjflksdj</li>
-            <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
-            <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
-            <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
-          </ul>
-        </div>
-  
-        <div className="pricing details-box shadow">
+  const [month, setMonth] = useState(false);
+  return (
+    <>
+      <div className="details-box shadow">
+        <div className="box-title">About </div>
+        <ul className="service-details">
+          <li>sdkjfldsd alsdkfjlask laskdjfsladk lkajsdfd lkasdjflksdj</li>
+          <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
+          <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
+          <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
+        </ul>
+      </div>
+
+      <div className="pricing details-box shadow">
+        <div className='inline'>
           <div className="box-title"> Pricing options</div>
-          <div className="flex-div">
-            <div className="pricing-div">
-              <div className="title center">Basic</div>
-              <div className="divider" />
-              <ul className="">
-                <li>5 users</li>
-                <li>10 hours weekly</li>
-              </ul>
-              <div className="divider" />
-              <div className="price"> $10</div>
-            </div>
-            <div className="pricing-div">
-              <div className="title center">Basic</div>
-              <div className="divider" />
-              <ul className="">
-                <li>5 users</li>
-                <li>10 hours weekly</li>
-              </ul>
-              <div className="divider" />
-              <div className="price"> $10</div>
-            </div>{" "}
-            <div className="pricing-div">
-              <div className="title center">Basic</div>
-              <div className="divider" />
-              <ul className="">
-                <li>5 users</li>
-                <li>10 hours weekly</li>
-              </ul>
-              <div className="divider" />
-              <div className="price"> $10</div>
-            </div>
+          <icon className="btn">
+            <label className='tag label'>{month? "Monthly": "Annual"} </label>
+            {month ? (
+              <BsToggleOn size={20} onClick={() => setMonth(false)} color="green" />
+            ) : (
+              <BsToggleOff  size={20} onClick={() => setMonth(true)} color="green" />
+            )}
+          </icon>
+        </div>
+        <div className="flex-div">
+          <div className="pricing-div">
+            <div className="title center">Basic</div>
+            <div className="divider" />
+            <ul className="">
+              <li>5 users</li>
+              <li>10 hours weekly</li>
+            </ul>
+            <div className="divider" />
+            <div className="price"> $10</div>
+            <button className="font-small center-btn grey-btn ">
+              {" "}
+              Activate Service
+            </button>
           </div>
-          <div>
-            <button className="save-btn"> Activate Service</button>
+          <div className="pricing-div">
+            <div className="title center">Basic</div>
+            <div className="divider" />
+            <ul className="">
+              <li>5 users</li>
+              <li>10 hours weekly</li>
+            </ul>
+            <div className="divider" />
+            <div className="price"> $10</div>
+            <button className="font-small center-btn grey-btn ">
+              {" "}
+              Activate Service
+            </button>
+          </div>
+          <div className="pricing-div">
+            <div className="title center">Basic</div>
+            <div className="divider" />
+            <ul className="">
+              <li>5 users</li>
+              <li>10 hours weekly</li>
+            </ul>
+            <div className="divider" />
+            <div className="price"> $10</div>
+            <button className="font-small center-btn grey-btn ">
+              {" "}
+              Activate Service
+            </button>
           </div>
         </div>
-      </>
-    );
-  };
-  
+      </div>
+      <div className="details-box">
+        <div className="pricing-div">
+          <div className="title center">Custom</div>
+          <div className="divider" />
+          <ul className="">
+            <li>5 users</li>
+            <li>10 hours weekly</li>
+          </ul>
+          <div className="divider" />
+          <div className="price"> $50></div>
+          <button className="center-btn grey-btn "> Contact Us</button>
+        </div>
+      </div>
+    </>
+  );
+}

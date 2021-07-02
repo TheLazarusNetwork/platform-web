@@ -107,3 +107,22 @@ $small: 450px;
   font-weight: bold;
 }
 
+.center-btn{
+  margin: 10px auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.font-small{
+  font-size: 10px;
+}
+.inline{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.label{
+  margin: 5px;
+}
