@@ -105,6 +105,7 @@ export default function Dashboard(props) {
             </div>
           </div>
         </div>
+        <button onClick={createJWT}>create jwt</button>
       </div>
     </>
   );
