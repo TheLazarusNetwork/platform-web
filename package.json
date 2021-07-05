@@ -1,6 +1,6 @@
 {
   "name": "laznew",
-  "homepage": "https://thelazarusnetwork.github.io/platform-web/",
+  "homepage": "https://app.lazarus.network",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
