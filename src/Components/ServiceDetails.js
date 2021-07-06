@@ -81,7 +81,7 @@ export default function ServiceDetails() {
             <li>10 hours weekly</li>
           </ul>
           <div className="divider" />
-          <div className="price"> $50 </div>
+          <div className="price"> $50></div>
           <button className="center-btn grey-btn "> Contact Us</button>
         </div>
       </div>

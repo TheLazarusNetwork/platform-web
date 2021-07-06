@@ -5,8 +5,6 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      
-      //if a user is logged in render the given component otherwise redirect to signup
       return localStorage.getItem("auth_state") ? (
         <Component {...props} auth={auth} />
       ) : (

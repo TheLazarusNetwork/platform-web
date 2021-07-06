@@ -25,11 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const location = process.env.REACT_APP_HOST_URL;
-// const manageOrg = () => {
-//   //change location to organisations page
-//   window.location = location + "/dash/organisations";
-// };
+const location = process.env.REACT_APP_HOST_URL;
+
+const manageOrg = () => {
+  //change location to organisations page
+  window.location = location + "/dash/organisations";
+};
 
 export default function OrgsModal({ show, onClose }) {
   const classes = useStyles();

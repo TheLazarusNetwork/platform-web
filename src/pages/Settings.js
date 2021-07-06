@@ -12,11 +12,10 @@ import Switch from "@material-ui/core/Switch";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { BasicTable } from "../utils/table";
+import { BasicTable, StickyHeadTable } from "../utils/table";
 import Passwordbreach from "../Components/Passwordbreach";
 import SnackbarAlert from "../utils/snackbar";
 
-//material ui tabs panel
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -69,10 +68,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// main settings page with 3 tabs
 export default function Settings({auth}) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);     // to set the tabs using enum values
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -99,15 +97,12 @@ export default function Settings({auth}) {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          {/* personalisation settings tab */}
-          <Personalisation auth={auth} />    
+          <Personalisation auth={auth} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-
           <Security auth ={auth}/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-
          <OrganisationSettings auth ={auth}/>
         </TabPanel>
       </div>
@@ -157,7 +152,6 @@ const Personalisation = ({auth}) => {
                 helperText="Please select your currency"
               >
                 {languages.map((option) => (
-                  //display all the language options from languages array
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -190,7 +184,6 @@ const Personalisation = ({auth}) => {
               <FormControlLabel
                 control={
                   <Switch
-                  //switch for notification settings 
                     checked={notification.checkedA}
                     onChange={handleswitchChange}
                     name="checkedA"
@@ -221,12 +214,12 @@ const Personalisation = ({auth}) => {
 //security page
 
 const Security = ({auth}) => {
-  const [alertopen, setAlertopen] = useState(false);       // to open or close the alert
-  const [alertmsg, setAlertmsg] = useState(" ");      // message in the alert component
-  const [alerttype, setAlertype] = useState("error")       // type: error / warning / success etc
+  const [alertopen, setAlertopen] = useState(false);
+  const [alertmsg, setAlertmsg] = useState(" ");
+  const [alerttype, setAlertype] = useState("error")
   const [password, setPassword] = useState(" "); //for checking the password strength using password strength meter
   const [mfauth, setMfauth] = useState({
-    checkedA: true,                                      // multi factor auth and its type
+    checkedA: true,
   });
 
   const handleswitchChange = (event) => {
@@ -254,7 +247,6 @@ const Security = ({auth}) => {
         setAlertopen(true);
       }
     } else {
-      // calling the password update auth function and display alert accordingly
      const passwordchanged = await auth.updatePassword(newpassword,currentpassword);
      if(passwordchanged)
      {
@@ -282,7 +274,7 @@ const Security = ({auth}) => {
         <div className="details-box shadow ">
           <div className="inner-details">
             <div className="box-title">Change Password</div>
-            <form onSubmit={handlepasswordchange}>      
+            <form onSubmit={handlepasswordchange}>
               <div className="row">
                 <div className="row-div">
                   <p className="info-txt">

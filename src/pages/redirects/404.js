@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
+const gotoDashboard=()=>{
+    window.location = process.env.REACT_APP_HOST_URL 
+}
 export default function Notfound() {
     return (
-        <div className='center'>
-            <Link to='/'>
-            <button  >go to dashboard</button>
-            </Link>
+        <div>
+            <button onClick={gotoDashboard}>go to dashboard</button>
         </div>
     )
 }

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Topnav from "../Components/Topnav";
-import { Avatar} from "@material-ui/core";
+import { Avatar, TextField } from "@material-ui/core";
+
 import { makeStyles } from "@material-ui/core/styles";
+import Auth from "../api/Auth";
+import Modalui from "../Components/Modal";
 import Dialog from "../Components/Dialog";
 import SnackbarAlert from "../utils/snackbar";
 
@@ -33,28 +36,25 @@ export default function Profile({ auth }) {
   const [userdata, setuserdata] = useState({});
 
   const fetchData = async () => {
-    // fetch user data by calling the getAccount function and show user's name and email 
     const data = await auth.getAccount();
 
     setuserdata(data);
     setUsername(data.name);
     setUseremail(data.email);
+    console.log(  data,  userdata , username, useremail);
   };
 
   useEffect(() => {
-    //fetch user data when the page lodes
     fetchData();
   }, []);
 
   const handlesubmit = (event) => {
-    //funtion to change the user name or user email
     event.preventDefault();
 
     if (userdata.name == username && userdata.email == useremail) {
-      setAlertmsg("Email and name are same");
+      setAlertmsg("Password and name are same");
       setAlertopen(true);
     } else {
-      // open the dialog to get user's password 
       setDiopen(true);
       setupdate(false);
     }
@@ -78,7 +78,7 @@ export default function Profile({ auth }) {
         }
       }
       if (useremail != userdata.email) {
-        
+        console.log(useremail);
         const emailupdate = await auth.updateemail(useremail , password);
       }
     }

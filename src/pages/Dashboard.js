@@ -1,4 +1,11 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
+import Sidebar from "../Components/Sidebar";
 import Topnav from "../Components/Topnav";
 import "./../styles/Dashboard/dashboard.css";
 import CircularProgressWithLabel from "@material-ui/core/CircularProgress";
@@ -8,12 +15,12 @@ document.title = "Lazarus Networks-dash";
 const verificationURL = process.env.REACT_APP_HOST_URL + "/verify";
 
 export default function Dashboard(props) {
-  const [auth, setAuth] = useState(props.auth);  //auth class instance 
+  const [auth, setAuth] = useState(props.auth);
 
   const getdetails = async () => {
     let details;
     try {
-      const data = await auth.checkAuthenticated();       // to check if a user is currently logged in and get it's details
+      const data = await auth.checkAuthenticated();
       details = data;
     } catch (e) {
       console.log(e);
@@ -22,7 +29,7 @@ export default function Dashboard(props) {
   };
 
   const verifyemail = async () => {
-                                     //sending user email verification email
+    //sending user verification email
     let verified;
     try {
       verified = await auth.sendVerificationEmail(verificationURL);
@@ -35,7 +42,7 @@ export default function Dashboard(props) {
   const createJWT = async () => {
     let jwt;
     try {
-      jwt = await auth.createJWT();           //create jwt and console log it
+      jwt = await auth.createJWT();
     } catch (e) {
       console.log(e);
     }
@@ -57,9 +64,7 @@ export default function Dashboard(props) {
         <div>
           <div className="grey-back">
             <div className="mini-details-box mini shadow">
-
-              {/* circular progress bar in the dashboard */}
-              <CircularProgressWithLabel variant="determinate" value={75} />     
+              <CircularProgressWithLabel variant="determinate" value={75} />
               <div className="content">
                 <h6>Status</h6>
                 <p>75 %</p>
@@ -100,7 +105,6 @@ export default function Dashboard(props) {
             </div>
           </div>
         </div>
-        {/* button to create jwt */}
         <button onClick={createJWT}>create jwt</button>
       </div>
     </>
