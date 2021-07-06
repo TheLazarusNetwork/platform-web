@@ -9,11 +9,15 @@ import {
 } from "cdbreact";
 import { BiLogOut } from "react-icons/bi";
 import "./../styles/Dashboard/dashboard.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const Sidebar = ({ auth }) => {
-  const signOutUser = () => {
-    auth.logout();
+  const history = useHistory();
+
+  const signOutUser = async () => {
+    const logoutsuccess = await auth.logout();
+    if (logoutsuccess) history.push("/signup");
+    
   };
 
   return (

@@ -5,7 +5,8 @@ const Success = ({ history, auth }) => {
   useEffect(() => {
     auth.checkAuthenticated().then((val) => {
       auth.setAuthenticated(val);
-      history.push("/dash/");
+      console.log(history)
+      history.push("/dash")
     });
   }, []);
 

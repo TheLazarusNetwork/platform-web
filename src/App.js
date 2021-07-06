@@ -2,7 +2,7 @@ import React, { useState, createContext } from "react";
 import "./styles/App.css";
 import "./styles/Dashboard/dashboard.css";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Redirect,
   Switch,

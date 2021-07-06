@@ -42,10 +42,11 @@ class Auth {
 
   google() {
     //google OAuth
+   
     let promise = this.sdk.account.createOAuth2Session(
       "google",
-      location + "/success",
-      location + "/failure"
+      "https://app.lazarus.network/#/success/",
+     "https://app.lazarus.network/#/failure/"
     );
   }
 
@@ -53,15 +54,17 @@ class Auth {
     // logout from current session and redirect to signup page
     let promise = this.sdk.account.deleteSession("current");
 
-    promise.then(
+    return promise.then(
       function (response) {
         localStorage.removeItem("auth_state");
-        window.location = location + "/signup"; //redirect to signup page after user logs out
+        // window.location = location + "/signup"; //redirect to signup page after user logs out
+        return response;
         console.log(response); // Success
       },
       function (error) {
-        console.log("AUTH", error);
+        // console.log("AUTH", error);
         console.log(error); // Failure
+        return null
       }
     );
   }

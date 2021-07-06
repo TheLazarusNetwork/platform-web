@@ -3,6 +3,7 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
+import {Link} from 'react-router-dom'
 
 function getModalStyle() {
   const top = 50;
@@ -64,9 +65,11 @@ export default function OrgsModal({ show, onClose }) {
 
           {/* button to go to the all organisations page */}
           <div className="center">
-            <button className="simple-btn" onClick={manageOrg}>
+            <Link to='/dash/organisations'>
+            <button className="simple-btn">
               Manage All Organisation
             </button>
+            </Link>
           </div>
         </div>
       </Modal>

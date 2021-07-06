@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./../styles/forms/signup.css";
-import { FaApple, FaMicrosoft, FaGoogle } from "react-icons/fa";
+import {  FaGoogle, FaGithub } from "react-icons/fa";
 import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
 import SnackbarAlert from "./../utils/snackbar";
 import Passwordbreach from "../Components/Passwordbreach";
@@ -9,6 +9,7 @@ document.title = "Lazarus Networks-signup";
 
 export default function Signup(props) {
   const { history } = props;
+  console.log(history)
   const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
   const [rightpanel, setrightpanel] = useState(false); //right panel true for signup page  ,false for signin page
   const [password, setPassword] = useState(""); //for checking the password strength using password strength meter
@@ -63,7 +64,8 @@ export default function Signup(props) {
       // history.push("/failure");
     }
 
-    auth.checkLogin();
+    const checklogin = await  auth.getAccount();
+    if (checklogin) history.push("/success");
   };
 
   const handleGoogle = () => {
@@ -98,7 +100,7 @@ export default function Signup(props) {
               </a>
               <a href="#" className="social">
                 <i>
-                  <FaApple />
+                  <FaGithub />
                 </i>
               </a>
             </div>
@@ -138,7 +140,7 @@ export default function Signup(props) {
               </a>
               <a href="#" className="social">
                 <i>
-                  <FaApple />
+                  <FaGithub />
                 </i>
               </a>
             </div>
