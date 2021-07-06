@@ -42,11 +42,11 @@ class Auth {
 
   google() {
     //google OAuth
-   
+
     let promise = this.sdk.account.createOAuth2Session(
       "google",
-      "https://app.lazarus.network/#/success/",
-     "https://app.lazarus.network/#/failure/"
+      config.successURL,
+      config.failureURL
     );
   }
 
@@ -59,12 +59,12 @@ class Auth {
         localStorage.removeItem("auth_state");
         // window.location = location + "/signup"; //redirect to signup page after user logs out
         return response;
-        console.log(response); // Success
+         // Success
       },
       function (error) {
         // console.log("AUTH", error);
         console.log(error); // Failure
-        return null
+        return null;
       }
     );
   }
@@ -75,7 +75,6 @@ class Auth {
     return promise.then(
       function (response) {
         localStorage.setItem("auth_state", 1);
-        console.log(response);
         return response;
       },
       function (error) {
@@ -196,11 +195,11 @@ class Auth {
     return promise.then(
       function (response) {
         console.log(response); // Success
-        return response
+        return response;
       },
       function (error) {
         console.log(error); // Failure
-        return null
+        return null;
       }
     );
   }

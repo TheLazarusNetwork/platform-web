@@ -5,12 +5,11 @@ const Success = ({ history, auth }) => {
   useEffect(() => {
     auth.checkAuthenticated().then((val) => {
       auth.setAuthenticated(val);
-      console.log(history)
       history.push("/dash")
     });
   }, []);
 
-  return <div> Success </div>;
+  return <div className='center'> Success </div>;
 };
 
 export default Success;

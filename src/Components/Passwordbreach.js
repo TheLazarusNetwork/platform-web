@@ -3,7 +3,7 @@ import SHA1 from "../functions/SHA1";
 
 export default function Passwordbreach(props) {
   var { password } = props;
-  const [pass, setpass] = useState(password);
+  // const [pass, setpass] = useState(password);
   var requestTimeout;
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Passwordbreach(props) {
   var xhttp;
 
   function passwordmodified() {
-    console.log("mp");
+
     var modifiedpassword = passwordInput;
     if (modifiedpassword !== passwordplain) {
       passwordplain = modifiedpassword;
