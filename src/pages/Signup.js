@@ -9,7 +9,7 @@ document.title = "Lazarus Networks-signup";
 
 export default function Signup(props) {
   const { history } = props;
-  console.log(history)
+
   const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
   const [rightpanel, setrightpanel] = useState(false); //right panel true for signup page  ,false for signin page
   const [password, setPassword] = useState(""); //for checking the password strength using password strength meter

@@ -43,7 +43,6 @@ const AVPN = () => {
     );
     const jsonResponse = await request.json();
 
-    console.log(jsonResponse);
     setIpinfo(jsonResponse);
   };
   useEffect(() => getIp, []);

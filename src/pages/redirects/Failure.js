@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 const Failure = ({ auth, history, location }) => {
   console.log("IN FAILURE");
-  console.log(auth, history);
 
   useEffect(() => {
     auth.checkAuthenticated().then((val) => {
@@ -12,7 +11,7 @@ const Failure = ({ auth, history, location }) => {
     });
   }, []);
 
-  return <div> Error {location.search} </div>;
+  return <div className='center'> Error {location.search} </div>;
 };
 
 export default Failure;

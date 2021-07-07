@@ -41,7 +41,7 @@ export default function Profile({ auth }) {
     setuserdata(data);
     setUsername(data.name);
     setUseremail(data.email);
-    console.log(  data,  userdata , username, useremail);
+
   };
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function Profile({ auth }) {
   useEffect(async () => {
     if (update) {
       if (username != userdata.name) {
-        console.log(`"${username}"` );
+      
         const nameupdate = await auth.updatename(username);
         if(nameupdate)
         {
@@ -78,7 +78,7 @@ export default function Profile({ auth }) {
         }
       }
       if (useremail != userdata.email) {
-        console.log(useremail);
+  
         const emailupdate = await auth.updateemail(useremail , password);
       }
     }

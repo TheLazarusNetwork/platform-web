@@ -23,9 +23,9 @@ export default function Dashboard(props) {
       const data = await auth.checkAuthenticated();
       details = data;
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
-    console.log(details);
+    // console.log(details);
   };
 
   const verifyemail = async () => {
@@ -34,9 +34,9 @@ export default function Dashboard(props) {
     try {
       verified = await auth.sendVerificationEmail(verificationURL);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
-    console.log(verified);
+    // console.log(verified);
   };
 
   const createJWT = async () => {
