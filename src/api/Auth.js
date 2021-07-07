@@ -75,7 +75,7 @@ class Auth {
     return promise.then(
       function (response) {
         localStorage.setItem("auth_state", 1);
-        console.log(response);
+        // console.log(response);
         return response;
       },
       function (error) {

@@ -7,15 +7,10 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Topnav from "../Components/Topnav";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { BasicTable, StickyHeadTable } from "../utils/table";
-import Passwordbreach from "../Components/Passwordbreach";
-import SnackbarAlert from "../utils/snackbar";
 
+import OrganisationSettings from "./SettingsComponent/OrganisationSettings";
+import Personalisation from "./SettingsComponent/Personalisation";
+import Security from "./SettingsComponent/Security";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -68,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Settings({auth}) {
+export default function Settings({ auth }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -100,290 +95,14 @@ export default function Settings({auth}) {
           <Personalisation auth={auth} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Security auth ={auth}/>
+          <Security auth={auth} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-         <OrganisationSettings auth ={auth}/>
+          <OrganisationSettings auth={auth} />
         </TabPanel>
       </div>
     </div>
   );
 }
 
-//personalisation page
-const languages = ["English", "Hindi"];
-const themes = ["dark", "light"];
 
-const Personalisation = ({auth}) => {
-  const [language, setLanguage] = useState("English");
-  const [theme, setTheme] = useState("light");
-  const [notification, setNotification] = useState({
-    checkedA: true,
-    checkedB: true,
-  });
-
-  const handlelanguageChange = (event) => {
-    setLanguage(event.target.value);
-  };
-
-  const handlethemechange = (event) => {
-    setTheme(event.target.value);
-  };
-  const handleswitchChange = (event) => {
-    setNotification({
-      ...notification,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  return (
-    <>
-      <div>
-        <div className="details-box shadow ">
-          <div className="inner-details">
-            <div className="row">
-              <div className="box-title">Change Language</div>
-              <TextField
-                id="standard-select-language"
-                select
-                label=" "
-                value={language}
-                onChange={handlelanguageChange}
-                helperText="Please select your currency"
-              >
-                {languages.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-            <div className="row">
-              <div className="box-title">Change Theme</div>
-              <TextField
-                id="standard-select-theme"
-                select
-                label=" "
-                value={theme}
-                onChange={handlethemechange}
-                helperText="Please select your theme"
-              >
-                {themes.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </div>
-        </div>
-        <div className="details-box shadow ">
-          <div className="inner-details">
-            <div className="box-title">Notification Settings</div>
-            <div className="row">
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={notification.checkedA}
-                    onChange={handleswitchChange}
-                    name="checkedA"
-                    color="primary"
-                  />
-                }
-                label="Allow Browser Notifications"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={notification.checkedB}
-                    onChange={handleswitchChange}
-                    name="checkedB"
-                    color="primary"
-                  />
-                }
-                label="Recieve Montly Newsletter"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-//security page
-
-const Security = ({auth}) => {
-  const [alertopen, setAlertopen] = useState(false);
-  const [alertmsg, setAlertmsg] = useState(" ");
-  const [alerttype, setAlertype] = useState("error")
-  const [password, setPassword] = useState(" "); //for checking the password strength using password strength meter
-  const [mfauth, setMfauth] = useState({
-    checkedA: true,
-  });
-
-  const handleswitchChange = (event) => {
-   setMfauth({
-      ...mfauth,
-      [event.target.name]: event.target.checked,
-    });
-  };
-
-  const handlepasswordchange = async(event) => {
-    event.preventDefault();
-    var currentpassword = event.target.elements["currentpassword"].value;
-    var newpassword = event.target.elements["newpassword"].value;
-    var repassword = event.target.elements["repeatpassword"].value;
-
-    if (newpassword.toString().length < 7) {
-      // show alert if password length is less than 7 or both password do not match
-      setAlertype("error")
-      setAlertmsg("password should be at least 6 letters");
-      setAlertopen(true);
-    } else if (newpassword !== repassword) {
-      {
-        setAlertype('error')
-        setAlertmsg("passwords do not match");
-        setAlertopen(true);
-      }
-    } else {
-     const passwordchanged = await auth.updatePassword(newpassword,currentpassword);
-     if(passwordchanged)
-     {
-       setAlertype('success');
-       setAlertmsg("password Changed successfully")
-       setAlertopen(true);
-     }
-     else{
-      setAlertype('error');
-      setAlertmsg("password Changed unsuccessful")
-      setAlertopen(true);
-     }
-    }
-  };
-
-  return (
-    <>
-      <SnackbarAlert
-        message={alertmsg}
-        alertopen={alertopen}
-        setAlertopen={setAlertopen}
-        type={alerttype} // type = error, success, info ,warning
-      />
-      <div>
-        <div className="details-box shadow ">
-          <div className="inner-details">
-            <div className="box-title">Change Password</div>
-            <form onSubmit={handlepasswordchange}>
-              <div className="row">
-                <div className="row-div">
-                  <p className="info-txt">
-                    <AiOutlineExclamationCircle /> New password must be
-                    different from old password
-                  </p>
-
-                  <p className="info-txt">
-                    <AiOutlineExclamationCircle /> Password must be atleast 6
-                    characters
-                  </p>
-                </div>
-
-                <div className="row-div">
-                  <input
-                    type="password"
-                    placeholder="current password"
-                    id="currentpassword"
-                  ></input>
-                  <input
-                    id="newpassword"
-                    type="password"
-                    placeholder="new password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  ></input>
-                  <input
-                    id="repeatpassword"
-                    type="password"
-                    placeholder="confirm new password"
-                  ></input>
-                  <Passwordbreach password={password} />
-                </div>
-              </div>
-              <button type="submit" className="save-btn">
-                save changes
-              </button>
-            </form>
-          </div>
-        </div>
-        <div className="details-box shadow ">
-          <div className="inner-details">
-            <div className="box-title">Multi Factor authentication</div>
-            <div className="row">
-              <div className="row-div">
-                <p className="info-txt">
-                  Settings up multifactor mfaauthentication makes your account more
-                  secure
-                </p>
-              </div>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={mfauth.checkedA}
-                    onChange={handleswitchChange}
-                    name="checkedA"
-                    color="primary"
-                  />
-                }
-                label="Setup Multifactor auth"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="details-box shadow ">
-          <div className="inner-details">
-            <form>
-              <div className="box-title">Contact Information</div>
-              <div className="row">
-                <div className="row-div">
-                  <p className="info-txt">
-                    <AiOutlineExclamationCircle /> this email /contact will be
-                    used for 2 factor mfaauthentication
-                  </p>
-                </div>
-                <div className="row-div">
-                  <input
-                    id="contact"
-                    type="tel"
-                    placeholder="contact number"
-                  ></input>
-                  <input id="email" type="email" placeholder="email"></input>
-                </div>
-              </div>
-              <button onClick={handlepasswordchange} className="save-btn">
-                save changes
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div className="table mid-details-box shadow">
-            <div className="title"> Current Active Sessions</div>
-            <BasicTable/>
-            </div>
-      </div>
-    </>
-  );
-};
-
-
-//Organisational settings
- const OrganisationSettings =()=>{
-
-  return(
-    <>
-    <h3>organisation settings page</h3>
-    </>
-  );
- }
