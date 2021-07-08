@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-
+import { useSelector, useDispatch } from "react-redux";
+import {
+  CHANGE_THEME,
+  SET_DARK_THEME,
+  SET_LIGHT_THEME,
+} from "../../redux/strings";
 
 const languages = ["English", "Hindi"];
 const themes = ["dark", "light"];
 
 export default function Personalisation({ auth }) {
+  const themestate = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const [language, setLanguage] = useState("English");
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(themestate.theme);
   const [notification, setNotification] = useState({
     checkedA: true,
     checkedB: true,
@@ -23,6 +31,19 @@ export default function Personalisation({ auth }) {
   const handlethemechange = (event) => {
     setTheme(event.target.value);
   };
+
+  useEffect(() => {
+    if (theme == "light")
+      dispatch({
+        type: SET_LIGHT_THEME,
+      });
+
+    if (theme == "dark")
+      dispatch({
+        type: SET_DARK_THEME,
+      });
+  }, [theme]);
+
   const handleswitchChange = (event) => {
     setNotification({
       ...notification,
@@ -103,4 +124,4 @@ export default function Personalisation({ auth }) {
       </div>
     </>
   );
-};
+}

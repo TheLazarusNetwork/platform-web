@@ -7,11 +7,11 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
-import {FaFileDownload} from 'react-icons/fa'
-
+import { FaFileDownload } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function AnonymousVPN() {
-  const [active, setactive] = useState(false);
+  const [active, setactive] = useState(true);
   return (
     <>
       {/* <SnackbarAlert
@@ -42,7 +42,7 @@ const AVPN = () => {
       `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
     );
     const jsonResponse = await request.json();
-
+    // console.log(jsonResponse)
     setIpinfo(jsonResponse);
   };
   useEffect(() => getIp, []);
@@ -58,6 +58,7 @@ const AVPN = () => {
             percentage={percentage}
           />
         </div>
+
         <div className="mid-details-box shadow">
           <div className="box-title"> Current Active Client </div>
 
@@ -89,6 +90,11 @@ const AVPN = () => {
           </div>
         </div>
       </div>
+      {/* <div className="center">
+        <Link to="">
+          <button>Upgrade plan</button>
+        </Link>
+      </div> */}
       {showc && <ShowClient show={showc} onClose={() => setShowc(false)} />}
       {create && (
         <CreateClient show={create} onClose={() => setCreate(false)} />
@@ -128,10 +134,10 @@ function ShowClient({ show, onClose }) {
           <div className="main-title">All Clients</div>
           <div className="divider"></div>
 
-{/*AVPN client information  */}
+          {/*AVPN client information  */}
           <div className="org-box">
             {/* config file download btn */}
-          <FaFileDownload/>
+            <FaFileDownload />
             <div className="name">client email</div>
             <div className="role">device</div>
             <div>
@@ -142,10 +148,9 @@ function ShowClient({ show, onClose }) {
                 ) : (
                   <BsToggleOff onClick={() => setEnabled(true)} />
                 )}
-                
               </icon>
               {/* delete this client  */}
-              <icon className='btn'>
+              <icon className="btn">
                 <AiFillDelete />
               </icon>
             </div>
@@ -169,12 +174,13 @@ function CreateClient({ show, onClose }) {
           <div className="divider"></div>
 
           <form>
-            <input placeholder='name'></input>
-            <input type='email' placeholder='email'></input>
-            <input placeholder='device'></input>
-            <button className='save-btn' type='submit'>create client</button>
+            <input placeholder="name"></input>
+            <input type="email" placeholder="email"></input>
+            <input placeholder="device"></input>
+            <button className="save-btn" type="submit">
+              create client
+            </button>
           </form>
-
         </div>
       </Modal>
     </div>

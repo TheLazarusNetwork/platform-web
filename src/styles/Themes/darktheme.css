@@ -1,0 +1,39 @@
+.dark-theme .sidebar {
+  background-color: #4d4f5c;
+}
+
+.dark-theme .sidebar-content {
+  background-color: #4d4f5c;
+  color: #d6d7de;
+}
+
+.dark-theme .sidebar-menu {
+  background-color: #4d4f5c;
+  color: #d6d7de;
+}
+
+.dark-theme .activeClicked > li {
+  background-color: #d6d7de !important;
+  color: #4d4f5c !important;
+}
+
+.dark-theme .menuitem {
+  color: #d6d7de;
+}
+
+.dark-theme .logout-btn button {
+  background-color: #4d4f5c;
+}
+
+.dark-theme .top-nav {
+  background-color: #4d4f5c;
+}
+
+.dark-theme .top-nav .title, .dark-theme .top-nav .icons, .dark-theme .top-nav .btn {
+  color: #d6d7de;
+}
+
+.dark-theme .main {
+  background-color: #121212;
+}
+/*# sourceMappingURL=darktheme.css.map */

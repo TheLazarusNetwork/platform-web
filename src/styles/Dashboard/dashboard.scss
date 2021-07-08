@@ -4,7 +4,7 @@ $darkblue: rgb(28, 12, 172);
 $lightgrey: #d6d7de;
 $white: #fff;
 $textgrey: rgb(179, 181, 182);
-
+$darkthemegrey: #121212;
 $mid: 650px;
 $small: 450px;
 
@@ -23,65 +23,8 @@ $small: 450px;
 
 //light theme
 
-.light-theme {
-  //sidebar
 
-  .sidebar {
-    background-color: $lightblue !important;
-    color: $darkgrey !important;
-  }
-  .sidebar-content {
-    background-color: $lightblue;
-    color: $darkgrey;
-  }
-  .sidebar-menu {
-    background-color: #f1f4fe;
-    color: #4d4f5c;
-  }
-  .activeClicked > li {
-    background-color: $darkblue !important;
-    color: #fff !important;
-  }
-  .menuitem {
-    color: #000;
-  }
 
-  .logout-btn {
-    button {
-      background-color: $lightgrey;
-    }
-  }
-  //top navbar
-}
-
-.dark-theme {
-  .sidebar {
-    background-color: $darkgrey;
-  }
-  .sidebar-content {
-    background-color: $darkgrey;
-    color: $lightgrey;
-  }
-  .sidebar-menu {
-    background-color: $darkgrey;
-    color: $lightgrey;
-  }
-  .activeClicked > li {
-    background-color: $lightgrey !important;
-    color: $darkgrey !important;
-  }
-  .menuitem {
-    color: $lightgrey;
-  }
-
-  .logout-btn {
-    button {
-      background-color: $darkgrey;
-    }
-  }
-
-  //top-navbar
-}
 
 .label {
   font-size: 10px;
@@ -133,7 +76,7 @@ Navlink:hover {
   height: 100vh;
   overflow: scroll;
   overflow-x: hidden;
-  background-color: $white;
+  // background-color: $white;
 }
 
 // top nav bar
@@ -141,7 +84,7 @@ Navlink:hover {
 .top-nav {
   width: 100%;
   height: fit-content;
-  background-color: $lightblue;
+  // background-color: $lightblue;
   display: flex;
   justify-items: center;
   justify-content: space-between;

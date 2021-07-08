@@ -1,0 +1,36 @@
+.light-theme .sidebar {
+  background-color: #f1f4fe !important;
+  color: #4d4f5c !important;
+}
+
+.light-theme .sidebar-content {
+  background-color: #f1f4fe;
+  color: #4d4f5c;
+}
+
+.light-theme .sidebar-menu {
+  background-color: #f1f4fe;
+  color: #4d4f5c;
+}
+
+.light-theme .activeClicked > li {
+  background-color: #1c0cac !important;
+  color: #fff !important;
+}
+
+.light-theme .menuitem {
+  color: #000;
+}
+
+.light-theme .logout-btn button {
+  background-color: #d6d7de;
+}
+
+.light-theme .top-nav {
+  background-color: #f1f4fe;
+}
+
+.light-theme .main {
+  background-color: #fff;
+}
+/*# sourceMappingURL=lighttheme.css.map */

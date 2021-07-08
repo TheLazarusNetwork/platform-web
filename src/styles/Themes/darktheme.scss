@@ -1,0 +1,49 @@
+$lightblue: #f1f4fe;
+$darkgrey: #4d4f5c;
+$darkblue: rgb(28, 12, 172);
+$lightgrey: #d6d7de;
+$white: #fff;
+$textgrey: rgb(179, 181, 182);
+$darkthemegrey: #121212;
+
+.dark-theme {
+
+    .sidebar {
+      background-color: $darkgrey;
+    }
+    .sidebar-content {
+      background-color: $darkgrey;
+      color: $lightgrey;
+    }
+    .sidebar-menu {
+      background-color: $darkgrey;
+      color: $lightgrey;
+    }
+    .activeClicked > li {
+      background-color: $lightgrey !important;
+      color: $darkgrey !important;
+    }
+    .menuitem {
+      color: $lightgrey;
+    }
+  
+    .logout-btn {
+      button {
+        background-color: $darkgrey;
+      }
+    }
+  
+    //top-navbar
+    .top-nav{
+      background-color: $darkgrey;
+  
+      .title,.icons ,.btn{
+        color: $lightgrey;
+      }
+    }
+  
+    //main page
+    .main{
+      background-color: $darkthemegrey;
+    }
+  }
