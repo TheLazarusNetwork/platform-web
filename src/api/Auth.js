@@ -1,88 +1,68 @@
-/* eslint-disable require-jsdoc */
-
 import { config } from "./config";
-import { Alert } from "@material-ui/lab";
+import { createClient } from "@supabase/supabase-js";
 
-import { Appwrite } from "appwrite";
-const appwrite = new Appwrite();
-const location = process.env.REACT_APP_HOST_URL;
-
-appwrite.setEndpoint(config.endpoint).setProject(config.projectId);
+const supabsekey = config.supabaseKey;
+const supabaseUrl = config.supabaseURL
+const supabase = createClient(
+  supabaseUrl,
+  supabsekey
+);
 
 class Auth {
   constructor() {
-    this.sdk = appwrite;
+    this.sdk = supabase;
     this.authenticated = this.checkAuthenticated();
   }
 
-  async signup(email, password, name) {
-    let promise = this.sdk.account.create(email, password, name);
-    return promise.then(
-      function (response) {
-        return response;
-      },
-      function (error) {
-        console.log(error); // Failure
-        return null;
+  async signup(useremail, userpassword) {
+    const { user, session, error } = await this.sdk.auth.signUp(
+      {
+        email: useremail,
+        password: userpassword,
       }
     );
+    return { user, session, error };
   }
 
-  login(email, password) {
-    let promise = this.sdk.account.createSession(email, password);
-    return promise.then(
-      function (response) {
-        return response;
-      },
-      function (error) {
-        return null;
-      }
-    );
+  async login(email, password) {
+    const { user, session, error } = await this.sdk.auth.signIn({
+      email,
+      password,
+    });
+    console.log(user, session, error);
+    return { user, session, error };
   }
 
-  google() {
+  async google() {
     //google OAuth
-   
-    let promise = this.sdk.account.createOAuth2Session(
-      "google",
-      "https://app.lazarus.network/#/success/",
-     "https://app.lazarus.network/#/failure/"
+    const { user, session, error } = await this.sdk.auth.signIn(
+      {
+        provider: "google",
+      },
     );
+    console.log(user, session, error);
+    return { user, session, error };
   }
 
   logout() {
     // logout from current session and redirect to signup page
-    let promise = this.sdk.account.deleteSession("current");
 
-    return promise.then(
-      function (response) {
-        localStorage.removeItem("auth_state");
-        // window.location = location + "/signup"; //redirect to signup page after user logs out
-        return response;
-        console.log(response); // Success
-      },
-      function (error) {
-        // console.log("AUTH", error);
-        console.log(error); // Failure
-        return null
-      }
-    );
+    const { error } = this.sdk.auth.signOut();
+    if (!error) localStorage.removeItem("auth_state");
+    return { error };
   }
 
-  checkAuthenticated() {
+  async checkAuthenticated() {
     // check if a session is currently active in current browser
-    const promise = this.sdk.account.getSessions();
-    return promise.then(
-      function (response) {
-        localStorage.setItem("auth_state", 1);
-        // console.log(response);
-        return response;
-      },
-      function (error) {
-        localStorage.removeItem("auth_state");
-        return null;
-      }
-    );
+    const session = await this.sdk.auth.session();
+    console.log(session);
+    if (session) {
+      console.log("set auth state");
+      localStorage.setItem("auth_state", 1);
+    } else {
+      localStorage.removeItem("auth_state");
+    }
+    return session;
   }
 
   setAuthenticated(val) {
@@ -92,141 +72,115 @@ class Auth {
     return this.checkAuthenticated();
   }
 
-  checkLogin() {
-    this.sdk.account.get().then(
-      function (response) {
-        console.log(response);
-        window.location = location + "/dash/";
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
-  }
-
   getAccount() {
-    let promise = this.sdk.account.get();
-
-    return promise.then(
-      function (response) {
-        return response;
-      },
-      function (error) {
-        return null;
-      }
-    );
+    const user = this.sdk.auth.user();
+    return user;
   }
 
-  sendVerificationEmail(url) {
-    let promise = this.sdk.account.createVerification(url);
-    return promise.then(
-      function (response) {
-        return response;
-      },
-      function (error) {
-        return null;
-      }
-    );
+  isSessionActive() {
+    const session = this.sdk.auth.session();
+    if(session)
+    return true;
+    else
+    return false;
+  }
+  onAuthStateChange() {
+    return this.sdk.auth.onAuthStateChange((event, session) => {
+      console.log(event, session);
+      if (session) localStorage.setItem("auth_state", 1);
+    });
   }
 
-  updateVerification(userId, secret) {
-    let promise = this.sdk.account.updateVerification(userId, secret);
+  // sendVerificationEmail(url) {
+  //   let promise = this.sdk.account.createVerification(url);
+  //   return promise.then(
+  //     function (response) {
+  //       return response;
+  //     },
+  //     function (error) {
+  //       return null;
+  //     }
+  //   );
+  // }
 
-    promise.then(
-      function (response) {
-        console.log(response); // Success
-        window.location = location + "/success";
-      },
-      function (error) {
-        console.log(error); // Failure
-        window.location = location + "/failure";
-      }
-    );
-  }
+  // updateVerification(userId, secret) {
+  //   let promise = this.sdk.account.updateVerification(userId, secret);
+
+  //   promise.then(
+  //     function (response) {
+  //       console.log(response); // Success
+  //       window.location = location + "/success";
+  //     },
+  //     function (error) {
+  //       console.log(error); // Failure
+  //       window.location = location + "/failure";
+  //     }
+  //   );
+  // }
 
   createRecovery(email, url) {
     // create Recovery for forgot password
-    let promise = this.sdk.account.createRecovery(email, url);
-    promise.then(
-      function (response) {
-        console.log(response);
-      },
-      function (error) {
-        console.log(error);
-        <Alert severity="error">This is an error alert — check it out!</Alert>;
-      }
-    );
+    const { data, error } = this.sdk.auth.api.resetPasswordForEmail(email);
   }
 
-  updateRecovery(userId, secret, password) {
+  updateRecovery(access_token, password) {
     // updating new password
-    let promise = this.sdk.account.updateRecovery(
-      userId,
-      secret,
-      password,
+    const { data, error } = this.sdk.auth.api.updateUser(
+      access_token,
       password
     );
-    promise.then(
-      function (response) {
-        console.log(response); // Success
-        window.location = location + "/success";
-      },
-      function (error) {
-        console.log(error); // Failure
-        window.location = location + "/failure";
-      }
-    );
+    console.log(data,error)
+    return { data, error };
   }
 
-  updatePassword(newpassword, currentpassword) {
-    let promise = this.sdk.account.updatePassword(newpassword, currentpassword);
+  // updatePassword(newpassword, currentpassword) {
+  //   let promise = this.sdk.account.updatePassword(newpassword, currentpassword);
+  //   return promise.then(
+  //     function (response) {
+  //       return response;
+  //     },
+  //     function (error) {
+  //       return null;
+  //     }
+  //   );
+  // }
+  // updatename(name) {
+  //   let promise = this.sdk.account.updateName(name);
 
-    return promise.then(
-      function (response) {
-        return response;
-      },
-      function (error) {
-        return null;
-      }
-    );
-  }
-  updatename(name) {
-    let promise = this.sdk.account.updateName(name);
+  //   return promise.then(
+  //     function (response) {
+  //       console.log(response); // Success
+  //       return response
+  //     },
+  //     function (error) {
+  //       console.log(error); // Failure
+  //       return null
+  //     }
+  //   );
+  // }
+  // updateemail(email, password) {
+  //   let promise = this.sdk.account.updateEmail(email, password);
 
-    return promise.then(
-      function (response) {
-        console.log(response); // Success
-        return response
-      },
-      function (error) {
-        console.log(error); // Failure
-        return null
-      }
-    );
-  }
-  updateemail(email, password) {
-    let promise = this.sdk.account.updateEmail(email, password);
-
-    promise.then(
-      function (response) {
-        console.log(response); // Success
-      },
-      function (error) {
-        console.log(error); // Failure
-      }
-    );
-  }
-  createJWT() {
-    let promise = this.sdk.account.createJWT();
-    return promise.then(
-      function (response) {
-        return response;
-      },
-      function (e) {
-        return e;
-      }
-    );
-  }
+  //   promise.then(
+  //     function (response) {
+  //       console.log(response); // Success
+  //     },
+  //     function (error) {
+  //       console.log(error); // Failure
+  //     }
+  //   );
+  // }
+  // createJWT() {
+  //   let promise = this.sdk.account.createJWT();
+  //   return promise.then(
+  //     function (response) {
+  //       return response;
+  //     },
+  //     function (e) {
+  //       return e;
+  //     }
+  //   );
+  // }
 }
 
 export default Auth;

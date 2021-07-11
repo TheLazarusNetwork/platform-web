@@ -39,8 +39,9 @@ export default function Profile({ auth }) {
     const data = await auth.getAccount();
 
     setuserdata(data);
-    setUsername(data.name);
+    setUsername(data.user_metadata.full_name);
     setUseremail(data.email);
+    setavatar(data.user_metadata.avatar_url)
 
   };
 
@@ -102,7 +103,7 @@ export default function Profile({ auth }) {
         />
         <div className="profile-pic">
           <div className="pic-avatar">
-            <Avatar className={classes.large}>{avatar}</Avatar>
+            <Avatar className={classes.large} src={avatar}></Avatar>
             <div className=" pic-description">
               <h6> Your Avatar</h6>
               <p> Png or Jpg max size 5mb </p>

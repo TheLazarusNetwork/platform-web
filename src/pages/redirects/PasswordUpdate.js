@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import PasswordStrengthMeter from "../../Components/PasswordStrengthMeter";
+import Auth from "../../api/Auth";
 
-export default function PasswordUpdate(props) {
+
+export default function PasswordUpdate() {
   const [password, setPassword] = useState("");
-  const [auth, setAuth] = useState(props.auth);
+  const auth = new Auth();
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get("userId");
-  const secret = urlParams.get("secret");
+const session = auth.getSession();
+console.log(session)
+  const access_token = session.access_token
 
   const updatenewPassword = (event) => {
     event.preventDefault();
@@ -15,7 +17,8 @@ export default function PasswordUpdate(props) {
     var cpassword = event.target.elements["cpassword"].value;
 
     if (newpassword == cpassword) {
-      auth.updateRecovery(userId, secret, newpassword);               // updating new password after recovery using forgot password
+    auth.updateRecovery(access_token, newpassword);               // updating new password after recovery using forgot password
+  
     }
   };
 

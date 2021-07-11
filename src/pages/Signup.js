@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import "./../styles/forms/signup.css";
 import {  FaGoogle, FaGithub } from "react-icons/fa";
 import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
 import SnackbarAlert from "./../utils/snackbar";
 import Passwordbreach from "../Components/Passwordbreach";
+import { Link } from "react-router-dom";
 
 document.title = "Lazarus Networks-signup";
 
@@ -16,6 +17,15 @@ export default function Signup(props) {
   const [alertopen, setAlertopen] = useState(false);
   const [alertmsg, setAlertmsg] = useState(" ");
 
+  const [session, setSession] = useState(null)
+
+  useEffect(() => {
+    setSession(auth.checkAuthenticated())
+    auth.onAuthStateChange()
+  
+  }, [])
+
+
   const handleSignup = async (event) => {
     //takes all details from sign up form and create new account
     event.preventDefault();
@@ -26,7 +36,7 @@ export default function Signup(props) {
 
     if (password.toString().length < 7) {
       // show alert if password length is less than 7 or both password do not match
-      setAlertmsg("password should be at least 6 letters");
+      setAlertmsg("password should be at least 7 letters");
       setAlertopen(true);
     } else if (password !== repassword) {
       {
@@ -34,17 +44,24 @@ export default function Signup(props) {
         setAlertopen(true);
       }
     } else {
-      const signupdata = await auth.signup(email, password, name); //calling auth.signup method to create new account
-
-      if (signupdata) {
-        //if user signup successful then login user automatically using login funtion
-        const logindata = await auth.login(email, password);
-
-        if (logindata) history.push("/success");
-        //signin success rediect to /success
-        setAlertmsg(" login failed");
+      const {user,session,error} =  await auth.signup(email, password); //calling auth.signup method to create new account
+      console.log(user,session,error)
+      if(error)
+      {
+        console.log("error ")
+        setAlertmsg(error.message);
         setAlertopen(true); // signin after signup failed
-      } else history.push("/failure"); //signup fail
+        // history.push("/failure")
+      }
+      else if (user) {
+        console.log(user)
+        setAlertmsg("Login using confirmation link sent to you email account");
+        setAlertopen(true);
+        //if user signup successful then login user automatically using login funtion
+        // history.push("/success");
+        //signin success rediect to /success
+      } 
+      else history.push("/failure"); //signup fail
     }
   };
 
@@ -54,26 +71,48 @@ export default function Signup(props) {
     var email = event.target.elements["inemail"].value;
     var password = event.target.elements["inpassword"].value;
 
-    const logindata = await auth.login(email, password); // calling the auth.signin function
+    const {user,session,error} = await auth.login(email, password); // calling the auth.signin function
 
-    if (logindata) history.push("/success");
-    // if login successful , redirect to success page
-    else {
+    console.log(user,session,error)
+    if(error)
+    {
       setAlertmsg(" login failed");
       setAlertopen(true); // else show alert that login failed
       // history.push("/failure");
     }
+    if(user)
+    {
+      await auth.checkAuthenticated() 
+      console.log(user)
+     history.push("/success");
+    // if login successful , redirect to success page
+    }
 
-    const checklogin = await  auth.getAccount();
-    if (checklogin) history.push("/success");
+
+    // const checklogin = await  auth.getAccount();
+    // if (checklogin) history.push("/success");
   };
 
-  const handleGoogle = () => {
+  const handleGoogle =async () => {
     //google oauth
-    auth.google();
+   const {user,session,error} = await auth.google();
+   if(error)
+   {
+     setAlertmsg(" login failed");
+     setAlertopen(true); // else show alert that login failed
+     // history.push("/failure");
+   }
+   if(user)
+   {
+     await auth.checkAuthenticated() 
+     console.log(user)
+    history.push("/success");
+   // if login successful , redirect to success page
+   }
+  
   };
 
-  // function to check for password breaches in any previous database breaches
+
 
   return (
     <>
@@ -147,7 +186,7 @@ export default function Signup(props) {
             <span>or use your account</span>
             <input type="email" placeholder="Email" id="inemail" />
             <input type="password" placeholder="Password" id="inpassword" />
-            <a href="/resetpassword">Forgot your password?</a>
+            <Link to="/resetpassword"><a>Sign in using Magic Link</a></Link>
             <button type="submit">Sign In</button>
           </form>
         </div>

@@ -15,8 +15,9 @@ const Sidebar = ({ auth }) => {
   const history = useHistory();
 
   const signOutUser = async () => {
-    const logoutsuccess = await auth.logout();
-    if (logoutsuccess) history.push("/signup");
+    const {error} = await auth.logout();
+    if (error) console.log(error)
+     history.push("/signup");
     
   };
 

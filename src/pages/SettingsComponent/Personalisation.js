@@ -4,6 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   CHANGE_THEME,
   SET_DARK_THEME,

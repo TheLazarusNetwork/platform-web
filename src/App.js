@@ -13,6 +13,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Auth from "./api/Auth";
 import Success from "./pages/redirects/Success";
 import Failure from "./pages/redirects/Failure";
+import RedirectedUrlPage from "./pages/redirects/RedirectedUrlPage";
 import VerificationPage from "./pages/redirects/VerificationPage";
 import Notfound from "./pages/redirects/404";
 import Sidebar from "./Components/Sidebar";
@@ -27,14 +28,17 @@ import PasswordReset from "./Components/PasswordReset";
 import PasswordUpdate from "./pages/redirects/PasswordUpdate";
 import Organisations from "./pages/Organisations";
 import { useSelector } from "react-redux";
-import "./styles/Themes/lighttheme.css"
-import "./styles/Themes/darktheme.css"
+import "./styles/Themes/lighttheme.css";
+import "./styles/Themes/darktheme.css";
 
 const auth = new Auth();
 
+function SessionActive() {
+  return auth.isSessionActive();
+}
+
 const App = () => {
   const themestate = useSelector((state) => state);
-
   const [darktheme, setDarktheme] = useState(themestate.theme);
 
   useEffect(() => {
@@ -103,22 +107,13 @@ const App = () => {
               auth={auth}
               component={Organisations}
             />
-            <Route
-              exact
-              path="/"
-              render={(props) => {
-                return localStorage.getItem("auth_state") ? (
-                  <Redirect to="/dash/" />
-                ) : (
-                  <Redirect to="/signup" />
-                );
-              }}
-            />
+      
+      
             <Route
               exact
               path="/signup"
               render={(props) => {
-                return localStorage.getItem("auth_state") ? (
+                return SessionActive() ? (
                   <Redirect to="/dash/" />
                 ) : (
                   <Signup {...props} auth={auth} />
@@ -149,6 +144,10 @@ const App = () => {
               exact
               path="/updatepassword"
               render={(props) => <PasswordUpdate auth={auth} />}
+            />
+            <Route
+              path="/"
+              render={(props) => <RedirectedUrlPage auth={auth} />}
             />
             <Route render={(props) => <Notfound />} />
           </Switch>
