@@ -34,6 +34,11 @@
 }
 
 .dark-theme .main {
-  background-color: #121212;
+  background-color: #2a2a2a;
+}
+
+.dark-theme .details-box, .dark-theme .mid-details-box, .dark-theme mini-details-box {
+  background-color: #4d4f5c;
+  color: #d6d7de;
 }
 /*# sourceMappingURL=darktheme.css.map */

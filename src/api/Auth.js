@@ -29,7 +29,6 @@ class Auth {
       email,
       password,
     });
-    console.log(user, session, error);
     return { user, session, error };
   }
 
@@ -40,7 +39,6 @@ class Auth {
         provider: "google",
       },
     );
-    console.log(user, session, error);
     return { user, session, error };
   }
 
@@ -50,7 +48,7 @@ class Auth {
         provider: "github",
       },
     );
-    console.log(user, session, error);
+
     return { user, session, error };
   }
 
@@ -115,12 +113,10 @@ class Auth {
   async updatePassword( password) {
     // updating new password
     const access_token = this.sdk.auth.session().access_token
-    console.log(access_token)
     const { error,data } = await this.sdk.auth.api.updateUser(
       access_token,
    {   password}
     );
-    console.log(data,error)
     return { data, error };
   }
 

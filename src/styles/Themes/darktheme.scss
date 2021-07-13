@@ -1,10 +1,10 @@
 $lightblue: #f1f4fe;
 $darkgrey: #4d4f5c;
-$darkblue: rgb(28, 12, 172);
+$darkblue: rgb(23, 105, 170);
 $lightgrey: #d6d7de;
 $white: #fff;
 $textgrey: rgb(179, 181, 182);
-$darkthemegrey: #121212;
+$darkthemegrey: #2a2a2a;
 
 .dark-theme {
 
@@ -45,5 +45,9 @@ $darkthemegrey: #121212;
     //main page
     .main{
       background-color: $darkthemegrey;
+    }
+    .details-box, .mid-details-box, mini-details-box{
+      background-color: $darkgrey;
+      color: $lightgrey;
     }
   }

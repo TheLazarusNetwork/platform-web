@@ -30,8 +30,51 @@ import Organisations from "./pages/Organisations";
 import { useSelector } from "react-redux";
 import "./styles/Themes/lighttheme.css";
 import "./styles/Themes/darktheme.css";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+
 
 const auth = new Auth();
+
+const Muidarktheme = createMuiTheme({
+  palette: {
+    common:{
+      type:"dark",
+    },
+     primary: {
+        light: '#fff',
+        main: 'rgb(23, 105, 170)',
+        dark: 'rgb(23, 105, 170)',
+        contrastText: '#fff',
+     },
+     secondary: {
+       main: '#f1f4fe',
+       contrastText: "#fff",
+     },
+     background:{
+       paper:"#4d4f5c",
+       default: "#303030",
+     }
+  },
+  typography: { 
+     useNextVariants: true
+  }
+});
+const Muilighttheme = createMuiTheme({
+  palette: {
+     primary: {
+        light: '#fff',
+        main: 'rgb(28, 12, 172)',
+        dark: '#000'
+     },
+     secondary: {
+       main: '#f1f4fe',
+     },
+     
+  },
+  typography: { 
+     useNextVariants: true
+  }
+});
 
 function SessionActive() {
   return auth.isSessionActive();
@@ -48,6 +91,7 @@ const App = () => {
 
   return (
     <Router>
+      <MuiThemeProvider theme={darktheme? Muidarktheme:Muilighttheme}>
       <div className={darktheme ? "dark-theme" : "light-theme"}>
         <div className="body">
           <PrivateRoute path="/dash/" auth={auth} component={Sidebar} />
@@ -153,6 +197,7 @@ const App = () => {
           </Switch>
         </div>
       </div>
+      </MuiThemeProvider>
     </Router>
   );
 };

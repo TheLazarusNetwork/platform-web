@@ -16,7 +16,7 @@ export default function Signup(props) {
   const [password, setPassword] = useState(""); //for checking the password strength using password strength meter
   const [alertopen, setAlertopen] = useState(false);
   const [alertmsg, setAlertmsg] = useState(" ");
-
+  const [alerttype, setAlerttype] = useState('error')
   const [session, setSession] = useState(null)
 
   useEffect(() => {
@@ -40,26 +40,24 @@ export default function Signup(props) {
       setAlertopen(true);
     } else if (password !== repassword) {
       {
+        setAlerttype('error')
         setAlertmsg("passwords do not match");
         setAlertopen(true);
       }
     } else {
       const {user,session,error} =  await auth.signup(email, password); //calling auth.signup method to create new account
-      console.log(user,session,error)
       if(error)
       {
-        console.log("error ")
+        setAlerttype('error')
         setAlertmsg(error.message);
         setAlertopen(true); // signin after signup failed
         // history.push("/failure")
       }
       else if (user) {
-        console.log(user)
+        setAlerttype("success")
         setAlertmsg("Login using confirmation link sent to you email account");
         setAlertopen(true);
-        //if user signup successful then login user automatically using login funtion
-        // history.push("/success");
-        //signin success rediect to /success
+      
       } 
       else history.push("/failure"); //signup fail
     }
@@ -73,17 +71,16 @@ export default function Signup(props) {
 
     const {user,session,error} = await auth.login(email, password); // calling the auth.signin function
 
-    console.log(user,session,error)
     if(error)
     {
-      setAlertmsg(" login failed");
+      setAlertmsg(error.message);
+      setAlerttype("error")
       setAlertopen(true); // else show alert that login failed
       // history.push("/failure");
     }
     if(user)
     {
       await auth.checkAuthenticated() 
-      console.log(user)
      history.push("/success");
     // if login successful , redirect to success page
     }
@@ -98,14 +95,14 @@ export default function Signup(props) {
    const {user,session,error} = await auth.google();
    if(error)
    {
-     setAlertmsg(" login failed");
+     setAlertmsg(error.message);
+     setAlerttype("error")
      setAlertopen(true); // else show alert that login failed
-     // history.push("/failure");
    }
    if(user)
    {
      await auth.checkAuthenticated() 
-     console.log(user)
+
     history.push("/success");
    // if login successful , redirect to success page
    }
@@ -117,14 +114,14 @@ export default function Signup(props) {
    const {user,session,error} = await auth.github();
    if(error)
    {
-     setAlertmsg(" login failed");
+     setAlertmsg(error.message);
+     setAlerttype("error")
      setAlertopen(true); // else show alert that login failed
      // history.push("/failure");
    }
    if(user)
    {
      await auth.checkAuthenticated() 
-     console.log(user)
     history.push("/success");
    // if login successful , redirect to success page
    }
@@ -137,7 +134,7 @@ export default function Signup(props) {
         message={alertmsg}
         alertopen={alertopen}
         setAlertopen={setAlertopen}
-        type="error" // type = error, success, info ,warning
+        type={alerttype} // type = error, success, info ,warning
       />
       <div
         className={`container ${rightpanel ? "right-panel-active" : ""} `} // right panel active shows signup form
