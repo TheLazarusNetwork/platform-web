@@ -112,7 +112,24 @@ export default function Signup(props) {
   
   };
 
-
+  const handleGithub =async () => {
+    //google oauth
+   const {user,session,error} = await auth.github();
+   if(error)
+   {
+     setAlertmsg(" login failed");
+     setAlertopen(true); // else show alert that login failed
+     // history.push("/failure");
+   }
+   if(user)
+   {
+     await auth.checkAuthenticated() 
+     console.log(user)
+    history.push("/success");
+   // if login successful , redirect to success page
+   }
+  
+  };
 
   return (
     <>
@@ -137,7 +154,7 @@ export default function Signup(props) {
                   <FaGoogle />
                 </i>
               </a>
-              <a href="#" className="social">
+              <a href="#" className="social" onClick={handleGithub}>
                 <i>
                   <FaGithub />
                 </i>
@@ -177,7 +194,7 @@ export default function Signup(props) {
                   <FaGoogle />
                 </i>
               </a>
-              <a href="#" className="social">
+              <a href="#" className="social" onClick={handleGithub}>
                 <i>
                   <FaGithub />
                 </i>

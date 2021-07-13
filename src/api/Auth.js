@@ -44,6 +44,16 @@ class Auth {
     return { user, session, error };
   }
 
+  async github() {
+    const { user, session, error } = await this.sdk.auth.signIn(
+      {
+        provider: "github",
+      },
+    );
+    console.log(user, session, error);
+    return { user, session, error };
+  }
+
   logout() {
     // logout from current session and redirect to signup page
 
@@ -55,9 +65,8 @@ class Auth {
   async checkAuthenticated() {
     // check if a session is currently active in current browser
     const session = await this.sdk.auth.session();
-    console.log(session);
+
     if (session) {
-      console.log("set auth state");
       localStorage.setItem("auth_state", 1);
     } else {
       localStorage.removeItem("auth_state");
@@ -86,64 +95,36 @@ class Auth {
   }
   onAuthStateChange() {
     return this.sdk.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
+      console.log(event);
       if (session) localStorage.setItem("auth_state", 1);
     });
   }
 
-  // sendVerificationEmail(url) {
-  //   let promise = this.sdk.account.createVerification(url);
-  //   return promise.then(
-  //     function (response) {
-  //       return response;
-  //     },
-  //     function (error) {
-  //       return null;
-  //     }
-  //   );
-  // }
-
-  // updateVerification(userId, secret) {
-  //   let promise = this.sdk.account.updateVerification(userId, secret);
-
-  //   promise.then(
-  //     function (response) {
-  //       console.log(response); // Success
-  //       window.location = location + "/success";
-  //     },
-  //     function (error) {
-  //       console.log(error); // Failure
-  //       window.location = location + "/failure";
-  //     }
-  //   );
-  // }
+ 
 
   createRecovery(email, url) {
     // create Recovery for forgot password
     const { data, error } = this.sdk.auth.api.resetPasswordForEmail(email);
   }
 
-  updateRecovery(access_token, password) {
+  // magicLinkSignIn (email){
+  //   const 
+  // }
+  
+
+  async updatePassword( password) {
     // updating new password
-    const { data, error } = this.sdk.auth.api.updateUser(
+    const access_token = this.sdk.auth.session().access_token
+    console.log(access_token)
+    const { error,data } = await this.sdk.auth.api.updateUser(
       access_token,
-      password
+   {   password}
     );
     console.log(data,error)
     return { data, error };
   }
 
-  // updatePassword(newpassword, currentpassword) {
-  //   let promise = this.sdk.account.updatePassword(newpassword, currentpassword);
-  //   return promise.then(
-  //     function (response) {
-  //       return response;
-  //     },
-  //     function (error) {
-  //       return null;
-  //     }
-  //   );
-  // }
+
   // updatename(name) {
   //   let promise = this.sdk.account.updateName(name);
 
@@ -158,29 +139,8 @@ class Auth {
   //     }
   //   );
   // }
-  // updateemail(email, password) {
-  //   let promise = this.sdk.account.updateEmail(email, password);
 
-  //   promise.then(
-  //     function (response) {
-  //       console.log(response); // Success
-  //     },
-  //     function (error) {
-  //       console.log(error); // Failure
-  //     }
-  //   );
-  // }
-  // createJWT() {
-  //   let promise = this.sdk.account.createJWT();
-  //   return promise.then(
-  //     function (response) {
-  //       return response;
-  //     },
-  //     function (e) {
-  //       return e;
-  //     }
-  //   );
-  // }
+ 
 }
 
 export default Auth;

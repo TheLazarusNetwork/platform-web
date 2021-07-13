@@ -6,8 +6,6 @@ import { BasicTable } from "../../utils/table";
 import Passwordbreach from "../../Components/Passwordbreach";
 import SnackbarAlert from "../../utils/snackbar";
 
-
-
 //security page
 
 export default function Security ({ auth }) {
@@ -32,10 +30,10 @@ export default function Security ({ auth }) {
       var newpassword = event.target.elements["newpassword"].value;
       var repassword = event.target.elements["repeatpassword"].value;
   
-      if (newpassword.toString().length < 7) {
+      if (newpassword.toString().length < 8) {
         // show alert if password length is less than 7 or both password do not match
         setAlertype("error");
-        setAlertmsg("password should be at least 6 letters");
+        setAlertmsg("password should be at least 8 letters");
         setAlertopen(true);
       } else if (newpassword !== repassword) {
         {
@@ -44,11 +42,11 @@ export default function Security ({ auth }) {
           setAlertopen(true);
         }
       } else {
-        const passwordchanged = await auth.updatePassword(
+        const {data, error}= await auth.updatePassword(
           newpassword,
           currentpassword
         );
-        if (passwordchanged) {
+        if (data) {
           setAlertype("success");
           setAlertmsg("password Changed successfully");
           setAlertopen(true);
@@ -81,7 +79,7 @@ export default function Security ({ auth }) {
                     </p>
   
                     <p className="info-txt">
-                      <AiOutlineExclamationCircle /> Password must be atleast 6
+                      <AiOutlineExclamationCircle /> Password must be atleast 8
                       characters
                     </p>
                   </div>

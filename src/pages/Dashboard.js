@@ -12,44 +12,10 @@ import CircularProgressWithLabel from "@material-ui/core/CircularProgress";
 import { BasicTable } from "../utils/table";
 
 document.title = "Lazarus Networks-dash";
-const verificationURL = process.env.REACT_APP_HOST_URL + "/verify";
 
 export default function Dashboard(props) {
-  const [auth, setAuth] = useState(props.auth);
 
-  const getdetails = async () => {
-    let details;
-    try {
-      const data = await auth.checkAuthenticated();
-      details = data;
-    } catch (e) {
-      // console.log(e);
-    }
-    // console.log(details);
-  };
 
-  const verifyemail = async () => {
-    //sending user verification email
-    let verified;
-    try {
-      verified = await auth.sendVerificationEmail(verificationURL);
-    } catch (e) {
-      // console.log(e);
-    }
-    // console.log(verified);
-  };
-
-  const createJWT = async () => {
-    let jwt;
-    try {
-      jwt = await auth.createJWT();
-    } catch (e) {
-      console.log(e);
-    }
-    console.log(jwt);
-  };
-
-  //  <button onClick={createJWT}>jwt</button>
   return (
     <>
       {/* <SnackbarAlert
@@ -105,7 +71,7 @@ export default function Dashboard(props) {
             </div>
           </div>
         </div>
-        <button onClick={createJWT}>create jwt</button>
+
       </div>
     </>
   );

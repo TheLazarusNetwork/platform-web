@@ -6,7 +6,6 @@ import Switch from "@material-ui/core/Switch";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  CHANGE_THEME,
   SET_DARK_THEME,
   SET_LIGHT_THEME,
 } from "../../redux/strings";
