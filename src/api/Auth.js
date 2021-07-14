@@ -100,9 +100,9 @@ class Auth {
 
  
 
-  createRecovery(email, url) {
+  createRecovery(email) {
     // create Recovery for forgot password
-    const { data, error } = this.sdk.auth.api.resetPasswordForEmail(email);
+    const { data, error } = this.sdk.auth.api.resetPasswordForEmail(email, {redirectTo: "http://localhost:8000/#/updatepassword"});
   }
 
   // magicLinkSignIn (email){

@@ -29,9 +29,9 @@ export default function PasswordReset({ auth }) {
         type={alerttype} // type = error, success, info ,warning
       />
       <div className="center">
-        <h2>Magic Link SignIn</h2>
+        <h2>Forgot Password?</h2>
         <p>
-          send a magic link to your registered email account to signin 
+          send a magic link to your registered email account to change password
         </p>
         <form className="form" onSubmit={resetpassword}>
           <input type="email" placeholder="enter your email" id="email" />

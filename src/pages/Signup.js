@@ -22,6 +22,7 @@ export default function Signup(props) {
   useEffect(() => {
     setSession(auth.checkAuthenticated())
     auth.onAuthStateChange()
+    // localStorage.removeItem('location')
   
   }, [])
 
@@ -81,7 +82,7 @@ export default function Signup(props) {
     if(user)
     {
       await auth.checkAuthenticated() 
-     history.push("/success");
+     history.push("/dash");
     // if login successful , redirect to success page
     }
 
@@ -103,7 +104,7 @@ export default function Signup(props) {
    {
      await auth.checkAuthenticated() 
 
-    history.push("/success");
+    history.push("/dash");
    // if login successful , redirect to success page
    }
   
@@ -122,7 +123,7 @@ export default function Signup(props) {
    if(user)
    {
      await auth.checkAuthenticated() 
-    history.push("/success");
+    history.push("/dash");
    // if login successful , redirect to success page
    }
   
@@ -200,7 +201,7 @@ export default function Signup(props) {
             <span>or use your account</span>
             <input type="email" placeholder="Email" id="inemail" />
             <input type="password" placeholder="Password" id="inpassword" />
-            <Link to="/resetpassword"><a>Sign in using Magic Link</a></Link>
+            <Link to="/resetpassword"><a>forgot password?</a></Link>
             <button type="submit">Sign In</button>
           </form>
         </div>

@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 import "./styles/Themes/lighttheme.css";
 import "./styles/Themes/darktheme.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import Home from "./pages/Home";
 
 
 const auth = new Auth();
@@ -94,11 +95,11 @@ const App = () => {
       <MuiThemeProvider theme={darktheme? Muidarktheme:Muilighttheme}>
       <div className={darktheme ? "dark-theme" : "light-theme"}>
         <div className="body">
-          <PrivateRoute path="/dash/" auth={auth} component={Sidebar} />
+          <PrivateRoute path="/dash" auth={auth} component={Sidebar} />
           <Switch>
             <PrivateRoute
               exact
-              path="/dash/"
+              path="/dash"
               auth={auth}
               component={Dashboard}
             />
@@ -158,7 +159,7 @@ const App = () => {
               path="/signup"
               render={(props) => {
                 return SessionActive() ? (
-                  <Redirect to="/dash/" />
+                  <Redirect to="/dash" />
                 ) : (
                   <Signup {...props} auth={auth} />
                 );
@@ -190,10 +191,20 @@ const App = () => {
               render={(props) => <PasswordUpdate auth={auth} />}
             />
             <Route
-              path="/"
+              exact
+              path="/emailverified"
+              render={(props) => <VerificationPage auth={auth} />}
+            />
+            <Route
+              path="/:type"
               render={(props) => <RedirectedUrlPage auth={auth} />}
             />
-            <Route render={(props) => <Notfound />} />
+             <Route
+              exact
+              path="/"
+              render={(props) => <Home auth={auth} />}
+            />
+            <Route  render={(props) => <Notfound />} />
           </Switch>
         </div>
       </div>

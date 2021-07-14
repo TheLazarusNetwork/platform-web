@@ -1,9 +1,18 @@
 import React from 'react'
+import { Redirect } from 'react-router';
 
-export default function Home() {
-    return (
-        <div>
-            home
-        </div>
-    )
+export default function Home({auth}) {
+
+    if (localStorage.getItem("location") == "recovery") {
+        return <Redirect to="/updatepassword" />;
+      } else if (localStorage.getItem("location") == "signup") {
+        return <Redirect to="/emailverified" />;
+      } else if (auth.isSessionActive()) {
+        console.log(' rediected to /dash')
+        return <Redirect to="/success" />;
+      } else {
+        console.log(' rediected to /signup')
+        return <Redirect to="/signup " />;
+      }
+ 
 }

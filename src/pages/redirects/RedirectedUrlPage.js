@@ -1,47 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useLocation, useHistory } from "react-router";
+import Notfound from "./404";
+export default function RedirectedUrlPage({ auth }) {
 
-export default function RedirectedUrlPage({auth}) {
-  // const [url, setUrl] = useState();
-  const history = useHistory();
-  // const location = useLocation();
-  // useEffect(() => {
-  //   setUrl(location.pathname);
-  // }, []);
+  const location = useLocation();
 
-  // console.log(location, getQueryVariable("type"));
+  useEffect(() => {
+    console.log(location);
+    if (location.pathname.indexOf("access_token") != -1) {
+      localStorage.setItem("location", getQueryVariable("type"));
+      console.log(localStorage.getItem("location"));
+    }
+  }, []);
 
-  // function getQueryVariable(variable) {
-  //   var query = location.pathname.substring(1);
-  //   var vars = query.split("&");
-  //   for (var i = 0; i < vars.length; i++) {
-  //     var pair = vars[i].split("=");
-  //     if (pair[0] == variable) {
-  //       return pair[1];
-  //     }
-  //   }
-  //   return false;
-  // }
-  // const type = getQueryVariable("type");
-  // if (type == "recovery")
-  //  { history.push('/passwordupdate')
-  //   return(
-  //     <>
-  //     </>
-  //   )}
-  // else if (type == "email") return <Emailverification />;
-
-  
-    if(auth.isSessionActive())
-    history.push("/dash");
-    else
-    history.push("/signup")
-    return(
-      <>
-      </>
-    )
-  
+  function getQueryVariable(variable) {
+    var query = location.pathname.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (pair[0] == variable) {
+        return pair[1];
+      }
+    }
+    return false;
+  }
+  console.log(location.pathname);
+   
+   return null;
 }
 
 function Emailverification() {
@@ -57,4 +43,3 @@ function Emailverification() {
     </div>
   );
 }
-

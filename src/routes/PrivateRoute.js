@@ -5,7 +5,7 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      return localStorage.getItem("auth_state") ? (
+      return auth.isSessionActive() ? (
         <Component {...props} auth={auth} />
       ) : (
         <Redirect to="/signup" />

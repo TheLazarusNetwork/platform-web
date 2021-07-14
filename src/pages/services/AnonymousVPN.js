@@ -30,10 +30,7 @@ export default function AnonymousVPN() {
 
 const AVPN = () => {
   const [percentage, setPercentage] = useState(50);
-  const [ipinfo, setIpinfo] = useState({
-    ip: "",
-    country: "",
-  });
+  const [ipinfo, setIpinfo] = useState({});
   const [showc, setShowc] = useState(false);
   const [create, setCreate] = useState(false);
 

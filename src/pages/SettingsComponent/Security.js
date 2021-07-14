@@ -43,8 +43,7 @@ export default function Security ({ auth }) {
         }
       } else {
         const {data, error}= await auth.updatePassword(
-          newpassword,
-          currentpassword
+          newpassword
         );
         if (data) {
           setAlertype("success");
