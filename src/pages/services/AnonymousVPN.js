@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Topnav from "../../Components/Topnav";
+import Topnav from "../../Components/Navbar/Topnav";
 import "./../../styles/Dashboard/billing.css";
 import ServiceDetails from "../../Components/ServiceDetails";
 import CircularProgressBar from "../../utils/progressbar";

@@ -1,4 +1,4 @@
-import { lightTheme,darkTheme,SET_DARK_THEME,SET_LIGHT_THEME} from "../strings";
+import { SET_DARK_THEME,SET_LIGHT_THEME} from "../CONSTANTS";
 
 export const changeToLightTheme =()=>{
     return{

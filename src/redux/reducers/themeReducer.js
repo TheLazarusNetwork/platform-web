@@ -3,7 +3,7 @@ import {
   lightTheme,
   SET_DARK_THEME,
   SET_LIGHT_THEME,
-} from "../strings";
+} from "../CONSTANTS";
 
 const themeObject = lightTheme;
 

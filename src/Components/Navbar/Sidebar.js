@@ -8,7 +8,7 @@ import {
   CDBSidebarFooter,
 } from "cdbreact";
 import { BiLogOut } from "react-icons/bi";
-import "./../styles/Dashboard/dashboard.css";
+import "./../../styles/Dashboard/dashboard.css";
 import { NavLink, useHistory } from "react-router-dom";
 
 const Sidebar = ({ auth }) => {

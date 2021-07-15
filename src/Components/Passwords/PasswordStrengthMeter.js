@@ -1,6 +1,6 @@
 import React from "react";
 import zxcvbn from "zxcvbn";
-import "./../styles/components/PasswordStrengthMeter.css";
+import "./../../styles/components/PasswordStrengthMeter.css";
 
 let createPasswordLabel = (score) => {
   switch (score) {

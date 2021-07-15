@@ -1,17 +1,15 @@
 import React, { useState ,useEffect} from "react";
 import "./../styles/forms/signup.css";
 import {  FaGoogle, FaGithub } from "react-icons/fa";
-import PasswordStrengthMeter from "./../Components/PasswordStrengthMeter.js";
+import PasswordStrengthMeter from "../Components/Passwords/PasswordStrengthMeter.js";
 import SnackbarAlert from "./../utils/snackbar";
-import Passwordbreach from "../Components/Passwordbreach";
+import Passwordbreach from "../Components/Passwords/Passwordbreach";
 import { Link } from "react-router-dom";
 
 document.title = "Lazarus Networks-signup";
 
-export default function Signup(props) {
-  const { history } = props;
+export default function Signup({auth , history}) {
 
-  const [auth, setAuth] = useState(props.auth); //auth class instance from auth.js
   const [rightpanel, setrightpanel] = useState(false); //right panel true for signup page  ,false for signin page
   const [password, setPassword] = useState(""); //for checking the password strength using password strength meter
   const [alertopen, setAlertopen] = useState(false);
@@ -22,7 +20,6 @@ export default function Signup(props) {
   useEffect(() => {
     setSession(auth.checkAuthenticated())
     auth.onAuthStateChange()
-    // localStorage.removeItem('location')
   
   }, [])
 
@@ -46,7 +43,7 @@ export default function Signup(props) {
         setAlertopen(true);
       }
     } else {
-      const {user,session,error} =  await auth.signup(email, password); //calling auth.signup method to create new account
+      const {user,error} =  await auth.signup(email, password); //calling auth.signup method to create new account
       if(error)
       {
         setAlerttype('error')
@@ -70,7 +67,7 @@ export default function Signup(props) {
     var email = event.target.elements["inemail"].value;
     var password = event.target.elements["inpassword"].value;
 
-    const {user,session,error} = await auth.login(email, password); // calling the auth.signin function
+    const {user,error} = await auth.login(email, password); // calling the auth.signin function
 
     if(error)
     {

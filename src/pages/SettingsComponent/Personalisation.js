@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   SET_DARK_THEME,
   SET_LIGHT_THEME,
-} from "../../redux/strings";
+} from "../../redux/CONSTANTS";
 
 const languages = ["English", "Hindi"];
 const themes = ["dark", "light"];

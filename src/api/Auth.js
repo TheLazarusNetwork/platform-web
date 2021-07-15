@@ -105,10 +105,6 @@ class Auth {
     const { data, error } = this.sdk.auth.api.resetPasswordForEmail(email, {redirectTo: "http://localhost:8000/#/updatepassword"});
   }
 
-  // magicLinkSignIn (email){
-  //   const 
-  // }
-  
 
   async updatePassword( password) {
     // updating new password
@@ -121,20 +117,13 @@ class Auth {
   }
 
 
-  // updatename(name) {
-  //   let promise = this.sdk.account.updateName(name);
+  async updateUserName(username) {
+    const {user, error} =await this.sdk.auth.update({
+      data: {full_name: username}
+    });
 
-  //   return promise.then(
-  //     function (response) {
-  //       console.log(response); // Success
-  //       return response
-  //     },
-  //     function (error) {
-  //       console.log(error); // Failure
-  //       return null
-  //     }
-  //   );
-  // }
+      return{user,error}
+  }
 
  
 }

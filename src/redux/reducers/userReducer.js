@@ -1,0 +1,39 @@
+import {
+  FETCH_USER_BEGIN,
+  FETCH_USER_FAILURE,
+  FETCH_USER_SUCCESS,
+} from "../CONSTANTS";
+
+const initialState = {
+  token: localStorage.getItem("supabase.auth.token"),
+  currentUserData: {},
+  error: null,
+  loading: false,
+};
+
+export default function userReducer(state = initialState, action) {
+  switch (action.type) {
+    case FETCH_USER_BEGIN:
+      return {
+           ...state,
+         loading: true, 
+         error: false
+         };
+    case FETCH_USER_SUCCESS:
+        return{
+            ...state,
+            loading: false,
+            currentUserData: action.payload.userdata
+        }
+    case FETCH_USER_FAILURE:
+        return{
+            ...state,
+            loading:false,
+            error: action.payload.error,
+            currentUserData: []
+        }
+
+    default:
+      return state;
+  }
+}

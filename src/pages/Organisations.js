@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Topnav from "../Components/Topnav";
+import Topnav from "../Components/Navbar/Topnav";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
 import { GoKebabVertical } from "react-icons/go";

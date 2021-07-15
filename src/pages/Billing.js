@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Topnav from "../Components/Topnav";
+import Topnav from "../Components/Navbar/Topnav";
 import { BasicTable } from "../utils/table";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";

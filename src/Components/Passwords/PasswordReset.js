@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import SnackbarAlert from "../utils/snackbar";
+import SnackbarAlert from "../../utils/snackbar";
 import { Link } from "react-router-dom";
 
 export default function PasswordReset({ auth }) {

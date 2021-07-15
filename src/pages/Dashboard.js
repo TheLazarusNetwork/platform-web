@@ -5,8 +5,8 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import Sidebar from "../Components/Sidebar";
-import Topnav from "../Components/Topnav";
+import Sidebar from "../Components/Navbar/Sidebar";
+import Topnav from "../Components/Navbar/Topnav";
 import "./../styles/Dashboard/dashboard.css";
 import CircularProgressWithLabel from "@material-ui/core/CircularProgress";
 import { BasicTable } from "../utils/table";
@@ -14,7 +14,7 @@ import { BasicTable } from "../utils/table";
 document.title = "Lazarus Networks-dash";
 
 export default function Dashboard(props) {
-
+  
 
   return (
     <>

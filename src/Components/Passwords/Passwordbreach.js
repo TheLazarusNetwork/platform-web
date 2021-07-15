@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SHA1 from "../functions/SHA1";
+import SHA1 from "../../functions/SHA1";
 
 export default function Passwordbreach(props) {
   var { password } = props;

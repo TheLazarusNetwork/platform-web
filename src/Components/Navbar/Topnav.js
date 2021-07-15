@@ -2,7 +2,7 @@ import { Avatar } from "@material-ui/core";
 import React, { useState } from "react";
 import { IoIosNotifications } from "react-icons/io";
 import { VscOrganization } from "react-icons/vsc";
-import OrgsModal from "./OrgsModal";
+import OrgsModal from "../OrgsModal";
 
 export default function Topnav({ page }) {
   const [show, setShow] = useState(false);

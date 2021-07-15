@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Topnav from "../Components/Topnav";
+import Topnav from "../Components/Navbar/Topnav";
 import { Avatar, TextField } from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/core/styles";
-import Auth from "../api/Auth";
-import Modalui from "../Components/Modal";
-import Dialog from "../Components/Dialog";
 import SnackbarAlert from "../utils/snackbar";
+import { connect } from "react-redux";
+import { fetchUser } from "../redux/actions/userAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,10 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile({ auth }) {
   const [username, setUsername] = useState("");
   const [useremail, setUseremail] = useState("");
-  const [password, setPassword] = useState("");
   const [avatar, setavatar] = useState();
-  const [diopen, setDiopen] = useState(false);
-  const [update, setupdate] = useState(false);
   const [alertopen, setAlertopen] = useState(false);
   const [alertmsg, setAlertmsg] = useState(" ");
   const [alerttype, setAlertype] = useState("error");
@@ -41,49 +36,33 @@ export default function Profile({ auth }) {
     setuserdata(data);
     setUsername(data.user_metadata.full_name);
     setUseremail(data.email);
-    setavatar(data.user_metadata.avatar_url)
-
+    setavatar(data.user_metadata.avatar_url);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const handlesubmit = (event) => {
+  const handlesubmit = async(event) => {
     event.preventDefault();
 
-    if (userdata.name == username && userdata.email == useremail) {
-      setAlertmsg("Password and name are same");
+    if (userdata.name == username) {
+      setAlertmsg("name is same as before");
       setAlertopen(true);
     } else {
-      setDiopen(true);
-      setupdate(false);
+      const { user, error } = await auth.updateUserName(username);
+      if (user) {
+        setAlertmsg("Name Successfully changed");
+        setAlertype("success");
+        setAlertopen(true);
+      } else {
+        setAlertmsg("Name change failed");
+        setAlertype("error");
+        setAlertopen(true);
+      }
     }
   };
 
-  useEffect(async () => {
-    if (update) {
-      if (username != userdata.name) {
-      
-        const nameupdate = await auth.updatename(username);
-        if(nameupdate)
-        {
-          setAlertmsg("Name Successfully changed");
-          setAlertype("success");
-          setAlertopen(true);
-        }
-        else{
-          setAlertmsg("Name change failed")
-          setAlertype("error")
-          setAlertopen(true)
-        }
-      }
-      if (useremail != userdata.email) {
-  
-        const emailupdate = await auth.updateemail(useremail , password);
-      }
-    }
-  }, [update]);
 
   return (
     <>
@@ -95,12 +74,6 @@ export default function Profile({ auth }) {
       />
       <div className="main">
         <Topnav page="Profile" />
-        <Dialog
-          diopen={diopen}
-          setDiopen={setDiopen}
-          setPassword={setPassword}
-          setUpdate={setupdate}
-        />
         <div className="profile-pic">
           <div className="pic-avatar">
             <Avatar className={classes.large} src={avatar}></Avatar>
@@ -129,9 +102,7 @@ export default function Profile({ auth }) {
                   className="textfield"
                   label="email"
                   value={useremail}
-                  onChange={(e) => {
-                    setUseremail(e.target.value);
-                  }}
+                  disabled
                 />
               </div>
               <button type="submit" className="save-btn">

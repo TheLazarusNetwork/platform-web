@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { BasicTable } from "../../utils/table";
-import Passwordbreach from "../../Components/Passwordbreach";
+import Passwordbreach from "../../Components/Passwords/Passwordbreach";
 import SnackbarAlert from "../../utils/snackbar";
 
 //security page
@@ -163,10 +162,7 @@ export default function Security ({ auth }) {
             </div>
           </div>
   
-          <div className="table mid-details-box shadow">
-            <div className="title"> Current Active Sessions</div>
-            <BasicTable />
-          </div>
+        
         </div>
       </>
     );

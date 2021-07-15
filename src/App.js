@@ -16,7 +16,7 @@ import Failure from "./pages/redirects/Failure";
 import RedirectedUrlPage from "./pages/redirects/RedirectedUrlPage";
 import VerificationPage from "./pages/redirects/VerificationPage";
 import Notfound from "./pages/redirects/404";
-import Sidebar from "./Components/Sidebar";
+import Sidebar from "./Components/Navbar/Sidebar";
 import Billing from "./pages/Billing";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -24,7 +24,7 @@ import AnonymousVPN from "./pages/services/AnonymousVPN";
 import DedicatedNetwork from "./pages/services/DedicatedNetwork";
 import Tunnel from "./pages/services/Tunnel";
 import Cloud from "./pages/services/Cloud";
-import PasswordReset from "./Components/PasswordReset";
+import PasswordReset from "./Components/Passwords/PasswordReset";
 import PasswordUpdate from "./pages/redirects/PasswordUpdate";
 import Organisations from "./pages/Organisations";
 import { useSelector } from "react-redux";
@@ -32,6 +32,7 @@ import "./styles/Themes/lighttheme.css";
 import "./styles/Themes/darktheme.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Home from "./pages/Home";
+import Trialpage from "./pages/Trialpage";
 
 
 const auth = new Auth();
@@ -203,6 +204,11 @@ const App = () => {
               exact
               path="/"
               render={(props) => <Home auth={auth} />}
+            />
+            <Route
+              exact
+              path="/trialpage"
+              render={(props) => <Trialpage auth={auth} />}
             />
             <Route  render={(props) => <Notfound />} />
           </Switch>
