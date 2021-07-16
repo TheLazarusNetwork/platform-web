@@ -5,7 +5,6 @@ import {
 } from "../CONSTANTS";
 
 const initialState = {
-  token: localStorage.getItem("supabase.auth.token"),
   currentUserData: {},
   error: null,
   loading: false,
@@ -23,15 +22,15 @@ export default function userReducer(state = initialState, action) {
         return{
             ...state,
             loading: false,
-            currentUserData: action.payload.userdata
-        }
+            currentUserData: action.payload.userData
+        };
     case FETCH_USER_FAILURE:
         return{
             ...state,
             loading:false,
             error: action.payload.error,
-            currentUserData: []
-        }
+            currentUserData: {}
+        };
 
     default:
       return state;
