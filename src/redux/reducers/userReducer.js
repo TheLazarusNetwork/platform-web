@@ -16,13 +16,13 @@ export default function userReducer(state = initialState, action) {
       return {
            ...state,
          loading: true, 
-         error: false
+         error: null
          };
     case FETCH_USER_SUCCESS:
         return{
             ...state,
             loading: false,
-            currentUserData: action.payload.userData
+            currentUserData: action.payload
         };
     case FETCH_USER_FAILURE:
         return{

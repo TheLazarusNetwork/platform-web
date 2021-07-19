@@ -27,7 +27,7 @@ export default function Signup({auth , history}) {
   const handleSignup = async (event) => {
     //takes all details from sign up form and create new account
     event.preventDefault();
-    var name = event.target.elements["name"].value;
+    // var name = event.target.elements["name"].value;
     var email = event.target.elements["email"].value;
     var password = event.target.elements["password-box"].value;
     var repassword = event.target.elements["repassword"].value;
@@ -156,7 +156,7 @@ export default function Signup({auth , history}) {
               </a>
             </div>
             <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" id="name" />
+            {/* <input type="text" placeholder="Name" id="name" /> */}
             <input type="email" placeholder="Email" id="email" />
             <input
               type="password"

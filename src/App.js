@@ -196,6 +196,11 @@ const App = () => {
               path="/emailverified"
               render={(props) => <VerificationPage auth={auth} />}
             />
+             <Route
+              exact
+              path="/trialpage"
+              render={(props) => <Trialpage />}
+            />
             <Route
               path="/:type"
               render={(props) => <RedirectedUrlPage auth={auth} />}
@@ -205,11 +210,7 @@ const App = () => {
               path="/"
               render={(props) => <Home auth={auth} />}
             />
-            <Route
-              exact
-              path="/trialpage"
-              render={(props) => <Trialpage auth={auth} />}
-            />
+           
             <Route  render={(props) => <Notfound />} />
           </Switch>
         </div>
