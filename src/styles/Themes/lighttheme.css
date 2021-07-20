@@ -1,3 +1,8 @@
+.light-theme .shadow {
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
 .light-theme .sidebar {
   background-color: #f1f4fe !important;
   color: #4d4f5c !important;
@@ -14,7 +19,7 @@
 }
 
 .light-theme .activeClicked > li {
-  background-color: #1c0cac !important;
+  background-color: #1769aa !important;
   color: #fff !important;
 }
 

@@ -93,11 +93,12 @@ export default function Profile({ auth }) {
             <form onSubmit={handlesubmit}>
               <div className="row">
                 <input
+                  className="textfield"
                   value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
-                ></input>
+                />
                 <input
                   className="textfield"
                   label="email"

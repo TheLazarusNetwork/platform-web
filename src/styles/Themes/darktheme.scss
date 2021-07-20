@@ -6,7 +6,13 @@ $white: #fff;
 $textgrey: rgb(179, 181, 182);
 $darkthemegrey: #2a2a2a;
 
+
 .dark-theme {
+
+   
+  .shadow{
+    box-shadow: rgba(30, 30, 31, 0.616) 0px 8px 24px;
+  }
 
     .sidebar {
       background-color: $darkgrey;

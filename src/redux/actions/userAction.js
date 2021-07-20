@@ -95,7 +95,7 @@ export const fetchUserBegin = () => ({
 
 export const fetchUserSuccess = (userData) => ({
   type: FETCH_USER_SUCCESS,
-  payload: { userData },
+  payload:  userData ,
 });
 
 export const fetchUserFailure = (error) => ({
