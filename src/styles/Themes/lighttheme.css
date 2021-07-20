@@ -3,19 +3,13 @@
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.light-theme .sidebar {
+.light-theme .pro-sidebar-inner {
   background-color: #f1f4fe !important;
   color: #4d4f5c !important;
 }
 
-.light-theme .sidebar-content {
-  background-color: #f1f4fe;
-  color: #4d4f5c;
-}
-
-.light-theme .sidebar-menu {
-  background-color: #f1f4fe;
-  color: #4d4f5c;
+.light-theme .pro-icon-wrapper {
+  background-color: #dce2f5b4 !important;
 }
 
 .light-theme .activeClicked > li {

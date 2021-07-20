@@ -14,9 +14,15 @@ $darkthemegrey: #2a2a2a;
     box-shadow: rgba(30, 30, 31, 0.616) 0px 8px 24px;
   }
 
-    .sidebar {
-      background-color: $darkgrey;
-    }
+  .pro-sidebar-inner {
+    background-color: $darkgrey !important;
+    color: $lightblue !important;
+    border-right: #2a2a2a solid 1px;
+  }
+ 
+  // .pro-icon-wrapper{
+  //   background-color: $darkgrey !important;
+  // }
     .sidebar-content {
       background-color: $darkgrey;
       color: $lightgrey;

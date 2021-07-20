@@ -10,12 +10,13 @@ import {
 } from "react-pro-sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiLogOut } from "react-icons/bi";
-import { FaUserLock ,FaShieldAlt,FaFileInvoice,FaUser,FaCloud,FaDungeon, FaCog, FaInvision,} from 'react-icons/fa'
+import { FaUserLock ,FaShieldAlt,FaFileInvoice,FaUser,FaCloud,FaDungeon, FaCog, FaColumns,} from 'react-icons/fa'
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../../redux/actions/userAction";
 // import 'react-pro-sidebar/dist/css/styles.css';
 import "./../../styles/Dashboard/dashboard.css";
 import './../../styles/Navbar/navbar.scss';
+import { fetchOrg } from "../../redux/actions/orgAction";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -30,9 +31,20 @@ const Sidebar = ({ auth }) => {
     })
   );
 
+  const {organisations, numberofOrganisations} = useSelector(
+    (state)=>({
+      organisations: state.organisations.orgArray,
+      numberofOrganisations: state.organisations.numberOfOrgs
+    })
+  )
+  console.log(organisations,numberofOrganisations)
+
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchOrg())
   }, []);
 
   const history = useHistory();
@@ -52,7 +64,7 @@ const Sidebar = ({ auth }) => {
         left: "0",
       }}
     >
-      <ProSidebar collapsed={sidebarCollapsed}>
+      <ProSidebar  collapsed={sidebarCollapsed}>
         <SidebarHeader>
           <Menu iconShape="square">
             <MenuItem
@@ -67,11 +79,12 @@ const Sidebar = ({ auth }) => {
         <SidebarContent>
           <Menu iconShape="square">
 
-              <MenuItem  title='Dashboard' icon={<GiHamburgerMenu/>}>
+              <MenuItem   title='Dashboard' icon={<FaColumns/>}>
                 Dashboard
                 <Link to ='/dash/'/>
               </MenuItem>
 
+{ isUserLoggedIn ?<>
               <MenuItem  title='AVPN' icon={<FaUserLock/>}>
                 Anonymous VPN
                 <Link to ='/dash/anomvpn'/>
@@ -94,7 +107,7 @@ const Sidebar = ({ auth }) => {
                 Cloud
                 <Link to ='/dash/cloud'/>
               </MenuItem>
- 
+ </>:<></>}
               <MenuItem  title='Profile' icon={<FaUser/>}>
                 Profile
                 <Link to ='/dash/profile'/>

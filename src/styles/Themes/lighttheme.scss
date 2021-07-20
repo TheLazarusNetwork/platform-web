@@ -14,18 +14,19 @@ $small: 450px;
   .shadow{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
-    .sidebar {
+    .pro-sidebar-inner {
       background-color: $lightblue !important;
       color: $darkgrey !important;
+
+      :hover{
+          color: $black !important;
+      }
     }
-    .sidebar-content {
-      background-color: $lightblue;
-      color: $darkgrey;
+   
+    .pro-icon-wrapper{
+      background-color: #dce2f5b4 !important;
     }
-    .sidebar-menu {
-      background-color: #f1f4fe;
-      color: #4d4f5c;
-    }
+
     .activeClicked > li {
       background-color: $darkblue !important;
       color: #fff !important;
