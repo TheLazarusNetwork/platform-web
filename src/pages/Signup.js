@@ -79,7 +79,7 @@ export default function Signup({auth , history}) {
     if(user)
     {
       await auth.checkAuthenticated() 
-     history.push("/dash");
+     history.push("/success");
     // if login successful , redirect to success page
     }
 
@@ -101,7 +101,7 @@ export default function Signup({auth , history}) {
    {
      await auth.checkAuthenticated() 
 
-    history.push("/dash");
+    history.push("/success");
    // if login successful , redirect to success page
    }
   
@@ -120,7 +120,7 @@ export default function Signup({auth , history}) {
    if(user)
    {
      await auth.checkAuthenticated() 
-    history.push("/dash");
+    history.push("/success");
    // if login successful , redirect to success page
    }
   

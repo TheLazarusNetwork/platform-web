@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useLocation, useHistory } from "react-router";
-import Notfound from "./404";
+
 export default function RedirectedUrlPage({ auth }) {
 
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
     if (location.pathname.indexOf("access_token") != -1) {
       localStorage.setItem("location", getQueryVariable("type"));
       console.log(localStorage.getItem("location"));
@@ -25,7 +24,7 @@ export default function RedirectedUrlPage({ auth }) {
     }
     return false;
   }
-  console.log(location.pathname);
+  // console.log(location.pathname);
    
    return null;
 }

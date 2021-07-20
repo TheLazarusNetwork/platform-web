@@ -8,7 +8,7 @@ export default function Home({auth}) {
       } else if (localStorage.getItem("location") == "signup") {
         return <Redirect to="/emailverified" />;
       } else if (auth.isSessionActive()) {
-        console.log(' rediected to /dash')
+        console.log(' rediected to /success')
         return <Redirect to="/success" />;
       } else {
         console.log(' rediected to /signup')

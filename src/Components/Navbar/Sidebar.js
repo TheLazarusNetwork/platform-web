@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -10,15 +11,27 @@ import {
 import { BiLogOut } from "react-icons/bi";
 import "./../../styles/Dashboard/dashboard.css";
 import { NavLink, useHistory } from "react-router-dom";
+import { fetchUser } from "../../redux/actions/userAction";
 
 const Sidebar = ({ auth }) => {
+  const { loading, error, userData ,theme} = useSelector((state) => ({
+    userData: state.user.currentUserData,
+    loading: state.user.loading,
+    error: state.user.error,
+    theme: state.theme,
+  }));
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
+
   const history = useHistory();
 
   const signOutUser = async () => {
-    const {error} = await auth.logout();
-    if (error) console.log(error)
-     history.push("/signup");
-    
+    const { error } = await auth.logout();
+    if (error) console.log(error);
+    history.push("/signup");
   };
 
   return (
