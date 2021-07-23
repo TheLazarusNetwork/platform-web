@@ -1,20 +1,53 @@
 import React, { Component, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
-import Sidebar from "../Components/Navbar/Sidebar";
 import Topnav from "../Components/Navbar/Topnav";
 import "./../styles/Dashboard/dashboard.css";
 import CircularProgressWithLabel from "@material-ui/core/CircularProgress";
 import { BasicTable } from "../utils/table";
+import { useSelector } from "react-redux";
+import NoOrganisations from "../Components/NoOrganisations";
 
 document.title = "Lazarus Networks-dash";
 
 export default function Dashboard(props) {
+
+  const {loading, isUserLoggedIn } = useSelector(
+    (state) =>({
+      loading : state.user.loading,
+      isUserLoggedIn: state.user.isUserLoggedIn,
+    })
+  )
+  const {numberofOrgs , currentOrg} = useSelector(
+    (state)=>({
+      numberofOrgs: state.organisations.numberOfOrgs,
+      currentOrg : state.organisations.currentOrg,
+    })
+  )
+
+  if(loading)
+  return(
+    <>
+    <div className='center'>
+    <h4>Loading...</h4>
+    </div>
+    </>
+  )
   
+    if(!isUserLoggedIn)
+    return(
+      <>
+      <div className='center'>
+        <h1>Your Profile is not complete </h1>
+          <p>please complete your profile to access other services</p>
+
+          <input placeholder="contact-number" type='number'/>
+
+          <button>confirm</button>
+      </div>
+      </>
+    )
+console.log(numberofOrgs)
+    if(numberofOrgs == 0)
+    return <NoOrganisations/>
 
   return (
     <>

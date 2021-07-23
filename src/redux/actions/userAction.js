@@ -31,7 +31,7 @@ export function fetchUser() {
       .then((res) => res.json())
       .then((json) => {
         dispatch(fetchUserSuccess(json.payload));
-        console.log(json.payload);
+        // console.log(json.payload);
         return json.payload;
       })
       .catch((error) => {

@@ -10,12 +10,21 @@ import {
 } from "react-pro-sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiLogOut } from "react-icons/bi";
-import { FaUserLock ,FaShieldAlt,FaFileInvoice,FaUser,FaCloud,FaDungeon, FaCog, FaColumns,} from 'react-icons/fa'
+import {
+  FaUserLock,
+  FaShieldAlt,
+  FaFileInvoice,
+  FaUser,
+  FaCloud,
+  FaDungeon,
+  FaCog,
+  FaColumns,
+} from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../../redux/actions/userAction";
 // import 'react-pro-sidebar/dist/css/styles.css';
 import "./../../styles/Dashboard/dashboard.css";
-import './../../styles/Navbar/navbar.scss';
+import "./../../styles/Navbar/navbar.scss";
 import { fetchOrg } from "../../redux/actions/orgAction";
 
 const Sidebar = ({ auth }) => {
@@ -31,20 +40,17 @@ const Sidebar = ({ auth }) => {
     })
   );
 
-  const {organisations, numberofOrganisations} = useSelector(
-    (state)=>({
-      organisations: state.organisations.orgArray,
-      numberofOrganisations: state.organisations.numberOfOrgs
-    })
-  )
-  console.log(organisations,numberofOrganisations)
+  const { organisationList, numberOfOrgs } = useSelector((state) => ({
+    organisationList: [...state.organisations.orgArray],
+    numberOfOrgs: state.organisations.numberOfOrgs,
+  }));
 
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUser());
-    dispatch(fetchOrg())
+    dispatch(fetchOrg());
   }, []);
 
   const history = useHistory();
@@ -64,7 +70,7 @@ const Sidebar = ({ auth }) => {
         left: "0",
       }}
     >
-      <ProSidebar  collapsed={sidebarCollapsed}>
+      <ProSidebar collapsed={sidebarCollapsed}>
         <SidebarHeader>
           <Menu iconShape="square">
             <MenuItem
@@ -77,55 +83,80 @@ const Sidebar = ({ auth }) => {
         </SidebarHeader>
 
         <SidebarContent>
-          <Menu iconShape="square">
+          <Menu iconShape="square" >
+            <MenuItem title="Dashboard" icon={<FaColumns />}>
+              Dashboard
+              <Link to="/dash/" />
+            </MenuItem>
 
-              <MenuItem   title='Dashboard' icon={<FaColumns/>}>
-                Dashboard
-                <Link to ='/dash/'/>
-              </MenuItem>
+            {isUserLoggedIn && numberOfOrgs ? (
+              <>
+                <MenuItem title="AVPN" icon={<FaUserLock />}>
+                  Anonymous VPN
+                  <Link to="/dash/anomvpn" />
+                </MenuItem>
 
-{ isUserLoggedIn ?<>
-              <MenuItem  title='AVPN' icon={<FaUserLock/>}>
-                Anonymous VPN
-                <Link to ='/dash/anomvpn'/>
-              </MenuItem>
-         
-        
-              <MenuItem title='DVPN' icon={<FaShieldAlt/>}>
-                Dedicated VPN
-                <Link to ='/dash/dedivpn'/>
-              </MenuItem>
-       
-           
-              <MenuItem title='Tunnel' icon={<FaDungeon/>}>
-                Tunnel
-                <Link to ='/dash/tunnel'/>
-              </MenuItem>
-            
-           
-              <MenuItem  title='Cloud' icon={<FaCloud/>}>
-                Cloud
-                <Link to ='/dash/cloud'/>
-              </MenuItem>
- </>:<></>}
-              <MenuItem  title='Profile' icon={<FaUser/>}>
-                Profile
-                <Link to ='/dash/profile'/>
-              </MenuItem>
-              <MenuItem  title='Billing' icon={<FaFileInvoice/>}>
-                Billing
-                <Link to ='/dash/billing'/>
-              </MenuItem>
-              <MenuItem  title='Settings' icon={<FaCog/>}>
-                Settings
-                <Link to ='/dash/settings'/>
-              </MenuItem>
+                <MenuItem title="DVPN" icon={<FaShieldAlt />}>
+                  Dedicated VPN
+                  <Link to="/dash/dedivpn" />
+                </MenuItem>
+
+                <MenuItem title="Tunnel" icon={<FaDungeon />}>
+                  Tunnel
+                  <Link to="/dash/tunnel" />
+                </MenuItem>
+
+                <MenuItem title="Cloud" icon={<FaCloud />}>
+                  Cloud
+                  <Link to="/dash/cloud" />
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                <MenuItem title="AVPN" className='disabled'  icon={<FaUserLock color='grey' />}>
+                  Anonymous VPN
+                 
+                </MenuItem>
+
+                <MenuItem title="DVPN" className='disabled' icon={<FaShieldAlt color='grey' />}>
+                  Dedicated VPN
+                
+                </MenuItem>
+
+                <MenuItem title="Tunnel" className='disabled' icon={<FaDungeon color='grey' />}>
+                  Tunnel
+              
+                </MenuItem>
+
+                <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
+                  Cloud
+                
+                </MenuItem>
+              </>
+            )}
+            <MenuItem title="Profile" icon={<FaUser />}>
+              Profile
+              <Link to="/dash/profile" />
+            </MenuItem>
+            <MenuItem title="Billing" icon={<FaFileInvoice />}>
+              Billing
+              <Link to="/dash/billing" />
+            </MenuItem>
+            <MenuItem title="Settings" icon={<FaCog />}>
+              Settings
+              <Link to="/dash/settings" />
+            </MenuItem>
           </Menu>
         </SidebarContent>
 
         <SidebarFooter>
           <Menu iconShape="circle">
-            <MenuItem onClick={() => {signOutUser()}} icon={<BiLogOut />}>
+            <MenuItem
+              onClick={() => {
+                signOutUser();
+              }}
+              icon={<BiLogOut />}
+            >
               Logout
             </MenuItem>
           </Menu>

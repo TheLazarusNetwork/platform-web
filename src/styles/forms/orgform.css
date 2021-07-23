@@ -1,0 +1,179 @@
+.main-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #fff;
+}
+
+.main-block div,
+.main-block form,
+.main-block input,
+.main-block select,
+.main-block p {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-size: 14px;
+}
+
+.main-block h1 {
+  margin: 0;
+  font-weight: 400;
+}
+
+.main-block h3 {
+  margin: 12px 0;
+}
+
+.main-block form {
+  width: 100%;
+  padding: 20px;
+}
+
+.main-block fieldset {
+  border: none;
+  border-top: 1px solid #1769aa;
+}
+
+.main-block .account-details,
+.main-block .personal-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.main-block .account-details > div,
+.main-block .personal-details > div > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.main-block .account-details > div,
+.main-block .personal-details > div,
+.main-block input,
+.main-block label {
+  width: 100%;
+}
+
+.main-block label {
+  padding: 0 5px;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.main-block input {
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.main-block .checkbox {
+  margin-bottom: 10px;
+}
+
+.main-block select,
+.main-block .children,
+.main-block .gender,
+.main-block .bdate-block {
+  width: calc(100% + 26px);
+  padding: 5px 0;
+}
+
+.main-block select {
+  background: transparent;
+}
+
+.main-block .gender input {
+  width: auto;
+}
+
+.main-block .gender label {
+  padding: 0 5px 0 0;
+}
+
+.main-block .bdate-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.main-block .birthdate select.day {
+  width: 35px;
+}
+
+.main-block .birthdate select.mounth {
+  width: calc(100% - 94px);
+}
+
+.main-block .birthdate input {
+  width: 38px;
+  vertical-align: unset;
+}
+
+.main-block .checkbox input,
+.main-block .children input {
+  width: auto;
+  margin: -2px 10px 0 0;
+}
+
+.main-block .checkbox a {
+  color: #1769aa;
+}
+
+.main-block .checkbox a:hover {
+  color: #1769aa;
+}
+
+.main-block button {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: none;
+  background: #1769aa;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.main-block button:hover {
+  background: #1769aa;
+}
+
+@media (min-width: 568px) {
+  .main-block .account-details > div,
+  .main-block .personal-details > div {
+    width: 50%;
+  }
+  .main-block label {
+    width: 40%;
+  }
+  .main-block input {
+    width: 60%;
+  }
+  .main-block select,
+  .main-block .children,
+  .main-block .gender,
+  .main-block .bdate-block {
+    width: calc(60% + 16px);
+  }
+}
+/*# sourceMappingURL=orgform.css.map */
