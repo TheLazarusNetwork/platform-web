@@ -2,6 +2,7 @@ import {
   FETCH_ORG_BEGIN,
   FETCH_ORG_SUCCESS,
   FETCH_ORG_FAILURE,
+  CHANGE_CURRENT_ORG,
 } from "../CONSTANTS";
 
 export function fetchOrg() {
@@ -57,4 +58,9 @@ export const fetchOrgSuccess = (userData) => ({
 export const fetchOrgFailure = (error) => ({
   type: FETCH_ORG_FAILURE,
   payload: { error },
+});
+
+export const changeCurrentOrg =(ID) =>({
+  type : CHANGE_CURRENT_ORG,
+  payload :ID,
 });

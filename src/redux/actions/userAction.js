@@ -5,16 +5,13 @@ import {
 } from "../CONSTANTS";
 
 export function fetchUser() {
-  let auth_token;
-  let isuserloggedin = JSON.parse(
-    localStorage.getItem("supabase.auth.token")
-  );
+  //fetching supabase jwt token to fetch user details
+  let auth_token = null;
+  let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
   if (isuserloggedin) {
     auth_token = JSON.parse(localStorage.getItem("supabase.auth.token"))
       .currentSession.access_token;
   } else auth_token = null;
-
-  console.log(auth_token)
 
   console.log("inside fetchUser");
   const userUrl = "https://platform.lazarus.network/api/v1.0/users";
@@ -31,7 +28,6 @@ export function fetchUser() {
       .then((res) => res.json())
       .then((json) => {
         dispatch(fetchUserSuccess(json.payload));
-        // console.log(json.payload);
         return json.payload;
       })
       .catch((error) => {
@@ -41,18 +37,14 @@ export function fetchUser() {
   };
 }
 
-export function createUser(cityName,countryName, contactNumber) {
-
-  let auth_token;
-  let isuserloggedin = JSON.parse(
-    localStorage.getItem("supabase.auth.token")
-  );
+export function createUser(cityName, countryName, contactNumber) {
+  let auth_token = null;
+  let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
   if (isuserloggedin) {
     auth_token = JSON.parse(localStorage.getItem("supabase.auth.token"))
       .currentSession.access_token;
   } else auth_token = null;
 
-  console.log(auth_token)
   console.log("inside Create User");
 
   const userUrl = "https://platform.lazarus.network/api/v1.0/users";
@@ -62,9 +54,9 @@ export function createUser(cityName,countryName, contactNumber) {
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    "city": cityName.toString(),
-    "country": countryName.toString(),
-    "phone": contactNumber.toString(),
+    city: cityName.toString(),
+    country: countryName.toString(),
+    phone: contactNumber.toString(),
   });
   var requestOptions = {
     method: "POST",
@@ -90,8 +82,10 @@ export function createUser(cityName,countryName, contactNumber) {
   };
 }
 
-function handleErrors(response) {
-  if (response.status !== 200) throw Error(response.status);
+async function handleErrors(response) {
+  if (response.status < 200 || response.status > 299) {
+    throw await response.json();
+  }
   return response;
 }
 
@@ -101,7 +95,7 @@ export const fetchUserBegin = () => ({
 
 export const fetchUserSuccess = (userData) => ({
   type: FETCH_USER_SUCCESS,
-  payload:  userData ,
+  payload: userData,
 });
 
 export const fetchUserFailure = (error) => ({

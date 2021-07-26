@@ -5,6 +5,7 @@ import {
   FETCH_ORG_BEGIN,
   FETCH_ORG_FAILURE,
   FETCH_ORG_SUCCESS,
+  CHANGE_CURRENT_ORG
 } from "../CONSTANTS";
 
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
   error: null,
   loading: false,
   numberOfOrgs: 0,
-  CurrentOrgID: 1,
+  CurrentOrgID: 0,
 };
 
 export default function orgReducer(state = initialState, action) {
@@ -23,16 +24,18 @@ export default function orgReducer(state = initialState, action) {
         loading: true,
         numberOfOrgs: 0,
         error: null,
-        CurrentOrgID: 1,
+        CurrentOrgID: 0,
       };
+      break;
     case FETCH_ORG_SUCCESS:
       return {
         ...state,
         loading: false,
         orgArray: [...action.payload],
         numberOfOrgs: [...action.payload].length,
-        CurrentOrgID: 1,
+        CurrentOrgID: [...action.payload][0].ID,
       };
+      break;
     case FETCH_ORG_FAILURE:
       return {
         ...state,
@@ -41,12 +44,13 @@ export default function orgReducer(state = initialState, action) {
         CurrentOrgID: null,
         orgArray: [],
       };
-
+      break;
     case CREATE_ORG_BEGIN:
       return {
         ...state,
         loading: true,
       };
+      break;
     case CREATE_ORG_SUCCESS:
       return {
         ...state,
@@ -56,12 +60,19 @@ export default function orgReducer(state = initialState, action) {
         numberOfOrgs: state.numberOfOrgs + 1,
         CurrentOrgID: action.payload.ID,
       };
+      break;
     case CREATE_ORG_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
       };
+    case CHANGE_CURRENT_ORG:
+      return{
+        ...state,
+        CurrentOrgID: action.payload,
+      }
+      break;
 
     default:
       return state;

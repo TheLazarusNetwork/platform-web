@@ -7,37 +7,41 @@ import { useSelector } from "react-redux";
 import NoOrganisations from "../Components/NoOrganisations";
 import CreateProfile from "../Components/CreateProfile";
 
-document.title = "Lazarus Networks-dash";
+document.title = "Lazarus Network-dash";
 
 export default function Dashboard(props) {
+  const { loading, error, isUserLoggedIn } = useSelector((state) => ({
+    loading: state.user.loading,
+    error: state.user.error,
+    isUserLoggedIn: state.user.isUserLoggedIn,
+  }));
+  const { numberofOrgs, currentOrg, orgloading } = useSelector((state) => ({
+    orgloading: state.organisations.loading,
+    numberofOrgs: state.organisations.numberOfOrgs,
+    currentOrg: state.organisations.currentOrg,
+  }));
 
-  const {loading, isUserLoggedIn } = useSelector(
-    (state) =>({
-      loading : state.user.loading,
-      isUserLoggedIn: state.user.isUserLoggedIn,
-    })
-  )
-  const {numberofOrgs , currentOrg} = useSelector(
-    (state)=>({
-      numberofOrgs: state.organisations.numberOfOrgs,
-      currentOrg : state.organisations.currentOrg,
-    })
-  )
+  if (loading)
+    return (
+      <>
+        <div className="center">
+          <h4>Loading...</h4>
+        </div>
+      </>
+    );
 
-  if(loading)
-  return(
-    <>
-    <div className='center'>
-    <h4>Loading...</h4>
-    </div>
-    </>
-  )
+  if (!isUserLoggedIn) return <CreateProfile error={error} />;
   
-    if(!isUserLoggedIn)
-    return <CreateProfile/>
+  if (orgloading)
+    return (
+      <>
+        <div className="center">
+          <h4>Loading...</h4>
+        </div>
+      </>
+    );
 
-    if(numberofOrgs == 0)
-    return <NoOrganisations/>
+  if (numberofOrgs == 0) return <NoOrganisations />;
 
   return (
     <>
@@ -89,12 +93,11 @@ export default function Dashboard(props) {
               </div>
             </div>
             <div className="table mid-details-box shadow">
-            <div className="title"> Recent activity</div>
-            <BasicTable/>
+              <div className="title"> Recent activity</div>
+              <BasicTable />
             </div>
           </div>
         </div>
-
       </div>
     </>
   );

@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "./../styles/forms/orgform.css";
 import { createUser } from "../redux/actions/userAction";
+import SnackbarAlert from './../utils/snackbar'
 
-export default function CreateProfile() {
+export default function CreateProfile({error}) {
   const [countryList, setCountryList] = useState(null);
+  const [alertmsg, setAlertmsg] = useState("");
+  const [alertopen, setAlertopen] = useState(false);
+  const [alerttype, setAlerttype]= useState("error")
   const dispatch = useDispatch();
 
   const getData = () => {
@@ -19,6 +23,7 @@ export default function CreateProfile() {
   useEffect(() => {
     //fetching public folder data
     getData();
+   
   }, []);
 
 
@@ -38,6 +43,12 @@ export default function CreateProfile() {
 
   return (
     <>
+    <SnackbarAlert
+        message={alertmsg}
+        alertopen={alertopen}
+        setAlertopen={setAlertopen}
+        type={alerttype} // type = error, success, info ,warning
+      />
       <div className="center">
         <div className="main-block">
           <form onSubmit={createNewUser}>

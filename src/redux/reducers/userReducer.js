@@ -21,6 +21,7 @@ export default function userReducer(state = initialState, action) {
          isUserLoggedIn: false,
          error: null
          };
+         break;
     case FETCH_USER_SUCCESS:
         return{
             ...state,
@@ -28,14 +29,16 @@ export default function userReducer(state = initialState, action) {
             isUserLoggedIn: true,
             currentUserData: action.payload
         };
+        break;
     case FETCH_USER_FAILURE:
         return{
             ...state,
             loading:false,
             isUserLoggedIn: false,
             error: action.payload.error,
-            currentUserData: null
+            currentUserData: null,
         };
+        break;
 
     default:
       return state;

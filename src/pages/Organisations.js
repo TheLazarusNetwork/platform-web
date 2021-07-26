@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Topnav from "../Components/Navbar/Topnav";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
 import { GoKebabVertical } from "react-icons/go";
 import Dialogform from "../Components/OrgForm";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeCurrentOrg } from "../redux/actions/orgAction";
 
 export default function Organisations() {
   const [openform, setOpenform] = useState(false);
-  const { orgArray } = useSelector((state) => ({
-    orgArray: state.organisations.orgArray,
+  const { orgArray, currentOrgID } = useSelector((state) => ({
+    orgArray: [...state.organisations.orgArray],
+    currentOrgID: state.organisations.CurrentOrgID,
   }));
+  const [currOrg, setCurrOrg] = useState(null);
+  const dispatch = useDispatch();
+
+  const changeOrg = (ID) => {
+    dispatch(changeCurrentOrg(ID));
+  };
+
+  const getcurrentOrg = () => {
+    let currentOrg = orgArray.find((org) => org.ID === currentOrgID);
+    setCurrOrg(currentOrg);
+  };
+  
+  useEffect(() => {
+    getcurrentOrg();
+  }, [currentOrgID]);
 
   return (
     <>
@@ -37,14 +54,35 @@ export default function Organisations() {
             </div>
           </div>
           <div className="divider"></div>
-          <div className="table">
+
+          <div className="current-org  mid-details-box">
+            <div className=" tag">Current Organisation</div>
+
+            {currOrg && (
+              <div className="org-box">
+                <div className="name">{currOrg.name}</div>
+                <div className="country">{currOrg.country}</div>
+                <div>
+                  <icon className="btn">
+                    <GoKebabVertical />
+                  </icon>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="table mid-details-box">
+            <div className="tag"> All Organisation</div>
+
             {orgArray.map((organisation) => {
               return (
-                <div className="org-box">
-                  <div className="name">{organisation.Name}</div>
-                  <div className="country">{organisation.Country}</div>
+                <div key={organisation.ID} className="org-box">
+                  <div className="name">{organisation.name}</div>
+                  <div className="country">{organisation.country}</div>
                   <div>
-                    <icon className="btn">
+                    <icon
+                      className="btn"
+                      onClick={() => changeOrg(organisation.ID)}
+                    >
                       <BiRightTopArrowCircle />
                     </icon>
                     <icon className="btn">
