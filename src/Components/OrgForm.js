@@ -44,8 +44,14 @@ export default function Dialogform({ open, setOpen }) {
     e.preventDefault();
     
     console.log("creating new Organisation");
+    const OrgName = e.target.OrgName.value;
+    const OrgType = e.target.OrgType.value;
+    const Country = e.target.Country.value;
+    const Timezone = e.target.Timezone.value;
+
+    console.log(OrgName)
     //dispatching all new org data to create a new organisation
-    dispatch(createOrg())
+    dispatch(createOrg(OrgName,OrgType,Country,Timezone))
     // handleClose();
   };
 
@@ -66,11 +72,11 @@ export default function Dialogform({ open, setOpen }) {
               <div className="account-details">
                 <div>
                   <label>Name of Organization *</label>
-                  <input type="text" name="name" required />
+                  <input type="text" name="OrgName" required />
                 </div>
                 <div>
                   <label>Type of Organization *</label>
-                  <input type="text" name="name" required />
+                  <input type="text" name="OrgType" required />
                 </div>
               </div>
             </fieldset>
@@ -82,15 +88,15 @@ export default function Dialogform({ open, setOpen }) {
                 <div>
                   <div>
                     <label>Address</label>
-                    <input type="text" name="name" />
+                    <input type="text" name="address" />
                   </div>
                   <div>
                     <label>City*</label>
-                    <input type="text" name="name" required />
+                    <input type="text" name="OrgCity" required />
                   </div>
                   <div>
                     <label>Country*</label>
-                    <select id="country" name="country">
+                    <select id="country" name="Country">
                       {countryList && 
                       countryList.map((country)=>{
                         return(
@@ -103,7 +109,7 @@ export default function Dialogform({ open, setOpen }) {
 
                 <div>
                   <label>Timezone*</label>
-                  <select id="timezone" name="timezone" required>
+                  <select id="timezone" name="Timezone" required>
                     {timezones &&
                       timezones.map((timezone ,index) => {
                         return (

@@ -5,6 +5,7 @@ import CircularProgressWithLabel from "@material-ui/core/CircularProgress";
 import { BasicTable } from "../utils/table";
 import { useSelector } from "react-redux";
 import NoOrganisations from "../Components/NoOrganisations";
+import CreateProfile from "../Components/CreateProfile";
 
 document.title = "Lazarus Networks-dash";
 
@@ -33,19 +34,8 @@ export default function Dashboard(props) {
   )
   
     if(!isUserLoggedIn)
-    return(
-      <>
-      <div className='center'>
-        <h1>Your Profile is not complete </h1>
-          <p>please complete your profile to access other services</p>
+    return <CreateProfile/>
 
-          <input placeholder="contact-number" type='number'/>
-
-          <button>confirm</button>
-      </div>
-      </>
-    )
-console.log(numberofOrgs)
     if(numberofOrgs == 0)
     return <NoOrganisations/>
 

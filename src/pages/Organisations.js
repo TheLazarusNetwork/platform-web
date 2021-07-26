@@ -3,12 +3,14 @@ import Topnav from "../Components/Navbar/Topnav";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
 import { GoKebabVertical } from "react-icons/go";
-import Dialogform from '../Components/OrgForm'
-
+import Dialogform from "../Components/OrgForm";
+import { useSelector } from "react-redux";
 
 export default function Organisations() {
   const [openform, setOpenform] = useState(false);
-
+  const { orgArray } = useSelector((state) => ({
+    orgArray: state.organisations.orgArray,
+  }));
 
   return (
     <>
@@ -36,50 +38,25 @@ export default function Organisations() {
           </div>
           <div className="divider"></div>
           <div className="table">
-            <div className="org-box">
-              <div className="name">Organisation name</div>
-              <div className="role">Admin</div>
-              <div>
-                <icon className="btn">
-                  <BiRightTopArrowCircle />
-                </icon>
-                <icon className="btn">
-                  <GoKebabVertical />
-                </icon>
-              </div>
-            </div>
-            <div className="org-box">
-              <div className="name">Organisation name</div>
-              <div className="role">Member</div>
-              <div>
-                <icon className="btn">
-                  <BiRightTopArrowCircle />
-                </icon>
-                <icon className="btn">
-                  <GoKebabVertical />
-                </icon>
-              </div>
-            </div>
-            <div className="org-box">
-              <div className="name">Organisation name</div>
-              <div className="role">Admin</div>
-              <div>
-                <icon className="btn">
-                  <BiRightTopArrowCircle />
-                </icon>
-                <icon className="btn">
-                  <GoKebabVertical />
-                </icon>
-              </div>
-            </div>
+            {orgArray.map((organisation) => {
+              return (
+                <div className="org-box">
+                  <div className="name">{organisation.Name}</div>
+                  <div className="country">{organisation.Country}</div>
+                  <div>
+                    <icon className="btn">
+                      <BiRightTopArrowCircle />
+                    </icon>
+                    <icon className="btn">
+                      <GoKebabVertical />
+                    </icon>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-        {openform && (
-          <Dialogform
-            open={openform}
-            setOpen={setOpenform}
-          />
-        )}
+        {openform && <Dialogform open={openform} setOpen={setOpenform} />}
       </div>
     </>
   );
@@ -142,7 +119,7 @@ export default function Organisations() {
 //             Add new Members
 //           </DialogTitle>
 //           <DialogContent>
-           
+
 //             <div className="divider"></div>
 //             <input type='email' placeholder='email to invite'></input>
 //             <input placeholder='role'></input>

@@ -4,7 +4,14 @@ import {
   CREATE_ORG_FAILURE,
 } from "../CONSTANTS";
 
-export function createOrg() {
+function calcTime( offset) {
+    var d = new Date();
+    var utc = d.getTime();
+    var nd = new Date(utc + (3600000*offset));
+    return  nd;
+}
+
+export function createOrg(OrgName,OrgType, Country, Timezone) {
   let auth_token;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
   if (isuserloggedin) {
@@ -12,7 +19,7 @@ export function createOrg() {
       .currentSession.access_token;
   } else auth_token = null;
 
-  console.log("inside fetchUser");
+  console.log("inside fetch CreateOrg");
 
   const orgUrl = "https://platform.lazarus.network/api/v1.0/orgs";
 
@@ -21,12 +28,12 @@ export function createOrg() {
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify({
-    name: "Yash pvt",
+    Name: OrgName.toString(),
     type: "llc",
     lat: 22.572645,
     lon: 8.363892,
-    country: "India",
-    timezone: "2021-07-08T14:55:05+05:30",
+    country: Country.toString(),
+    timezone: calcTime(Timezone),
   });
   var requestOptions = {
     method: "POST",
@@ -38,6 +45,7 @@ export function createOrg() {
     dispatch(createOrgBegin());
 
     return fetch(orgUrl, requestOptions)
+    
       .then(handleErrors)
       .then((res) => res.json())
       .then((json) => {

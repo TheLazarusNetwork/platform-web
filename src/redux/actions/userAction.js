@@ -41,7 +41,8 @@ export function fetchUser() {
   };
 }
 
-export function createUser() {
+export function createUser(cityName,countryName, contactNumber) {
+
   let auth_token;
   let isuserloggedin = JSON.parse(
     localStorage.getItem("supabase.auth.token")
@@ -52,24 +53,29 @@ export function createUser() {
   } else auth_token = null;
 
   console.log(auth_token)
-  console.log("inside fetchUser");
+  console.log("inside Create User");
+
   const userUrl = "https://platform.lazarus.network/api/v1.0/users";
 
-  var raw = JSON.stringify({
-    "city": "Kolkata",
-    "country": "India",
-    "phone": "8976789024"
-  });
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${auth_token}`);
+  myHeaders.append("Content-Type", "application/json");
 
+  var raw = JSON.stringify({
+    "city": cityName.toString(),
+    "country": countryName.toString(),
+    "phone": contactNumber.toString(),
+  });
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
   return (dispatch) => {
     dispatch(fetchUserBegin());
-    return fetch(userUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth_token}`,
-      },
-      body: raw,
-    })
+
+    return fetch(userUrl, requestOptions)
       .then(handleErrors)
       .then((res) => res.json())
       .then((json) => {
@@ -85,7 +91,7 @@ export function createUser() {
 }
 
 function handleErrors(response) {
-  if (!response.ok) throw Error(response.status);
+  if (response.status !== 200) throw Error(response.status);
   return response;
 }
 

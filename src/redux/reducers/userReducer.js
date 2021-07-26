@@ -34,7 +34,7 @@ export default function userReducer(state = initialState, action) {
             loading:false,
             isUserLoggedIn: false,
             error: action.payload.error,
-            currentUserData: {}
+            currentUserData: null
         };
 
     default:
