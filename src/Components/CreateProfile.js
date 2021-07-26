@@ -1,0 +1,89 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import "./../styles/forms/orgform.css";
+import { createUser } from "../redux/actions/userAction";
+import SnackbarAlert from './../utils/snackbar'
+
+export default function CreateProfile({error}) {
+  const [countryList, setCountryList] = useState(null);
+  const [alertmsg, setAlertmsg] = useState("");
+  const [alertopen, setAlertopen] = useState(false);
+  const [alerttype, setAlerttype]= useState("error")
+  const dispatch = useDispatch();
+
+  const getData = () => {
+    //fetching list of country names form public folder
+    fetch("data/countries.json")
+      .then((r) => r.json())
+      .then(function (myJson) {
+        setCountryList([...myJson]);
+      });
+  };
+
+  useEffect(() => {
+    //fetching public folder data
+    getData();
+   
+  }, []);
+
+
+  const createNewUser = (e) => {
+    //function after filling new organisation form
+    e.preventDefault();
+    console.log("creating new User");
+
+    const City = e.target.City.value;
+    const Country = e.target.Country.value;
+    const ContactNumber = e.target.ContactNumber.value;
+
+    //dispatching all new org data to create a new organisation
+    dispatch(createUser(City, Country, ContactNumber));
+    // handleClose();
+  };
+
+  return (
+    <>
+    <SnackbarAlert
+        message={alertmsg}
+        alertopen={alertopen}
+        setAlertopen={setAlertopen}
+        type={alerttype} // type = error, success, info ,warning
+      />
+      <div className="center">
+        <div className="main-block">
+          <form onSubmit={createNewUser}>
+            <h1>Please complete your profile </h1>
+            <fieldset>
+              <div className="personal-details">
+                <div>
+                  <div>
+                    <label>Contact Number</label>
+                    <input type="number" name="ContactNumber" maxLength="10" />
+                  </div>
+                  <div>
+                    <label>City*</label>
+                    <input type="text" name="City" required />
+                  </div>
+                  <div>
+                    <label>Country*</label>
+                    <select id="country" name="Country">
+                      {countryList &&
+                        countryList.map((country) => {
+                          return (
+                            <option key={country.code} value={country.name}>
+                              {country.name}
+                            </option>
+                          );
+                        })}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <button type="submit">Confirm </button>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}

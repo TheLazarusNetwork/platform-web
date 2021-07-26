@@ -31,18 +31,6 @@
   display: none;
 }
 
-@media (max-width: 650px) {
-  .dIYCww.toggled {
-    width: 70px !important;
-    min-width: 50px !important;
-    margin: 0px !important;
-    padding: 0px !important;
-  }
-  .kfARSm.toggled {
-    padding-left: 5px !important;
-  }
-}
-
 Navlink:hover {
   text-decoration: none;
 }
@@ -84,6 +72,7 @@ Navlink:hover {
 
 .top-nav .title {
   font-weight: bold;
+  font-size: large;
   letter-spacing: 1px;
 }
 
@@ -336,6 +325,8 @@ Navlink:hover {
 .details-box .row .textfield {
   margin: auto;
   margin-top: 30px;
+  max-width: 90%;
+  margin: 20px;
 }
 
 @media (min-width: 650px) {

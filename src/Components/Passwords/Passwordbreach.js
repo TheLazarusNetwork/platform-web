@@ -61,6 +61,7 @@ export default function Passwordbreach(props) {
                 timespell +
                 " in compromised passwords databases! </span>";
             } else {
+              if(document.getElementById('iscompromised'))
               document.getElementById("iscompromised").innerHTML =
                 '<span style="color: #339966;">Good news, this password has never been breached!</span>';
             }

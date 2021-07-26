@@ -8,6 +8,7 @@ $darkthemegrey: #121212;
 $mid: 650px;
 $small: 450px;
 
+
 * {
   margin: 0;
 }
@@ -22,9 +23,6 @@ $small: 450px;
 }
 
 //light theme
-
-
-
 
 .label {
   font-size: 10px;
@@ -43,17 +41,7 @@ $small: 450px;
     }
   }
 }
-@media (max-width: $mid) {
-  .dIYCww.toggled {
-    width: 70px !important;
-    min-width: 50px !important;
-    margin: 0px !important;
-    padding: 0px !important;
-  }
-  .kfARSm.toggled {
-    padding-left: 5px !important;
-  }
-}
+
 
 Navlink:hover {
   text-decoration: none;
@@ -76,10 +64,10 @@ Navlink:hover {
   height: 100vh;
   overflow: scroll;
   overflow-x: hidden;
-  // background-color: $white;
+ 
 }
 
-// top nav bar
+//-----------TOP NAVBAR-------------
 
 .top-nav {
   width: 100%;
@@ -92,6 +80,7 @@ Navlink:hover {
 
   .title {
     font-weight: bold;
+    font-size: large;
     letter-spacing: 1px;
   }
 
@@ -108,7 +97,8 @@ Navlink:hover {
   height: 90%;
 }
 
-//dashboard page
+// ---------DASHBOARD PAGE---------------
+
 .main {
   .grey-back {
     display: flex;
@@ -198,7 +188,7 @@ Navlink:hover {
   }
 }
 
-//profile page
+//----------PROFILE PAGE--------------
 
 .main {
   width: 100%;
@@ -270,6 +260,8 @@ Navlink:hover {
     .textfield {
       margin: auto;
       margin-top: 30px;
+      max-width: 90%;
+      margin: 20px;
     }
     @media (min-width: $mid) {
       .row-div {
@@ -323,7 +315,7 @@ Navlink:hover {
   float: right;
 }
 
-// settings page
+//-----------------SETTINGS PAGE-------------
 
 .MuiAppBar-colorPrimary {
   background-color: $darkblue;

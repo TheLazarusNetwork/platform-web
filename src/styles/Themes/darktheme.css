@@ -1,5 +1,12 @@
-.dark-theme .sidebar {
-  background-color: #4d4f5c;
+.dark-theme .shadow {
+  -webkit-box-shadow: rgba(30, 30, 31, 0.616) 0px 8px 24px;
+          box-shadow: rgba(30, 30, 31, 0.616) 0px 8px 24px;
+}
+
+.dark-theme .pro-sidebar-inner {
+  background-color: #4d4f5c !important;
+  color: #f1f4fe !important;
+  border-right: #2a2a2a solid 1px;
 }
 
 .dark-theme .sidebar-content {

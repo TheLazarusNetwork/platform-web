@@ -1,6 +1,6 @@
 $lightblue: #f1f4fe;
 $darkgrey: #4d4f5c;
-$darkblue: rgb(28, 12, 172);
+$darkblue: rgb(23, 105, 170);
 $lightgrey: #d6d7de;
 $white: #fff;
 $textgrey: rgb(179, 181, 182);
@@ -10,19 +10,23 @@ $small: 450px;
 
 .light-theme {
     //sidebar
-  
-    .sidebar {
+   
+  .shadow{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+    .pro-sidebar-inner {
       background-color: $lightblue !important;
       color: $darkgrey !important;
+
+      :hover{
+          color: $black !important;
+      }
     }
-    .sidebar-content {
-      background-color: $lightblue;
-      color: $darkgrey;
+   
+    .pro-icon-wrapper{
+      background-color: #dce2f5b4 !important;
     }
-    .sidebar-menu {
-      background-color: #f1f4fe;
-      color: #4d4f5c;
-    }
+
     .activeClicked > li {
       background-color: $darkblue !important;
       color: #fff !important;

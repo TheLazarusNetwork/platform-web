@@ -11,7 +11,7 @@ import { FaFileDownload } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function AnonymousVPN() {
-  const [active, setactive] = useState(true);
+  const [active, setactive] = useState(false);
   return (
     <>
       {/* <SnackbarAlert
@@ -39,7 +39,8 @@ const AVPN = () => {
       `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
     );
     const jsonResponse = await request.json();
-    // console.log(jsonResponse)
+    console.log(jsonResponse)
+    console.log("inside anomvpn")
     setIpinfo(jsonResponse);
   };
   useEffect(() => getIp, []);
@@ -74,6 +75,30 @@ const AVPN = () => {
         </div>
       </div>
       <div className="table">
+        <div className="org-box">
+          <div className="name">Region Name</div>
+          <div className="role">Code</div>
+          <div>
+            <button className="simple-btn" onClick={() => setShowc(!showc)}>
+              see all clients
+            </button>
+            <button className="simple-btn" onClick={() => setCreate(!create)}>
+              create new client
+            </button>
+          </div>
+        </div>
+        <div className="org-box">
+          <div className="name">Region Name</div>
+          <div className="role">Code</div>
+          <div>
+            <button className="simple-btn" onClick={() => setShowc(!showc)}>
+              see all clients
+            </button>
+            <button className="simple-btn" onClick={() => setCreate(!create)}>
+              create new client
+            </button>
+          </div>
+        </div>
         <div className="org-box">
           <div className="name">Region Name</div>
           <div className="role">Code</div>

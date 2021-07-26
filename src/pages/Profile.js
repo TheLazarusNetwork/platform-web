@@ -93,17 +93,19 @@ export default function Profile({ auth }) {
             <form onSubmit={handlesubmit}>
               <div className="row">
                 <input
+                  className="textfield"
                   value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
-                ></input>
+                />
                 <input
                   className="textfield"
                   label="email"
                   value={useremail}
                   disabled
                 />
+               
               </div>
               <button type="submit" className="save-btn">
                 update changes

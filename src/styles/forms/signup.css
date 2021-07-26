@@ -19,6 +19,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin: auto;
   font-family: 'Exo', sans-serif;
   font-weight: 300;
   height: 100vh;
@@ -55,8 +56,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #012690;
-  background-color: #012690;
+  border: 1px solid #1769aa;
+  background-color: #1769aa;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -120,6 +121,7 @@ input {
   width: 768px;
   max-width: 100%;
   min-height: 550px;
+  margin: auto;
 }
 
 @media (max-width: 650px) {
@@ -294,8 +296,8 @@ input {
 
 .overlay {
   background: #f1f4fe;
-  background: -webkit-gradient(linear, left top, right top, from(#012690), to(#2277d8));
-  background: linear-gradient(to right, #012690, #2277d8);
+  background: -webkit-gradient(linear, left top, right top, from(#1769aa), to(#2277d8));
+  background: linear-gradient(to right, #1769aa, #2277d8);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
