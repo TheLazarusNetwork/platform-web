@@ -2,7 +2,6 @@ import React, { useState ,useEffect} from "react";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import "./../styles/Organisation/organisation.css";
-import { BiRightTopArrowCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 

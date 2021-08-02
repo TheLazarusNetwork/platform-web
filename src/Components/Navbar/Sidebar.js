@@ -103,16 +103,16 @@ const Sidebar = ({ auth }) => {
                   Dedicated VPN
                   <Link to="/dash/dedicatedNetwork" />
                 </MenuItem>
-
+                <MenuItem title="Cloud" icon={<FaCloud />}>
+                 NextCloud
+                  <Link to="/dash/nextCloud" />
+                </MenuItem>
                 <MenuItem title="Tunnel" icon={<FaDungeon />}>
                   Tunnel
                   <Link to="/dash/tunnel" />
                 </MenuItem>
 
-                <MenuItem title="Cloud" icon={<FaCloud />}>
-                  Cloud
-                  <Link to="/dash/nextCloud" />
-                </MenuItem>
+              
               </>
             ) : (
               <>
@@ -122,7 +122,12 @@ const Sidebar = ({ auth }) => {
                 </MenuItem>
 
                 <MenuItem title="DVPN" className='disabled' icon={<FaShieldAlt color='grey' />}>
-                  Dedicated VPN
+                  Dedicated Network
+                
+                </MenuItem>
+
+                <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
+                  NextCloud
                 
                 </MenuItem>
 
@@ -131,10 +136,7 @@ const Sidebar = ({ auth }) => {
               
                 </MenuItem>
 
-                <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
-                  Cloud
-                
-                </MenuItem>
+               
               </>
             )}
             <MenuItem title="Profile" icon={<FaUser />}>
