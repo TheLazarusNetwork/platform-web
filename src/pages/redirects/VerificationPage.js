@@ -11,7 +11,7 @@ export default function VerificationPage(props) {
       <h1>Your email has been verified .</h1>
       <h4>You can now login to access your dashboard</h4>
       <div className="center">
-        <Link to="/signup">
+        <Link to="/auth">
           <button>to to signin page</button>
         </Link>
       </div>

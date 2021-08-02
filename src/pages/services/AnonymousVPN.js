@@ -11,7 +11,7 @@ import { FaFileDownload } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function AnonymousVPN() {
-  const [active, setactive] = useState(false);
+  const [active, setactive] = useState(true);
   return (
     <>
       {/* <SnackbarAlert

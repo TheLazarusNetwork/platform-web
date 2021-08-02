@@ -27,6 +27,7 @@ import "./../../styles/Dashboard/dashboard.css";
 import "./../../styles/Navbar/navbar.scss";
 import { fetchOrg } from "../../redux/actions/orgAction";
 import { userLogout } from "../../redux/rootReducer";
+import { Icon } from "@material-ui/core";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -60,7 +61,7 @@ const Sidebar = ({ auth }) => {
     const { error } = await auth.logout();
     if (error) console.log(error);
     dispatch(userLogout())
-    history.push("/signup");
+    history.push("/auth");
   };
 
   return (
@@ -74,12 +75,12 @@ const Sidebar = ({ auth }) => {
     >
       <ProSidebar collapsed={sidebarCollapsed}>
         <SidebarHeader>
-          <Menu iconShape="square">
+          <Menu iconShape='square'>
             <MenuItem
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              icon={<GiHamburgerMenu />}
+              icon={<img width={20} height={20}  src='favicon-lazarus.png' />}
             >
-              SideBar
+              Lazarus Network
             </MenuItem>
           </Menu>
         </SidebarHeader>
@@ -95,12 +96,12 @@ const Sidebar = ({ auth }) => {
               <>
                 <MenuItem title="AVPN" icon={<FaUserLock />}>
                   Anonymous VPN
-                  <Link to="/dash/anomvpn" />
+                  <Link to="/dash/anonymousVPN" />
                 </MenuItem>
 
                 <MenuItem title="DVPN" icon={<FaShieldAlt />}>
                   Dedicated VPN
-                  <Link to="/dash/dedivpn" />
+                  <Link to="/dash/dedicatedNetwork" />
                 </MenuItem>
 
                 <MenuItem title="Tunnel" icon={<FaDungeon />}>
@@ -110,7 +111,7 @@ const Sidebar = ({ auth }) => {
 
                 <MenuItem title="Cloud" icon={<FaCloud />}>
                   Cloud
-                  <Link to="/dash/cloud" />
+                  <Link to="/dash/nextCloud" />
                 </MenuItem>
               </>
             ) : (

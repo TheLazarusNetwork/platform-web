@@ -6,6 +6,8 @@ import SnackbarAlert from "../utils/snackbar";
 import { connect } from "react-redux";
 import { fetchUser } from "../redux/actions/userAction";
 
+document.title = "Profile | Lazarus Network";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -19,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(7),
   },
 }));
+
 
 export default function Profile({ auth }) {
   const [username, setUsername] = useState("");
@@ -108,7 +111,7 @@ export default function Profile({ auth }) {
                
               </div>
               <button type="submit" className="save-btn">
-                update changes
+                update
               </button>
             </form>
           </div>

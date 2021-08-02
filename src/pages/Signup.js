@@ -6,7 +6,7 @@ import SnackbarAlert from "./../utils/snackbar";
 import Passwordbreach from "../Components/Passwords/Passwordbreach";
 import { Link } from "react-router-dom";
 
-document.title = "Lazarus Networks-signup";
+document.title = " Auth | Lazarus Network";
 
 export default function Signup({auth , history}) {
 

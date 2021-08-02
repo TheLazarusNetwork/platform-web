@@ -45,7 +45,6 @@ const Muidarktheme = createMuiTheme({
      primary: {
         light: '#fff',
         main: 'rgb(23, 105, 170)',
-        dark: 'rgb(23, 105, 170)',
         contrastText: '#fff',
      },
      secondary: {
@@ -64,12 +63,10 @@ const Muidarktheme = createMuiTheme({
 const Muilighttheme = createMuiTheme({
   palette: {
      primary: {
-        light: '#fff',
         main: 'rgb(28, 12, 172)',
-        dark: '#000'
      },
      secondary: {
-       main: '#f1f4fe',
+      main: '#0044ff',
      },
      
   },
@@ -124,14 +121,14 @@ const App = () => {
             />
             <PrivateRoute
               exact
-              path="/dash/anomvpn"
+              path="/dash/anonymousVPN"
               auth={auth}
               component={AnonymousVPN}
             />
 
             <PrivateRoute
               exact
-              path="/dash/dedivpn"
+              path="/dash/dedicatedNetwork"
               auth={auth}
               component={DedicatedNetwork}
             />
@@ -143,7 +140,7 @@ const App = () => {
             />
             <PrivateRoute
               exact
-              path="/dash/cloud"
+              path="/dash/nextCloud"
               auth={auth}
               component={Cloud}
             />
@@ -157,7 +154,7 @@ const App = () => {
       
             <Route
               exact
-              path="/signup"
+              path="/auth"
               render={(props) => {
                 return SessionActive() ? (
                   <Redirect to="/dash" />

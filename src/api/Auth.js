@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const supabsekey = config.supabaseKey;
 const supabaseUrl = config.supabaseURL
+
 const supabase = createClient(
   supabaseUrl,
   supabsekey

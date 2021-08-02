@@ -1,8 +1,9 @@
 import { Avatar } from "@material-ui/core";
 import React, { useState } from "react";
 import { IoIosNotifications } from "react-icons/io";
-import { VscOrganization } from "react-icons/vsc";
+import { MdSwapHoriz } from "react-icons/md";
 import OrgsModal from "../OrgsModal";
+import Button from '@material-ui/core/Button'
 
 export default function Topnav({ page }) {
   const [show, setShow] = useState(false);
@@ -12,11 +13,15 @@ export default function Topnav({ page }) {
       <nav className="top-nav">
         <h4 className="title">{page}</h4>
         <div className="icons">
-          <icon className="btn" onClick={() => setShow(!show)}>
-            <VscOrganization size={20} />
-          </icon>
+          <Button 
+          variant ='contained'
+          color='primary'
+          startIcon ={<MdSwapHoriz/>}
+           onClick={() => setShow(!show)}
+            > Org
+          </Button>
           <icon>
-            <IoIosNotifications size={20} />
+            <IoIosNotifications size={25} />
           </icon>
           <div className="vertical-divider"></div>
           <icon>

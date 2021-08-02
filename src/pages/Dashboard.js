@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import NoOrganisations from "../Components/NoOrganisations";
 import CreateProfile from "../Components/CreateProfile";
 
-document.title = "Lazarus Network-dash";
+document.title = "Dashboard | Lazarus Network";
 
 export default function Dashboard(props) {
   const { loading, error, isUserLoggedIn } = useSelector((state) => ({
