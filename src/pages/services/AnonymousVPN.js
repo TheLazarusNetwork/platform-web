@@ -43,7 +43,7 @@ const AVPN = () => {
     console.log("inside anomvpn")
     setIpinfo(jsonResponse);
   };
-  useEffect(() => getIp, []);
+  useEffect(() => {getIp()}, []);
   return (
     <>
       <div className="flex-div">
