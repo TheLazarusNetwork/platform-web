@@ -11,8 +11,8 @@ export default function Home({auth}) {
         console.log(' rediected to /success')
         return <Redirect to="/success" />;
       } else {
-        console.log(' rediected to /signup')
-        return <Redirect to="/signup " />;
+        console.log(' rediected to /auth')
+        return <Redirect to="/auth " />;
       }
  
 }

@@ -6,6 +6,7 @@ import { BasicTable } from "../Components/commanComponents/table";
 import { useSelector } from "react-redux";
 import NoOrganisations from "../Components/emptySpace/NoOrganisations";
 import CreateProfile from "../Components/dashBoard/CreateProfile";
+import LoadingAnimation from "../Components/emptySpace/LoadingAnimation";
 
 document.title = "Dashboard | Lazarus Network";
 
@@ -22,24 +23,13 @@ export default function Dashboard(props) {
   }));
 
   if (loading)
-    return (
-      <>
-        <div className="center">
-          <h4>Loading...</h4>
-        </div>
-      </>
-    );
+    return <LoadingAnimation/>
+    
 
   if (!isUserLoggedIn) return <CreateProfile error={error} />;
   
   if (orgloading)
-    return (
-      <>
-        <div className="center">
-          <h4>Loading...</h4>
-        </div>
-      </>
-    );
+    return <LoadingAnimation/>
 
   if (numberofOrgs == 0) return <NoOrganisations />;
 

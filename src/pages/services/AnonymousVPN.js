@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { FaFileDownload } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export default function AnonymousVPN() {
   const [active, setactive] = useState(true);
@@ -31,9 +31,15 @@ export default function AnonymousVPN() {
 const AVPN = () => {
   const [percentage, setPercentage] = useState(50);
   const [ipinfo, setIpinfo] = useState({});
-  const [showc, setShowc] = useState(false);
   const [create, setCreate] = useState(false);
 
+  const RegionName ="regionName";
+  const Code = "code";
+
+  const seeAllClients=(RegionName, Code)=>{
+    console.log('aklksfjlsakfj');
+    return <Redirect to="/clients"/>
+  }
   const getIp = async () => {
     const request = await fetch(
       `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
@@ -43,6 +49,7 @@ const AVPN = () => {
     console.log("inside anomvpn")
     setIpinfo(jsonResponse);
   };
+
   useEffect(() => {getIp()}, []);
   return (
     <>
@@ -76,48 +83,28 @@ const AVPN = () => {
       </div>
       <div className="table">
         <div className="org-box">
-          <div className="name">Region Name</div>
-          <div className="role">Code</div>
+          <div className="name">{RegionName}</div>
+          <div className="role">{Code}</div>
           <div>
-            <button className="simple-btn" onClick={() => setShowc(!showc)}>
+            <Link to={'/dash/anonymousVPN/clients/:' +RegionName}>
+            <button className="simple-btn" onClick={() => seeAllClients(RegionName,Code)}>
               see all clients
             </button>
+            </Link>
             <button className="simple-btn" onClick={() => setCreate(!create)}>
               create new client
             </button>
           </div>
         </div>
-        <div className="org-box">
-          <div className="name">Region Name</div>
-          <div className="role">Code</div>
-          <div>
-            <button className="simple-btn" onClick={() => setShowc(!showc)}>
-              see all clients
-            </button>
-            <button className="simple-btn" onClick={() => setCreate(!create)}>
-              create new client
-            </button>
-          </div>
-        </div>
-        <div className="org-box">
-          <div className="name">Region Name</div>
-          <div className="role">Code</div>
-          <div>
-            <button className="simple-btn" onClick={() => setShowc(!showc)}>
-              see all clients
-            </button>
-            <button className="simple-btn" onClick={() => setCreate(!create)}>
-              create new client
-            </button>
-          </div>
-        </div>
+    
+      
       </div>
       {/* <div className="center">
         <Link to="">
           <button>Upgrade plan</button>
         </Link>
       </div> */}
-      {showc && <ShowClient show={showc} onClose={() => setShowc(false)} />}
+
       {create && (
         <CreateClient show={create} onClose={() => setCreate(false)} />
       )}
@@ -145,14 +132,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ShowClient({ show, onClose }) {
-  const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
-  const [enabled, setEnabled] = useState(false);
+ export function ShowClient({RegionName, Code}) {
+  const [serviceEnabled, setServiceEnabled] = useState(false);
   return (
-    <div>
-      <Modal open={show} onClose={onClose}>
-        <div style={modalStyle} className={classes.paper}>
+    <div className='main'>
+        <div className='mid-details-box'>
           <div className="main-title">All Clients</div>
           <div className="divider"></div>
 
@@ -165,10 +149,10 @@ function ShowClient({ show, onClose }) {
             <div>
               {/* button to go the this organisation */}
               <icon className="btn">
-                {enabled ? (
-                  <BsToggleOn onClick={() => setEnabled(false)} color="green" />
+                {serviceEnabled ? (
+                  <BsToggleOn onClick={() => setServiceEnabled(false)} color="green" />
                 ) : (
-                  <BsToggleOff onClick={() => setEnabled(true)} />
+                  <BsToggleOff onClick={() => setServiceEnabled(true)} />
                 )}
               </icon>
               {/* delete this client  */}
@@ -178,7 +162,7 @@ function ShowClient({ show, onClose }) {
             </div>
           </div>
         </div>
-      </Modal>
+     
     </div>
   );
 }

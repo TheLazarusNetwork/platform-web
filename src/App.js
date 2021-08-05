@@ -20,7 +20,7 @@ import Sidebar from "./Components/navbar/Sidebar";
 import Billing from "./pages/Billing";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import AnonymousVPN from "./pages/services/AnonymousVPN";
+import AnonymousVPN, { ShowClient } from "./pages/services/AnonymousVPN";
 import DedicatedNetwork from "./pages/services/DedicatedNetwork";
 import Tunnel from "./pages/services/Tunnel";
 import Cloud from "./pages/services/Cloud";
@@ -124,6 +124,12 @@ const App = () => {
               path="/dash/anonymousVPN"
               auth={auth}
               component={AnonymousVPN}
+            />
+             <PrivateRoute
+              exact
+              path="/dash/anonymousVPN/clients/:id"
+              auth={auth}
+              component={ShowClient}
             />
 
             <PrivateRoute

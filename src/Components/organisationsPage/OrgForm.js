@@ -74,7 +74,7 @@ export default function Dialogform({ open, setOpen }) {
               <div className="account-details">
                 <div>
                   <label>Name of Organization *</label>
-                  <input type="text" name="OrgName" required />
+                  <input type="text" name="OrgName" required maxLength="30" />
                 </div>
                 <div>
                   <label>Type of Organization *</label>

@@ -55,6 +55,25 @@ const Sidebar = ({ auth }) => {
     dispatch(fetchOrg());
   }, []);
 
+  useEffect( async()=>{
+    let {data} = await auth.sdk.from("profiles").select("avatar_url")
+    if(data[0].avatar_url)
+    downloadImage(data[0].avatar_url)
+  },[])
+
+  async function downloadImage(path) {
+    try {
+      const { data, error } = await auth.sdk.storage.from('avatars').download(path)
+      if (error) {
+        throw error
+      }
+      const url = URL.createObjectURL(data)
+      localStorage.setItem('avatar_url' , url)
+    } catch (error) {
+      console.log('Error downloading image: ', error.message)
+    }
+  }
+
   const history = useHistory();
 
   const signOutUser = async () => {
