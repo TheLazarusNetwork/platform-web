@@ -8,7 +8,6 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "react-pro-sidebar";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { BiLogOut } from "react-icons/bi";
 import {
   FaUserLock,
@@ -22,12 +21,11 @@ import {
 } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../../redux/actions/userAction";
-// import 'react-pro-sidebar/dist/css/styles.css';
 import "./../../styles/Dashboard/dashboard.css";
 import "./../../styles/Navbar/navbar.scss";
 import { fetchOrg } from "../../redux/actions/orgAction";
 import { userLogout } from "../../redux/rootReducer";
-import { Icon } from "@material-ui/core";
+import { fetchPlans } from "../../redux/actions/plansAction";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -53,6 +51,7 @@ const Sidebar = ({ auth }) => {
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchOrg());
+    dispatch(fetchPlans("chat"));
   }, []);
 
   useEffect( async()=>{
