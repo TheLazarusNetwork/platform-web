@@ -1,5 +1,5 @@
 import React from 'react'
-import Topnav from '../../Components/Navbar/Topnav';
+import Topnav from '../../Components/navbar/Topnav';
 
 export default function Tunnel() {
     return (

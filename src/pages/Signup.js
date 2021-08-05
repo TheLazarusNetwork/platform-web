@@ -1,9 +1,9 @@
 import React, { useState ,useEffect} from "react";
 import "./../styles/forms/signup.css";
 import {  FaGoogle, FaGithub } from "react-icons/fa";
-import PasswordStrengthMeter from "../Components/Passwords/PasswordStrengthMeter.js";
-import SnackbarAlert from "./../utils/snackbar";
-import Passwordbreach from "../Components/Passwords/Passwordbreach";
+import PasswordStrengthMeter from "../Components/passwords/PasswordStrengthMeter.js";
+import SnackbarAlert from "../Components/commanComponents/snackbar";
+import Passwordbreach from "../Components/passwords/Passwordbreach";
 import { Link } from "react-router-dom";
 
 document.title = " Auth | Lazarus Network";

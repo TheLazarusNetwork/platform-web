@@ -1,11 +1,11 @@
 import React, { Component, useState } from "react";
-import Topnav from "../Components/Navbar/Topnav";
+import Topnav from "../Components/navbar/Topnav";
 import "./../styles/Dashboard/dashboard.css";
 import CircularProgressWithLabel from "@material-ui/core/CircularProgress";
-import { BasicTable } from "../utils/table";
+import { BasicTable } from "../Components/commanComponents/table";
 import { useSelector } from "react-redux";
-import NoOrganisations from "../Components/NoOrganisations";
-import CreateProfile from "../Components/CreateProfile";
+import NoOrganisations from "../Components/emptySpace/NoOrganisations";
+import CreateProfile from "../Components/dashBoard/CreateProfile";
 
 document.title = "Dashboard | Lazarus Network";
 

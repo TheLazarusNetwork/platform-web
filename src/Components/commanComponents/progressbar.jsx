@@ -1,5 +1,5 @@
 import React from 'react';
-import './../styles/components/progressbar.css'
+import '../../styles/components/progressbar.css'
 
 export default class CircularProgressBar extends React.Component {
   constructor(props) {

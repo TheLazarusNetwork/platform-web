@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Topnav from "../../Components/Navbar/Topnav";
+import Topnav from "../../Components/navbar/Topnav";
 import "./../../styles/Dashboard/billing.css";
-import ServiceDetails from "../../Components/ServiceDetails";
-import CircularProgressBar from "../../utils/progressbar";
+import ServiceDetails from "../../Components/commanComponents/ServiceDetails";
+import CircularProgressBar from "../../Components/commanComponents/progressbar";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";

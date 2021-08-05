@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import "./../styles/forms/orgform.css";
-import { createUser } from "../redux/actions/userAction";
-import SnackbarAlert from './../utils/snackbar'
+import "../../styles/forms/orgform.css";
+import { createUser } from "./../../redux/actions/userAction";
+import SnackbarAlert from '../commanComponents/snackbar'
 
 export default function CreateProfile({error}) {
   const [countryList, setCountryList] = useState(null);

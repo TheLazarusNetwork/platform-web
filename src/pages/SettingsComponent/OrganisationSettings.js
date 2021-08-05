@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import { BasicTable } from "../../utils/table";
 import {
   fetchMembers,
   inviteNewMember,
 } from "../../redux/actions/membersAction";
 import { useDispatch, useSelector } from "react-redux";
-import SnackbarAlert from "../../utils/snackbar";
+import SnackbarAlert from "../../Components/commanComponents/snackbar";
 
 //Organisational settings
 

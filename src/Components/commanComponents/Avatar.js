@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react'
-import Auth from '../api/Auth'
+import Auth from '../../api/Auth'
 
 export default function Avatar({ url, size, onUpload }) {
   const [avatarUrl, setAvatarUrl] = useState(null)

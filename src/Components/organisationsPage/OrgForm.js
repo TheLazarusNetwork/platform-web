@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import "./../styles/forms/orgform.css";
-import { createOrg } from "../redux/actions/createOrgAction";
+import "../../styles/forms/orgform.css";
+import { createOrg } from "../../redux/actions/createOrgAction";
 import { useDispatch } from "react-redux";
+
+
 export default function Dialogform({ open, setOpen }) {
 
   const [timezones, setTimezones] = useState(null);

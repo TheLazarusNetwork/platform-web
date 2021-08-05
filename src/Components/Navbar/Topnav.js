@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosNotifications } from "react-icons/io";
 import { MdSwapHoriz } from "react-icons/md";
 import { BsMoon, BsSun } from "react-icons/bs";
-import OrgsModal from "../OrgsModal";
+import OrgsModal from "../organisationsPage/OrgsModal";
 import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { SET_DARK_THEME, SET_LIGHT_THEME } from "../../redux/CONSTANTS";

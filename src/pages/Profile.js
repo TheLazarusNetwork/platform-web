@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Topnav from "../Components/Navbar/Topnav";
+import Topnav from "../Components/navbar/Topnav";
 // import { Avatar } from "@material-ui/core";
-import Avatar from "../Components/Avatar";
-import { makeStyles } from "@material-ui/core/styles";
-import SnackbarAlert from "../utils/snackbar";
+import Avatar from "../Components/commanComponents/Avatar";
+import SnackbarAlert from "../Components/commanComponents/snackbar";
 import { useSelector } from "react-redux";
 
 document.title = "Profile | Lazarus Network";

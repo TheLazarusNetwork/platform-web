@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Topnav from "../Components/Navbar/Topnav";
+import Topnav from "../Components/navbar/Topnav";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
 import { GoKebabVertical } from "react-icons/go";
-import Dialogform from "../Components/OrgForm";
+import Dialogform from "../Components/organisationsPage/OrgForm";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentOrg } from "../redux/actions/orgAction";
 
