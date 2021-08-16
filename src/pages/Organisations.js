@@ -6,6 +6,7 @@ import { GoKebabVertical } from "react-icons/go";
 import Dialogform from "../Components/organisationsPage/OrgForm";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentOrg } from "../redux/actions/orgAction";
+import Button from '@material-ui/core/Button'
 
 export default function Organisations() {
   const [openform, setOpenform] = useState(false);
@@ -79,12 +80,15 @@ export default function Organisations() {
                   <div className="name">{organisation.name}</div>
                   <div className="country">{organisation.country}</div>
                   <div>
-                    <icon
-                      className="btn"
-                      onClick={() => changeOrg(organisation.ID)}
-                    >
-                      <BiRightTopArrowCircle />
-                    </icon>
+                    
+                    <Button
+            variant="contained"
+            color="primary"
+            startIcon={  <BiRightTopArrowCircle />}
+            onClick={() => changeOrg(organisation.ID)}
+          >
+            Org
+          </Button>
                     <icon className="btn">
                       <GoKebabVertical />
                     </icon>

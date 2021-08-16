@@ -10,7 +10,6 @@ document.title = "Profile | Lazarus Network";
 export default function Profile({ auth }) {
   const [username, setUsername] = useState("");
   const [useremail, setUseremail] = useState("");
-  const [avatar, setavatar] = useState();
   const [userdata, setuserdata] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +30,10 @@ const {userData} = useSelector((state) =>({
       const user = auth.getAccount();
       setUseremail(user.email)
 
-      let { data , error } = await auth.sdk.from("profiles").select("username , avatar_url");
+      let { data , error } = await auth.sdk.from("profiles")
+                                            .select("username , avatar_url")
+                                            .filter('id', 'eq', user.id)
+
       console.log(data[0].username ,data[0].avatar_url, error);
 
       if (error) {

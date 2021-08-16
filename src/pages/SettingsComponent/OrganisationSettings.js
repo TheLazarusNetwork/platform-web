@@ -20,60 +20,70 @@ export default function OrganisationSettings() {
   const [alerttype, setAlerttype] = useState("error");
 
   // getting current Org Id from redux store
-  const { currOrgId } = useSelector((state) => ({
+  const { currOrgId, numberofOrgs } = useSelector((state) => ({
     currOrgId: state.organisations.CurrentOrgID,
+    numberofOrgs: state.organisations.numberOfOrgs,
   }));
+
+  const { currentOrgUUID } = useSelector((state) => ({
+    //get current org UUID
+    currentOrgUUID:
+      numberofOrgs > 0
+        ? [
+            ...[...state.organisations.orgArray].filter(
+              (org) => org.ID === currOrgId
+            ),
+          ][0].id
+        : 0,
+  }));
+
   //getting all Members array form redux store
-  const { membersOrg,currentMemberArray, error } = useSelector((state) => ({
-    membersOrg: [...state.memberships.membershipArray],
-    currentMemberArray : (state.memberships.numberOfMembers > 0) ? [...[...state.memberships.membershipArray].filter((members => members.org_id === currOrgId))] : [],
+  const { membersOrg, currentMemberArray, error } = useSelector((state) => ({
+    currentMemberArray: [...state.memberships.membershipArray],
+    // currentMemberArray : (state.memberships.numberOfMembers > 0) ? [...[...state.memberships.membershipArray].filter((members => members.org_id === currOrgId))] : [],
     error: state.memberships.error,
   }));
 
   const [selectedRole, setSelectedRole] = useState("Member");
   const dispatch = useDispatch();
 
-
-
   // function to invite new user to current ORG
   const inviteUser = (e) => {
-
     e.preventDefault();
     const emailId = e.target.email.value;
     const selectedRole = e.target.selectedRole.value;
-    const currentOrgId = currOrgId;
-    console.log(currentMemberArray.length === 0);
+    const currentOrgId = currentOrgUUID;
 
+    //getting current Organisation name from current Memberships
     const currentOrgName =
-      currentMemberArray.length !== 0
-        ? currentMemberArray.find((member) => member.org_id === currOrgId)
-            .org_name
-        : null;
+      currentMemberArray.length !== 0 ? currentMemberArray[0].org_name : null;
 
-    if (emailId === "" || emailId === null) {
+    if (emailId == "" || emailId == null) {
       setAlertmsg("enter a valid Email-id");
       setAlertopen(true);
-    }
-    else if(currentMemberArray.find(member => member.user_id === emailId)){
-          setAlertmsg('This email is already a part of this Orgaination');
-          setAlertopen(true)
-    }
-    else if (selectedRole === "" || selectedRole === null) {
+    } else if (
+      currentMemberArray.find((member) => member.user_id === emailId)
+    ) {
+      setAlertmsg("This email is already a part of this orgaination");
+      setAlertopen(true);
+    } else if (selectedRole === "" || selectedRole === null) {
       setAlertmsg("Select a valid role");
       setAlertopen(true);
-    }
-    else if (currentOrgName === null) {
+    } else if (currentOrgName === null || currentOrgName === "") {
       setAlertmsg("an error occured , Please try again or Refresh");
       setAlertopen(true);
     } else
-      dispatch(inviteNewMember(emailId, selectedRole, currentOrgId, currentOrgName));
-    console.log(emailId, selectedRole);
+   {  console.log(emailId, selectedRole, currentOrgId, currentOrgName);
+    dispatch(
+      inviteNewMember(emailId, selectedRole, currentOrgId, currentOrgName)
+    )};
   };
 
   useEffect(() => {
     // fetching all members list
-    dispatch(fetchMembers());
-  }, []);
+    if(currentOrgUUID !== 0)
+    dispatch(fetchMembers(currentOrgUUID));
+  }, [currentOrgUUID]);
 
   return (
     <>
@@ -111,7 +121,6 @@ export default function OrganisationSettings() {
             <button type="submit">send invite</button>
           </form>
         </div>
-       
       </div>
       <div className="mid-details-box">
         <div className="title"> All members</div>

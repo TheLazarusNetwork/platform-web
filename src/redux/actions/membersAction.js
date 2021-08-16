@@ -8,7 +8,7 @@ import {
 
 } from "../CONSTANTS";
 
-export function fetchMembers() {
+export function fetchMembers(orgId) {
 
   let auth_token;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
@@ -18,7 +18,7 @@ export function fetchMembers() {
   } else auth_token = null;
 
   console.log("inside fetch members");
-  const membersUrl = "https://platform.lazarus.network/api/v1.0/memberships";
+  const membersUrl = "https://platform.lazarus.network/api/v1.0/memberships/"+orgId;
 
   return (dispatch) => {
     dispatch(fetchMembersBegin());
@@ -53,7 +53,7 @@ export function inviteNewMember(emailId,role, orgId, orgName) {
 
   console.log("inside invite member");
 
-  const userUrl = "https://platform.lazarus.network/api/v1.0/memberships";
+  const membershipUrl = "https://platform.lazarus.network/api/v1.0/memberships";
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${auth_token}`);
@@ -63,7 +63,7 @@ export function inviteNewMember(emailId,role, orgId, orgName) {
     email: emailId.toString(),
     role: role.toString(),
     org_id: orgId,
-    org_name: orgName,
+    org_name: orgName.toString(),
   });
   
   var requestOptions = {
@@ -75,7 +75,7 @@ export function inviteNewMember(emailId,role, orgId, orgName) {
   return (dispatch) => {
     dispatch(inviteMemberBegin());
 
-    return fetch(userUrl, requestOptions)
+    return fetch(membershipUrl, requestOptions)
       .then(handleErrors)
       .then((res) => res.json())
       .then((json) => {
@@ -91,10 +91,9 @@ export function inviteNewMember(emailId,role, orgId, orgName) {
 }
 
 async function handleErrors(response) {
-  console.log(response)
     if (response.status < 200 || response.status > 299) {
-      throw await response.json();
       console.log(response.json())
+      throw await response.json();  
     }
     return response;
   }
