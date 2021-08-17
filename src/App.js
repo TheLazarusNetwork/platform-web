@@ -33,6 +33,7 @@ import "./styles/Themes/darktheme.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Home from "./pages/Home";
 import Trialpage from "./pages/Trialpage";
+import Wallet from "./pages/Wallet";
 
 
 const auth = new Auth();
@@ -156,7 +157,12 @@ const App = () => {
               auth={auth}
               component={Organisations}
             />
-      
+      <PrivateRoute
+              exact
+              path="/dash/wallet"
+              auth={auth}
+              component={Wallet}
+            />
       
             <Route
               exact

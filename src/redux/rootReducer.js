@@ -4,6 +4,7 @@ import orgReducer from './reducers/orgReducer';
 import plansReducer from './reducers/plansReducer';
 import themeReducer from './reducers/themeReducer'
 import userReducer from './reducers/userReducer';
+import walletReducer from './reducers/walletReducer';
 
 const appReducer = combineReducers({
     theme: themeReducer,
@@ -11,6 +12,7 @@ const appReducer = combineReducers({
     organisations: orgReducer,
     memberships : membersReducer,
     plans: plansReducer,
+    wallet : walletReducer,
 })
 
 const rootReducer =(state,action) =>{

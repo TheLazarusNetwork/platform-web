@@ -18,6 +18,7 @@ import {
   FaDungeon,
   FaCog,
   FaColumns,
+  FaWallet
 } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../../redux/actions/userAction";
@@ -124,14 +125,14 @@ const Sidebar = ({ auth }) => {
                   Dedicated VPN
                   <Link to="/dash/dedicatedNetwork" />
                 </MenuItem>
-                <MenuItem title="Cloud" icon={<FaCloud />}>
+                {/* <MenuItem title="Cloud" icon={<FaCloud />}>
                  NextCloud
                   <Link to="/dash/nextCloud" />
                 </MenuItem>
                 <MenuItem title="Tunnel" icon={<FaDungeon />}>
                   Tunnel
                   <Link to="/dash/tunnel" />
-                </MenuItem>
+                </MenuItem> */}
 
               
               </>
@@ -147,7 +148,7 @@ const Sidebar = ({ auth }) => {
                 
                 </MenuItem>
 
-                <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
+                {/* <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
                   NextCloud
                 
                 </MenuItem>
@@ -155,7 +156,7 @@ const Sidebar = ({ auth }) => {
                 <MenuItem title="Tunnel" className='disabled' icon={<FaDungeon color='grey' />}>
                   Tunnel
               
-                </MenuItem>
+                </MenuItem> */}
 
                
               </>
@@ -167,6 +168,10 @@ const Sidebar = ({ auth }) => {
             <MenuItem title="Billing" icon={<FaFileInvoice />}>
               Billing
               <Link to="/dash/billing" />
+            </MenuItem>
+            <MenuItem title="Wallet" icon={<FaWallet />}>
+              Wallet
+              <Link to="/dash/wallet" />
             </MenuItem>
             <MenuItem title="Settings" icon={<FaCog />}>
               Settings
