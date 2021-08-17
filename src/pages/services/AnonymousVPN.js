@@ -9,9 +9,24 @@ import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { FaFileDownload } from "react-icons/fa";
 import { Link, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ErrorAlert from "../../Components/commanComponents/errorAlert";
+import LoadingAnimation from "../../Components/emptySpace/LoadingAnimation";
 
 export default function AnonymousVPN() {
   const [active, setactive] = useState(true);
+
+  const {plans , plansError ,loading} = useSelector( state =>({
+    plans : (state.plans.currentPlans !==null) ?[...state.plans.currentPlans].filter(plan => plan.service === 'anon_vpn') : null,
+    plansError : state.plans.error,
+    loading : state.plans.loading,
+  }))
+
+  console.log(plans)
+
+  if(loading)
+  return <LoadingAnimation/>
+
   return (
     <>
       {/* <SnackbarAlert
@@ -20,9 +35,12 @@ export default function AnonymousVPN() {
             setAlertopen={setAlertopen}
             type={alerttype} // type = error, success, info ,warning
           /> */}
+        {/* {error && <ErrorAlert
+                      message ={error.message}
+                      setOpen ={"true"}/>} */}
       <div className="main">
         <Topnav page="Anonymous VPN" />
-        {active ? <AVPN /> : <ServiceDetails />}
+        {active ? <AVPN /> : <ServiceDetails plansArray ={plans} error={plansError} />}
       </div>
     </>
   );
@@ -36,16 +54,8 @@ const AVPN = () => {
   const RegionName ="regionName";
   const Code = "code";
 
-  const seeAllClients=(RegionName, Code)=>{
-    console.log('aklksfjlsakfj');
-    return <Redirect to="/clients"/>
-  }
   const getIp = async () => {
-    const request = await fetch(
-      `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
-    );
-    const jsonResponse = await request.json();
-    console.log(jsonResponse)
+    const jsonResponse = JSON.parse(localStorage.getItem('ipinfo'))
     console.log("inside anomvpn")
     setIpinfo(jsonResponse);
   };
@@ -87,7 +97,7 @@ const AVPN = () => {
           <div className="role">{Code}</div>
           <div>
             <Link to={'/dash/anonymousVPN/clients/:' +RegionName}>
-            <button className="simple-btn" onClick={() => seeAllClients(RegionName,Code)}>
+            <button className="simple-btn">
               see all clients
             </button>
             </Link>

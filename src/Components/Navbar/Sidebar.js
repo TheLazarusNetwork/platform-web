@@ -52,8 +52,19 @@ const Sidebar = ({ auth }) => {
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchOrg());
-    dispatch(fetchPlans("chat"));
+    dispatch(fetchPlans());
   }, []);
+
+  const getIp = async () => {
+    const request = await fetch(
+      `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
+    );
+    const jsonResponse = await request.json();
+    console.log(jsonResponse)
+    localStorage.setItem('ipinfo' ,JSON.stringify( jsonResponse));
+  };
+
+  useEffect(() => {getIp()}, []);
 
   useEffect( async()=>{
     const user = auth.getAccount();

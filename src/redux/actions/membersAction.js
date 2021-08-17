@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   FETCH_MEMBERS_BEGIN,
   FETCH_MEMBERS_SUCCESS,
@@ -5,11 +6,10 @@ import {
   INVITE_MEMBERS_BEGIN,
   INVITE_MEMBERS_SUCCESS,
   INVITE_MEMBERS_FAILURE,
-
 } from "../CONSTANTS";
+import { fetchOrgFailure } from "./orgAction";
 
-export function fetchMembers(orgId) {
-
+export const fetchMembers = (orgId) => async (dispatch) => {
   let auth_token;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
   if (isuserloggedin) {
@@ -18,32 +18,47 @@ export function fetchMembers(orgId) {
   } else auth_token = null;
 
   console.log("inside fetch members");
-  const membersUrl = "https://platform.lazarus.network/api/v1.0/memberships/"+orgId;
+  const membersUrl =
+    "https://platform.lazarus.network/api/v1.0/memberships/" + orgId;
 
-  return (dispatch) => {
-    dispatch(fetchMembersBegin());
-
-    return fetch(membersUrl, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth_token}`,
-      },
-    })
-      .then(handleErrors)
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch(fetchMembersSuccess(json.payload));
-        // console.log(json.payload);
-        return json.payload;
-      })
-      .catch((error) => {
-        dispatch(fetchMembersFailure(error));
-        console.log(error);
-      });
+  const config = {
+    method: "get",
+    url: membersUrl,
+    headers: {
+      Authorization: `Bearer ${auth_token}`,
+    },
   };
-}
 
-export function inviteNewMember(emailId,role, orgId, orgName) {
+  try {
+    dispatch(fetchMembersBegin());
+    const response = await axios(config);
+    dispatch(fetchMembersSuccess(response.data.payload));
+  } catch (e) {
+    dispatch(fetchOrgFailure(e));
+  }
+  // return (dispatch) => {
+  //   dispatch(fetchMembersBegin());
+  //   return fetch(membersUrl, {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${auth_token}`,
+  //     },
+  //   })
+  //     .then(handleErrors)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       dispatch(fetchMembersSuccess(json.payload));
+  //       // console.log(json.payload);
+  //       return json.payload;
+  //     })
+  //     .catch((error) => {
+  //       dispatch(fetchMembersFailure(error));
+  //       console.log(error);
+  //     });
+  // };
+};
+
+export function inviteNewMember(emailId, role, orgId, orgName) {
   let auth_token = null;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
   if (isuserloggedin) {
@@ -65,7 +80,7 @@ export function inviteNewMember(emailId,role, orgId, orgName) {
     org_id: orgId,
     org_name: orgName.toString(),
   });
-  
+
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -91,12 +106,12 @@ export function inviteNewMember(emailId,role, orgId, orgName) {
 }
 
 async function handleErrors(response) {
-    if (response.status < 200 || response.status > 299) {
-      console.log(response.json())
-      throw await response.json();  
-    }
-    return response;
+  if (response.status < 200 || response.status > 299) {
+    console.log(response.json());
+    throw await response.json();
   }
+  return response;
+}
 
 export const fetchMembersBegin = () => ({
   type: FETCH_MEMBERS_BEGIN,

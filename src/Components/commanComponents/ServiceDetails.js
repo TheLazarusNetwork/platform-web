@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
+import LoadingAnimation from "../emptySpace/LoadingAnimation";
+import NoNetwork from "../emptySpace/NoNetwork";
 
-export default function ServiceDetails() {
+export default function ServiceDetails({ plansArray , error})
+ {
   const [month, setMonth] = useState(false);
+
+  if(error)
+  return (
+    <NoNetwork 
+      error ={error.message}
+    />
+  )
+  if(plansArray !== null)
   return (
     <>
       <div className="details-box shadow">
@@ -28,34 +39,25 @@ export default function ServiceDetails() {
           </icon>
         </div>
         <div className="flex-div">
-          <div className="pricing-div">
-            <div className="title center">Basic</div>
-            <div className="divider" />
-            <ul className="">
-              <li>5 users</li>
-              <li>10 hours weekly</li>
-            </ul>
-            <div className="divider" />
-            <div className="price"> $10</div>
-            <button className="font-small center-btn grey-btn ">
-              
-              Activate Service
-            </button>
-          </div>
-          <div className="pricing-div">
-            <div className="title center">Basic</div>
-            <div className="divider" />
-            <ul className="">
-              <li>5 users</li>
-              <li>10 hours weekly</li>
-            </ul>
-            <div className="divider" />
-            <div className="price"> $10</div>
-            <button className="font-small center-btn grey-btn ">
-             
-              Activate Service
-            </button>
-          </div>
+          {
+            [...plansArray].map(plan => {
+              return(
+                <div className="pricing-div">
+                <div className="title center">{plan.name}</div>
+                <div className="divider" />
+                <ul className="">
+                  <p>{plan.description}</p>
+                </ul>
+                <div className="divider" />
+                <div className="price font-small"><p>{plan.cost} {plan.currency_type}</p></div>
+                <button className="font-small center-btn grey-btn ">
+                  Activate Service
+                </button>
+              </div>
+              )
+            })
+          }
+      
           <div className="pricing-div">
             <div className="title center">Basic</div>
             <div className="divider" />
@@ -87,4 +89,8 @@ export default function ServiceDetails() {
       </div>
     </>
   );
+
+  else{
+    return <LoadingAnimation/>
+  }
 }

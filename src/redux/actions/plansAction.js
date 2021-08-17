@@ -4,10 +4,10 @@ import {
     FETCH_PLANS_FAILURE,
   } from "../CONSTANTS";
   
-  export function fetchPlans(Service) {
+  export function fetchPlans() {
   
     console.log("inside fetchPlans");
-    const plansUrl = "https://platform.lazarus.network/api/v1.0/plans?service-type="+Service;
+    const plansUrl = "https://platform.lazarus.network/api/v1.0/plans";
   
     return (dispatch) => {
       dispatch(fetchPlansBegin());
