@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import NoOrganisations from "../Components/emptySpace/NoOrganisations";
 import CreateProfile from "../Components/dashBoard/CreateProfile";
 import LoadingAnimation from "../Components/emptySpace/LoadingAnimation";
+import ErrorAlert from "../Components/commanComponents/errorAlert";
 
 document.title = "Dashboard | Lazarus Network";
 
@@ -22,14 +23,12 @@ export default function Dashboard(props) {
     currentOrg: state.organisations.currentOrg,
   }));
 
-  if (loading)
+  if (loading || orgloading)
     return <LoadingAnimation/>
     
 
   if (!isUserLoggedIn) return <CreateProfile error={error} />;
   
-  if (orgloading)
-    return <LoadingAnimation/>
 
   if (numberofOrgs == 0) return <NoOrganisations />;
 

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import "../../styles/forms/orgform.css";
 import { createUser } from "./../../redux/actions/userAction";
 import SnackbarAlert from '../commanComponents/snackbar'
+import ErrorAlert from "../commanComponents/errorAlert";
 
 export default function CreateProfile({error}) {
   const [countryList, setCountryList] = useState(null);
@@ -36,8 +37,15 @@ export default function CreateProfile({error}) {
     const Country = e.target.Country.value;
     const ContactNumber = e.target.ContactNumber.value;
 
-    //dispatching all new org data to create a new organisation
-    dispatch(createUser(City, Country, ContactNumber));
+    console.log(ContactNumber.length)
+    if(ContactNumber.length !== 10)
+    {
+      setAlertmsg("Please enter a valid contact number")
+      setAlertopen(true)
+    }
+    else
+   { //dispatching all new org data to create a new organisation
+    dispatch(createUser(City, Country, ContactNumber));}
     // handleClose();
   };
 
@@ -49,6 +57,7 @@ export default function CreateProfile({error}) {
         setAlertopen={setAlertopen}
         type={alerttype} // type = error, success, info ,warning
       />
+      {error && <ErrorAlert message = {error.message} alertopen ={'true'}/> }
       <div className="center">
         <div className="main-block">
           <form onSubmit={createNewUser}>
@@ -58,7 +67,7 @@ export default function CreateProfile({error}) {
                 <div>
                   <div>
                     <label>Contact Number</label>
-                    <input type="number" name="ContactNumber" maxLength="10" />
+                    <input type="number" name="ContactNumber" minLength='10' maxLength="10" />
                   </div>
                   <div>
                     <label>City*</label>

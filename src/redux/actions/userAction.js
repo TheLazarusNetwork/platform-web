@@ -3,8 +3,9 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
 } from "../CONSTANTS";
+import axios from "axios";
 
-export function fetchUser() {
+export const fetchUser = () => async (dispatch) => {
   //fetching supabase jwt token to fetch user details
   let auth_token = null;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
@@ -15,27 +16,22 @@ export function fetchUser() {
 
   console.log("inside fetchUser");
   const userUrl = "https://platform.lazarus.network/api/v1.0/users";
-
-  return (dispatch) => {
-    dispatch(fetchUserBegin());
-    return fetch(userUrl, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth_token}`,
-      },
-    })
-      .then(handleErrors)
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch(fetchUserSuccess(json.payload));
-        return json.payload;
-      })
-      .catch((error) => {
-        dispatch(fetchUserFailure(error));
-        console.log(error);
-      });
+  const config = {
+    url : userUrl,
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${auth_token}`,
+    },
   };
-}
+
+  try {
+    dispatch(fetchUserBegin());
+    const response = await axios(config);
+    dispatch(fetchUserSuccess(response.data.payload));
+  } catch (e) {
+    dispatch(fetchUserFailure(e));
+  }
+};
 
 export function createUser(cityName, countryName, contactNumber) {
   let auth_token = null;
