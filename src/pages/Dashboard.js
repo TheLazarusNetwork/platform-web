@@ -11,7 +11,6 @@ import ErrorAlert from "../Components/commanComponents/errorAlert";
 
 document.title = "Dashboard | Lazarus Network";
 
-
 export default function Dashboard(props) {
   const [ipinfo, setIpinfo] = useState({});
   const [userinfo, setUserinfo] = useState({});
@@ -27,28 +26,36 @@ export default function Dashboard(props) {
     currentOrg: state.organisations.currentOrg,
   }));
 
-  
-  function get_browser_info(){
-    var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
-    if(/trident/i.test(M[1])){
-        tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
-        return {name:'IE ',version:(tem[1]||'')};
-        }   
-    if(M[1]==='Chrome'){
-        tem=ua.match(/\bOPR\/(\d+)/)
-        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
-        }   
-    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+  function get_browser_info() {
+    var ua = navigator.userAgent,
+      tem,
+      M =
+        ua.match(
+          /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i
+        ) || [];
+    if (/trident/i.test(M[1])) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      return { name: "IE ", version: tem[1] || "" };
+    }
+    if (M[1] === "Chrome") {
+      tem = ua.match(/\bOPR\/(\d+)/);
+      if (tem != null) {
+        return { name: "Opera", version: tem[1] };
+      }
+    }
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, "-?"];
+    if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+      M.splice(1, 1, tem[1]);
+    }
     return {
       name: M[0],
-      version: M[1]
+      version: M[1],
     };
- }
+  }
 
- var browser=get_browser_info();
-console.log(browser.name);
-console.log(browser.version);
+  var browser = get_browser_info();
+  console.log(browser.name);
+  console.log(browser.version);
 
   const getIp = async () => {
     const jsonResponse = JSON.parse(localStorage.getItem("ipinfo"));
@@ -57,7 +64,6 @@ console.log(browser.version);
     );
     setIpinfo(jsonResponse);
     setUserinfo(userResponse.currentSession.user);
-    
   };
   console.log(userinfo);
   useEffect(() => {
@@ -67,8 +73,6 @@ console.log(browser.version);
   if (loading || orgloading) return <LoadingAnimation />;
 
   if (!isUserLoggedIn) return <CreateProfile error={error} />;
-
-  if (numberofOrgs == 0) return <NoOrganisations />;
 
   return (
     <>
@@ -82,40 +86,11 @@ console.log(browser.version);
       <div className="main">
         <Topnav page="Dashboard" />
         <div>
-          <div className="grey-back">
-            
-            {/* <div className="mini-details-box mini shadow">
-              <CircularProgressWithLabel variant="determinate" value={75} />
-              <div className="content">
-                <h6>Status</h6>
-                <p>75 %</p>
-              </div>
-            </div> */}
-            <div className="mini-details-box  shadow">
-              <h6>Browser : {browser.name}</h6>
-            </div>
-            <div className="mini-details-box  shadow">
-              <h6>Browser version : {browser.version}</h6>
-            </div>
-          </div>
-
           <div className="flex-div">
-            <div className="mid-details-box shadow">
-              <div className="title"> Recent activity</div>
-              <div className="divider"></div>
-              <div>
-              <p ><span className='title'> email </span> : {userinfo.email}</p>
-              <p ><span className='title'> last sign-in at </span> : {userinfo.last_sign_in_at}</p>
-              <p ><span className='title'> role </span> : {userinfo.role}</p>
-              </div>
-
-              {/* <div className="activity-section">
-                <div>
-                  <h6>Anonymous vpn</h6>
-                  <p>4 people</p>
-                </div>
-                <p>12$</p>
-              </div> */}
+            <div className="grey-back">
+              {numberofOrgs === 0 ? <NoOrganisations /> : 
+              <div><h3>Number of Organisation you are part of : {numberofOrgs}</h3>
+                </div>}
             </div>
             <div className="table mid-details-box shadow">
               <div className="title"> IP Information</div>
@@ -130,6 +105,33 @@ console.log(browser.version);
                   );
                 })}
               </div>
+            </div>
+          </div>
+
+          <div className="">
+            <div className=" details-box shadow">
+              <div className="title"> Recent activity</div>
+              <div className="divider"></div>
+              <div>
+                <p>
+                  <span className="title"> email </span> : {userinfo.email}
+                </p>
+                <p>
+                  <span className="title"> last sign-in at </span> :{" "}
+                  {userinfo.last_sign_in_at}
+                </p>
+                <p>
+                  <span className="title"> role </span> : {userinfo.role}
+                </p>
+              </div>
+
+              {/* <div className="activity-section">
+                <div>
+                  <h6>Anonymous vpn</h6>
+                  <p>4 people</p>
+                </div>
+                <p>12$</p>
+              </div> */}
             </div>
           </div>
         </div>

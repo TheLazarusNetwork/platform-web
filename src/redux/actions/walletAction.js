@@ -4,6 +4,8 @@ import {
     FETCH_WALLET_FAILURE,
 } from '../CONSTANTS'
 import axios from 'axios'
+import { config } from '../../api/config';
+const baseUrl = config.platformURL
 
 export const getWallet =() => async dispatch =>{
     let auth_token =null;
@@ -15,7 +17,7 @@ export const getWallet =() => async dispatch =>{
     }
      else auth_token = null;
 
-    const walletUrl = "https://platform.lazarus.network/api/v1.0/wallet";
+    const walletUrl =baseUrl+ "/wallet";
     const config ={
         method: 'get',
         url : walletUrl,

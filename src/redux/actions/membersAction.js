@@ -1,4 +1,5 @@
 import axios from "axios";
+import { config } from "../../api/config";
 import {
   FETCH_MEMBERS_BEGIN,
   FETCH_MEMBERS_SUCCESS,
@@ -8,6 +9,7 @@ import {
   INVITE_MEMBERS_FAILURE,
 } from "../CONSTANTS";
 import { fetchOrgFailure } from "./orgAction";
+const membershipUrl = config.platformURL +'/memberships/'
 
 export const fetchMembers = (orgId) => async (dispatch) => {
   let auth_token;
@@ -19,7 +21,7 @@ export const fetchMembers = (orgId) => async (dispatch) => {
 
   console.log("inside fetch members");
   const membersUrl =
-    "https://platform.lazarus.network/api/v1.0/memberships/" + orgId;
+    membershipUrl + orgId;
 
   const config = {
     method: "get",
@@ -67,8 +69,6 @@ export function inviteNewMember(emailId, role, orgId, orgName) {
   } else auth_token = null;
 
   console.log("inside invite member");
-
-  const membershipUrl = "https://platform.lazarus.network/api/v1.0/memberships";
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${auth_token}`);

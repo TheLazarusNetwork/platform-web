@@ -4,6 +4,10 @@ import {
   FETCH_USER_FAILURE,
 } from "../CONSTANTS";
 import axios from "axios";
+import { config } from "../../api/config";
+
+const baseUrl = config.platformURL;
+const userUrl = baseUrl +'/users'
 
 export const fetchUser = () => async (dispatch) => {
   //fetching supabase jwt token to fetch user details
@@ -15,7 +19,6 @@ export const fetchUser = () => async (dispatch) => {
   } else auth_token = null;
 
   console.log("inside fetchUser");
-  const userUrl = "https://platform.lazarus.network/api/v1.0/users";
   const config = {
     url : userUrl,
     method: "GET",
@@ -43,7 +46,6 @@ export function createUser(cityName, countryName, contactNumber) {
 
   console.log("inside Create User");
 
-  const userUrl = "https://platform.lazarus.network/api/v1.0/users";
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${auth_token}`);

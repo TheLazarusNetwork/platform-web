@@ -1,9 +1,13 @@
+import { config } from "../../api/config";
 import {
   FETCH_ORG_BEGIN,
   FETCH_ORG_SUCCESS,
   FETCH_ORG_FAILURE,
   CHANGE_CURRENT_ORG,
 } from "../CONSTANTS";
+
+const baseUrl = config.platformURL;
+const orgUrl = baseUrl +"/orgs"
 
 export function fetchOrg() {
   let auth_token;
@@ -16,12 +20,11 @@ export function fetchOrg() {
   console.log(auth_token);
 
   console.log("inside fetchOrg");
-  const userUrl = "https://platform.lazarus.network/api/v1.0/orgs";
 
   return (dispatch) => {
     dispatch(fetchOrgBegin());
 
-    return fetch(userUrl, {
+    return fetch(orgUrl, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth_token}`,

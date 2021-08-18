@@ -94,6 +94,7 @@ const Sidebar = ({ auth }) => {
     const { error } = await auth.logout();
     if (error) console.log(error);
     dispatch(userLogout())
+    localStorage.removeItem('ipinfo')
     history.push("/auth");
   };
 

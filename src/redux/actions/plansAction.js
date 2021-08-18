@@ -1,3 +1,4 @@
+import { config } from "../../api/config";
 import {
     FETCH_PLANS_BEGIN,
     FETCH_PLANS_SUCCESS,
@@ -7,7 +8,7 @@ import {
   export function fetchPlans() {
   
     console.log("inside fetchPlans");
-    const plansUrl = "https://platform.lazarus.network/api/v1.0/plans";
+    const plansUrl = config.platformURL+ "/plans";
   
     return (dispatch) => {
       dispatch(fetchPlansBegin());
