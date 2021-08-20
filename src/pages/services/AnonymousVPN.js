@@ -22,7 +22,6 @@ export default function AnonymousVPN() {
     loading : state.plans.loading,
   }))
 
-  console.log(plans)
 
   if(loading)
   return <LoadingAnimation/>
@@ -57,7 +56,7 @@ const AVPN = () => {
   const getIp = async () => {
     const jsonResponse = JSON.parse(localStorage.getItem('ipinfo'))
     console.log("inside anomvpn")
-    setIpinfo(jsonResponse);
+    setIpinfo(jsonResponse ? jsonResponse : {});
   };
 
   useEffect(() => {getIp()}, []);

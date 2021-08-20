@@ -27,6 +27,7 @@ import "./../../styles/Navbar/navbar.scss";
 import { fetchOrg } from "../../redux/actions/orgAction";
 import { userLogout } from "../../redux/rootReducer";
 import { fetchPlans } from "../../redux/actions/plansAction";
+import { createActivity } from "../dashBoard/ActivityTable";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -91,10 +92,13 @@ const Sidebar = ({ auth }) => {
   const history = useHistory();
 
   const signOutUser = async () => {
+
     const { error } = await auth.logout();
     if (error) console.log(error);
     dispatch(userLogout())
     localStorage.removeItem('ipinfo')
+    //add log out activity to activity table in localstorage
+    createActivity('Sign-out', 'Success')
     history.push("/auth");
   };
 

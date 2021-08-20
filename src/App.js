@@ -61,6 +61,7 @@ const Muidarktheme = createMuiTheme({
      useNextVariants: true
   }
 });
+
 const Muilighttheme = createMuiTheme({
   palette: {
      primary: {
@@ -69,6 +70,10 @@ const Muilighttheme = createMuiTheme({
      secondary: {
       main: '#0044ff',
      },
+     background:{
+      paper:"#fff",
+      default: "#fff",
+    }
      
   },
   typography: { 
@@ -91,7 +96,7 @@ const App = () => {
 
   return (
     <Router>
-      <MuiThemeProvider theme={darktheme? Muidarktheme:Muilighttheme}>
+      <MuiThemeProvider theme={darktheme ? Muidarktheme : Muilighttheme}>
       <div className={darktheme ? "dark-theme" : "light-theme"}>
         <div className="body">
           <PrivateRoute path="/dash" auth={auth} component={Sidebar} />
