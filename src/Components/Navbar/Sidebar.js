@@ -14,6 +14,7 @@ import {
   FaShieldAlt,
   FaFileInvoice,
   FaUser,
+  FaBuilding,
   FaCloud,
   FaDungeon,
   FaCog,
@@ -125,11 +126,18 @@ const Sidebar = ({ auth }) => {
 
         <SidebarContent>
           <Menu iconShape="square" >
+          { !sidebarCollapsed && <p className='tag'>&nbsp; home</p>}
             <MenuItem title="Dashboard" icon={<FaColumns />}>
               Dashboard
               <Link to="/dash/" />
             </MenuItem>
 
+            <MenuItem title="Organisations" icon={<FaBuilding />}>
+              Organisations
+              <Link to="/dash/organisations" />
+            </MenuItem>
+
+           { !sidebarCollapsed && <p className='tag'>&nbsp; services</p>}
             {isUserLoggedIn && numberOfOrgs ? (
               <>
                 <MenuItem title="AVPN" icon={<FaUserLock />}>
@@ -177,10 +185,9 @@ const Sidebar = ({ auth }) => {
                
               </>
             )}
-            <MenuItem title="Profile" icon={<FaUser />}>
-              Profile
-              <Link to="/dash/profile" />
-            </MenuItem>
+
+{ !sidebarCollapsed && <p className='tag'>&nbsp; billing</p>}
+            
             <MenuItem title="Billing" icon={<FaFileInvoice />}>
               Billing
               <Link to="/dash/billing" />
@@ -188,6 +195,12 @@ const Sidebar = ({ auth }) => {
             <MenuItem title="Wallet" icon={<FaWallet />}>
               Wallet
               <Link to="/dash/wallet" />
+            </MenuItem>
+
+       { !sidebarCollapsed && <p className='tag'>&nbsp; settings</p>}
+            <MenuItem title="Profile" icon={<FaUser />}>
+              Profile
+              <Link to="/dash/profile" />
             </MenuItem>
             <MenuItem title="Settings" icon={<FaCog />}>
               Settings

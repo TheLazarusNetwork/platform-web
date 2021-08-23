@@ -34,6 +34,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Home from "./pages/Home";
 import Trialpage from "./pages/Trialpage";
 import Wallet from "./pages/Wallet";
+import OrganisationSettings from "./pages/settingsComponent/OrganisationSettings";
 
 
 const auth = new Auth();
@@ -49,7 +50,7 @@ const Muidarktheme = createMuiTheme({
         contrastText: '#fff',
      },
      secondary: {
-       main: '#f1f4fe',
+       main: '#dc004e',
        contrastText: "#fff",
      },
      background:{
@@ -68,7 +69,7 @@ const Muilighttheme = createMuiTheme({
         main: 'rgb(28, 12, 172)',
      },
      secondary: {
-      main: '#0044ff',
+      main: '#dc004e',
      },
      background:{
       paper:"#fff",
@@ -161,6 +162,12 @@ const App = () => {
               path="/dash/organisations"
               auth={auth}
               component={Organisations}
+            />
+             <PrivateRoute
+              exact
+              path="/dash/organisationSettings"
+              auth={auth}
+              component={OrganisationSettings}
             />
       <PrivateRoute
               exact

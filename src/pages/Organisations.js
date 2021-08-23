@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Topnav from "../Components/navbar/Topnav";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
+import { FiSettings } from "react-icons/fi";
 import { GoKebabVertical } from "react-icons/go";
 import Dialogform from "../Components/organisationsPage/OrgForm";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentOrg } from "../redux/actions/orgAction";
-import Button from '@material-ui/core/Button'
+import Button from "@material-ui/core/Button";
+import { Link, Redirect } from "react-router-dom";
 
 export default function Organisations() {
   const [openform, setOpenform] = useState(false);
@@ -14,7 +16,7 @@ export default function Organisations() {
     orgArray: [...state.organisations.orgArray],
     currentOrgID: state.organisations.CurrentOrgID,
   }));
-  const [currOrg, setCurrOrg] = useState(null);
+  const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
 
   const changeOrg = (ID) => {
@@ -25,7 +27,7 @@ export default function Organisations() {
     let currentOrg = orgArray.find((org) => org.ID === currentOrgID);
     setCurrOrg(currentOrg);
   };
-  
+
   useEffect(() => {
     getcurrentOrg();
   }, [currentOrgID]);
@@ -64,9 +66,13 @@ export default function Organisations() {
                 <div className="name">{currOrg.name}</div>
                 <div className="country">{currOrg.country}</div>
                 <div>
-                  <icon className="btn">
-                    <GoKebabVertical />
-                  </icon>
+                  <Link to="/dash/organisationSettings">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<FiSettings />}
+                    />
+                  </Link>
                 </div>
               </div>
             )}
@@ -79,20 +85,22 @@ export default function Organisations() {
                 <div key={organisation.ID} className="org-box">
                   <div className="name">{organisation.name}</div>
                   <div className="country">{organisation.country}</div>
-                  <div>
-                    
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<BiRightTopArrowCircle />}
+                    onClick={() => changeOrg(organisation.ID)}
+                  >
+                    Org
+                  </Button>
+                  <Link to="/dash/organisationSettings">
                     <Button
-            variant="contained"
-            color="primary"
-            startIcon={  <BiRightTopArrowCircle />}
-            onClick={() => changeOrg(organisation.ID)}
-          >
-            Org
-          </Button>
-                    <icon className="btn">
-                      <GoKebabVertical />
-                    </icon>
-                  </div>
+                      variant="contained"
+                      color="primary"
+                      startIcon={<FiSettings />}
+                    />
+                  </Link>
                 </div>
               );
             })}

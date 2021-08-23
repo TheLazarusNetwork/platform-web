@@ -110,6 +110,7 @@ export default function Security ({ auth }) {
               </form>
             </div>
           </div>
+          
           <div className="details-box shadow ">
             <div className="inner-details">
               <div className="box-title">Multi Factor authentication</div>
