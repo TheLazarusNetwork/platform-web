@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function OrgsModal({ show, onClose }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -66,7 +67,7 @@ export default function OrgsModal({ show, onClose }) {
                 <div className="name">{currOrg.name}</div>
               </div>
             ) : (
-              <div> no current org</div>
+              <div className='org-box'> No current Organisation</div>
             )}
 
             <div className="tag">all Organisations</div>

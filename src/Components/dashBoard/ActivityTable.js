@@ -1,4 +1,4 @@
-import React ,{useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,39 +16,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function createActivity(ActivityName, ActivityResult) {
+export function createActivity(ActivityName) {
+  let browser = get_browser_info();
+  const tableData = localStorage.getItem("activity");
+  const rows = JSON.parse(tableData) ? [...JSON.parse(tableData)] : [];
 
-    let browser = get_browser_info();
-    const tableData = localStorage.getItem("activity");
-    const rows = JSON.parse(tableData) ? [...JSON.parse(tableData)] : [];
+  let current = new Date();
+  let cDate =
+    current.getFullYear() +
+    "-" +
+    (current.getMonth() + 1) +
+    "-" +
+    current.getDate();
+  let cTime =
+    current.getHours() +
+    ":" +
+    current.getMinutes() +
+    ":" +
+    current.getSeconds();
+  let dateTime = cDate + " " + cTime;
 
+  let ipinfo = JSON.parse( localStorage.getItem('ipinfo'))
+  let ipdata = ipinfo !== null ? ipinfo : { ip: " ",region:" ",}
+
+console.log('activity page ' ,ipinfo)
   const newRow = {
     activity: ActivityName,
-    time: Date().toLocaleString(),
-    device: browser.name + " " + browser.version,
-    result: ActivityResult,
+    time: dateTime,
+    device: browser.name + " " + browser.version + " ," + browser.os,
+    ip: ipdata.ip,
+    region : ipdata.region,
   };
-  rows.unshift(newRow)
-  localStorage.setItem('activity' ,JSON.stringify(rows))
+
+  //keeping the table length 10
+  if(rows.length >10 )
+  rows.pop();
+
+  rows.unshift(newRow);
+  localStorage.setItem("activity", JSON.stringify(rows));
 }
 
-let rowData = JSON.parse(localStorage.getItem('activity'))
+let rowData = JSON.parse(localStorage.getItem("activity"));
 
 export default function ActivityTable() {
+  const [rows, setRows] = useState(rowData);
+  const classes = useStyles();
 
-    const [rows, setRows] = useState(rowData)
-    const classes = useStyles();
-    
-    useEffect(() => {
-        //update activity from localstorage
-        rowData = JSON.parse(localStorage.getItem('activity'))
-        if(rowData !== null || rowData !== 'undefined')
-        {
-            setRows(rowData)
-        }
-        
-      }, []);
-
+  useEffect(() => {
+    //update activity from localstorage
+    rowData = JSON.parse(localStorage.getItem("activity"));
+    if (rowData !== null || rowData !== "undefined") {
+      setRows(rowData);
+    }
+  }, []);
 
   return (
     <TableContainer component={Paper}>
@@ -58,7 +78,8 @@ export default function ActivityTable() {
             <TableCell>Action</TableCell>
             <TableCell align="right">Time</TableCell>
             <TableCell align="right">Device</TableCell>
-            <TableCell align="right">Result</TableCell>
+            <TableCell align='right'>Ip Address</TableCell>
+            <TableCell align='right'>Region</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -70,7 +91,8 @@ export default function ActivityTable() {
                 </TableCell>
                 <TableCell align="right">{row.time}</TableCell>
                 <TableCell align="right">{row.device}</TableCell>
-                <TableCell align="right">{row.result}</TableCell>
+                <TableCell align="right">{row.ip}</TableCell>
+                <TableCell align= 'right'>{row.region}</TableCell>
               </TableRow>
             ))
           ) : (

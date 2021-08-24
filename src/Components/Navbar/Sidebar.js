@@ -63,6 +63,7 @@ const Sidebar = ({ auth }) => {
     );
     const jsonResponse = await request.json();
     console.log(jsonResponse)
+    if(JSON.stringify(jsonResponse) !== localStorage.getItem('ipinfo'))
     localStorage.setItem('ipinfo' ,JSON.stringify( jsonResponse));
   };
 
@@ -71,7 +72,7 @@ const Sidebar = ({ auth }) => {
   useEffect( async()=>{
     const user = auth.getAccount();
     let {data} = await auth.sdk.from("profiles").select("avatar_url").filter('id', 'eq', user.id)
-    if(data[0] == null)
+    if(data ==null || [0] == null)
     { console.log("no profile data")}
     else
     downloadImage(data[0].avatar_url)
@@ -97,9 +98,10 @@ const Sidebar = ({ auth }) => {
     const { error } = await auth.logout();
     if (error) console.log(error);
     dispatch(userLogout())
+     //add log out activity to activity table in localstorage
+    createActivity('Logged Out')
     localStorage.removeItem('ipinfo')
-    //add log out activity to activity table in localstorage
-    createActivity('Sign-out', 'Success')
+   
     history.push("/auth");
   };
 

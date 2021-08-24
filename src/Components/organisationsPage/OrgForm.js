@@ -101,6 +101,8 @@ export default function Dialogform({ open, setOpen }) {
                     <select id="country" name="Country">
                       {countryList && 
                       countryList.map((country)=>{
+                        if(country.name ==='United States')
+                        return <option key={country.code} value= {country.name} selected>{country.name}</option>
                         return(
                           <option key ={country.code} value ={country.name}>{country.name}</option>
                         )

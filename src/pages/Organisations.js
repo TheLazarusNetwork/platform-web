@@ -11,7 +11,9 @@ import Button from "@material-ui/core/Button";
 import { Link, Redirect } from "react-router-dom";
 
 export default function Organisations() {
+  //create org form open or close 
   const [openform, setOpenform] = useState(false);
+  //all organisations user is part of
   const { orgArray, currentOrgID } = useSelector((state) => ({
     orgArray: [...state.organisations.orgArray],
     currentOrgID: state.organisations.CurrentOrgID,
@@ -111,79 +113,3 @@ export default function Organisations() {
     </>
   );
 }
-
-// function Dialogform({ open, setOpen }) {
-//   const [step, setStep] = useState(1);
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   if (step == 1) {
-//     return (
-//       <div>
-//         <Dialog
-//           open={open}
-//           onClose={handleClose}
-//           aria-labelledby="form-dialog-title"
-//         >
-//           <DialogTitle id="form-dialog-title">
-//             Create New Organisation
-//           </DialogTitle>
-//           <DialogContent>
-//             {/* <DialogContentText>
-//               To subscribe to this website, please enter your email address here. We will send updates
-//               occasionally.
-//             </DialogContentText> */}
-//             <div className="divider"></div>
-//             <input placeholder="Organisation name"></input>
-//             <input placeholder="address"></input>
-//             <input placeholder="city"></input>
-//             <input placeholder="country"></input>
-//           </DialogContent>
-//           <DialogActions>
-//             <Button onClick={handleClose} color="primary">
-//               Cancel
-//             </Button>
-//             <Button onClick={() => setStep(step + 1)} color="primary">
-//               Next
-//             </Button>
-//           </DialogActions>
-//         </Dialog>
-//       </div>
-//     );
-//   }
-
-//   if (step == 2) {
-//     return (
-//       <div>
-//         <Dialog
-//           open={open}
-//           onClose={handleClose}
-//           aria-labelledby="form-dialog-title"
-//         >
-//           <DialogTitle id="form-dialog-title">
-//             Add new Members
-//           </DialogTitle>
-//           <DialogContent>
-
-//             <div className="divider"></div>
-//             <input type='email' placeholder='email to invite'></input>
-//             <input placeholder='role'></input>
-//           </DialogContent>
-//           <DialogActions>
-//             <Button onClick={()=>{setStep(step-1)}} color="primary">
-//               prev
-//             </Button>
-//             <Button onClick={handleClose} color="primary">
-//               Submit
-//             </Button>
-//           </DialogActions>
-//         </Dialog>
-//       </div>
-//     );
-//   }
-// }

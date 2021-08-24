@@ -37,8 +37,8 @@ export default function CreateProfile({error}) {
     const Country = e.target.Country.value;
     const ContactNumber = e.target.ContactNumber.value;
 
-    console.log(ContactNumber.length)
-    if(ContactNumber.length !== 10)
+    console.log(ContactNumber.length !== 10 && ContactNumber.length !==0)
+    if(ContactNumber.length !== 10 && ContactNumber.length !== 0)
     {
       setAlertmsg("Please enter a valid contact number")
       setAlertopen(true)
@@ -58,8 +58,8 @@ export default function CreateProfile({error}) {
         type={alerttype} // type = error, success, info ,warning
       />
       {error && <ErrorAlert message = {error.message} alertopen ={'true'}/> }
-      <div className="center">
-        <div className="main-block">
+      <div className=" main">
+        <div className=" center main-block">
           <form onSubmit={createNewUser}>
             <h1>Please complete your profile </h1>
             <fieldset>
@@ -70,14 +70,18 @@ export default function CreateProfile({error}) {
                     <input type="number" name="ContactNumber" minLength='10' maxLength="10" />
                   </div>
                   <div>
-                    <label>City*</label>
-                    <input type="text" name="City" required />
+                    <label>City</label>
+                    <input type="text" name="City"  />
                   </div>
                   <div>
-                    <label>Country*</label>
+                    <label>Country</label>
                     <select id="country" name="Country">
                       {countryList &&
                         countryList.map((country) => {
+                          if(country.name === 'United States')
+                          return (
+                            <option key ={country.code} value={country.name} selected>{country.name}</option>
+                          )
                           return (
                             <option key={country.code} value={country.name}>
                               {country.name}
@@ -90,8 +94,10 @@ export default function CreateProfile({error}) {
               </div>
             </fieldset>
             <button type="submit">Confirm </button>
+            <button type="submit">Skip for now</button>
           </form>
         </div>
+        <p className='center'>if you already have an account, please refresh</p>
       </div>
     </>
   );

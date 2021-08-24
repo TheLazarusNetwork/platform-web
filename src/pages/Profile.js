@@ -19,11 +19,12 @@ export default function Profile({ auth }) {
 
   const [avatar_url, setAvatarUrl] = useState();
 
+  //platform api userdata - phone number ,address ,etc.. 
 const {userData} = useSelector((state) =>({
   userData : state.user.currentUserData,
 }))
 
-
+//get profile from supabase db -username and avatar url 
   async function getProfile() {
     try {
       setLoading(true);
@@ -43,12 +44,20 @@ const {userData} = useSelector((state) =>({
       setUsername(data[0].username);
       setAvatarUrl(data[0].avatar_url);
     } catch (error) {
-      alert(error.message);
+      
     } finally {
       setLoading(false);
     }
   }
+
+  //updating user profile db supabase 
   async function updateProfile({ username, avatar_url }) {
+    if(username === '' || username === null)
+    {
+      setAlertmsg("username cannot be null")
+      setAlertopen(true)
+    }
+    else
     try {
       setLoading(true);
       const user = auth.getAccount();
@@ -67,8 +76,14 @@ const {userData} = useSelector((state) =>({
       if (error) {
         throw error;
       }
+      setAlertmsg("update name successful");
+      setAlertype('success')
+      setAlertopen(true);
     } catch (error) {
-      alert(error.message);
+      setAlertmsg("update name failed");
+      setAlertype('error')
+      setAlertopen(true);
+      
     } finally {
       setLoading(false);
     }

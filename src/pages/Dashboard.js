@@ -30,7 +30,8 @@ export default function Dashboard(props) {
     const userResponse = JSON.parse(
       localStorage.getItem("supabase.auth.token")
     );
-    setIpinfo(jsonResponse == null ? {} : jsonResponse);
+    console.log('inside dashboard : ip-',jsonResponse)
+    setIpinfo(jsonResponse === null ? {} : jsonResponse);
     setUserinfo(userResponse.currentSession.user);
   };
 
