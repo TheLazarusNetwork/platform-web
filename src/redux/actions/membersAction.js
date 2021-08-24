@@ -38,26 +38,7 @@ export const fetchMembers = (orgId) => async (dispatch) => {
   } catch (e) {
     dispatch(fetchOrgFailure(e));
   }
-  // return (dispatch) => {
-  //   dispatch(fetchMembersBegin());
-  //   return fetch(membersUrl, {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${auth_token}`,
-  //     },
-  //   })
-  //     .then(handleErrors)
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       dispatch(fetchMembersSuccess(json.payload));
-  //       // console.log(json.payload);
-  //       return json.payload;
-  //     })
-  //     .catch((error) => {
-  //       dispatch(fetchMembersFailure(error));
-  //       console.log(error);
-  //     });
-  // };
+ 
 };
 
 export function inviteNewMember(emailId, role, orgId, orgName) {

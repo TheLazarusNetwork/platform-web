@@ -61,6 +61,7 @@ export default function membersReducer(state = initialState, action){
                 loading : false,
                 error: action.payload.error
             }
+            break;
         default:
             return state;
     }

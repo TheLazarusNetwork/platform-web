@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, IconButton } from "@material-ui/core";
 import { MdSwapHoriz } from "react-icons/md";
+import { changeCurrentOrg } from "../../redux/actions/orgAction";
 
 function getModalStyle() {
   const top = 50;
@@ -15,7 +16,7 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-    };
+  };
 }
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function OrgsModal({ show, onClose }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -37,12 +37,12 @@ export default function OrgsModal({ show, onClose }) {
     currentOrgID: state.organisations.CurrentOrgID,
   }));
 
-  const [currOrg, setCurrOrg] = useState(null);
+  const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
 
   const getcurrentOrg = () => {
     //find all details of current Organisation using current Org ID
-    let currentOrg = orgArray.find((org) => org.ID === currentOrgID);
+    let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
   };
 
@@ -67,14 +67,21 @@ export default function OrgsModal({ show, onClose }) {
                 <div className="name">{currOrg.name}</div>
               </div>
             ) : (
-              <div className='org-box'> No current Organisation</div>
+              <div className="org-box"> No current Organisation</div>
             )}
 
             <div className="tag">all Organisations</div>
-
-            <div  className="org-box">
-                <div className="name">Organisation name</div>  
-            </div>
+            {orgArray.length ? (
+              orgArray.map((organisation) => {
+                return (
+                  <div key={organisation.id} className="org-box">
+                    <Button onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="org-box">No organisations</div>
+            )}
           </div>
 
           {/* button to go to the all organisations page */}

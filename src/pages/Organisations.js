@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import { Link, Redirect } from "react-router-dom";
 
 export default function Organisations() {
-  //create org form open or close 
+  //create org form open or close
   const [openform, setOpenform] = useState(false);
   //all organisations user is part of
   const { orgArray, currentOrgID } = useSelector((state) => ({
@@ -21,13 +21,14 @@ export default function Organisations() {
   const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
 
-  const changeOrg = (ID) => {
-    dispatch(changeCurrentOrg(ID));
+  const changeOrg = (id) => {
+    dispatch(changeCurrentOrg(id));
   };
 
   const getcurrentOrg = () => {
-    let currentOrg = orgArray.find((org) => org.ID === currentOrgID);
+    let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
+    console.log(currentOrg);
   };
 
   useEffect(() => {
@@ -84,25 +85,27 @@ export default function Organisations() {
 
             {orgArray.map((organisation) => {
               return (
-                <div key={organisation.ID} className="org-box">
+                <div key={organisation.id} className="org-box">
                   <div className="name">{organisation.name}</div>
                   <div className="country">{organisation.country}</div>
-
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<BiRightTopArrowCircle />}
-                    onClick={() => changeOrg(organisation.ID)}
-                  >
-                    Org
-                  </Button>
-                  <Link to="/dash/organisationSettings">
+                  <div className="buttons">
                     <Button
                       variant="contained"
                       color="primary"
-                      startIcon={<FiSettings />}
-                    />
-                  </Link>
+                      startIcon={<BiRightTopArrowCircle />}
+                      onClick={() => changeOrg(organisation.id)}
+                    >
+                      Org
+                    </Button>
+
+                    <Link to="/dash/organisationSettings">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<FiSettings />}
+                      />
+                    </Link>
+                  </div>
                 </div>
               );
             })}

@@ -63,7 +63,7 @@ export const fetchOrgFailure = (error) => ({
   payload: { error },
 });
 
-export const changeCurrentOrg =(ID) =>({
+export const changeCurrentOrg =(id) =>({
   type : CHANGE_CURRENT_ORG,
-  payload :ID,
+  payload :id,
 });

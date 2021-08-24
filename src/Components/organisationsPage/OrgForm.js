@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import "../../styles/forms/orgform.css";
 import { createOrg } from "../../redux/actions/createOrgAction";
 import { useDispatch } from "react-redux";
+import { fetchOrg } from "../../redux/actions/orgAction";
 
 
 export default function Dialogform({ open, setOpen }) {
@@ -54,7 +55,8 @@ export default function Dialogform({ open, setOpen }) {
     console.log(OrgName)
     //dispatching all new org data to create a new organisation
     dispatch(createOrg(OrgName,OrgType,Country,Timezone))
-    // handleClose();
+    dispatch(fetchOrg())
+    handleClose();
   };
 
   return (

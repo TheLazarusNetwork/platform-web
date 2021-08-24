@@ -1,3 +1,4 @@
+import { config } from "../../api/config";
 import {
   CREATE_ORG_BEGIN,
   CREATE_ORG_SUCCESS,
@@ -21,7 +22,7 @@ export function createOrg(OrgName,OrgType, Country, Timezone) {
 
   console.log("inside fetch CreateOrg");
 
-  const orgUrl = "https://platform.lazarus.network/api/v1.0/orgs";
+  const orgUrl = config.platformURL +"/orgs";
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${auth_token}`);

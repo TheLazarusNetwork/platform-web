@@ -28,18 +28,6 @@ export default function OrganisationSettings() {
     numberofOrgs: state.organisations.numberOfOrgs,
   }));
 
-  const { currentOrgUUID } = useSelector((state) => ({
-    //get current org UUID
-    currentOrgUUID:
-      numberofOrgs > 0
-        ? [
-            ...[...state.organisations.orgArray].filter(
-              (org) => org.ID === currOrgId
-            ),
-          ][0].id
-        : 0,
-  }));
-
   //getting all Members array form redux store
   const { membersOrg, currentMemberArray, error } = useSelector((state) => ({
     currentMemberArray: [...state.memberships.membershipArray],
@@ -55,7 +43,7 @@ export default function OrganisationSettings() {
     e.preventDefault();
     const emailId = e.target.email.value;
     const selectedRole = e.target.selectedRole.value;
-    const currentOrgId = currentOrgUUID;
+    const currentOrgId = currOrgId;
 
     //getting current Organisation name from current Memberships
     const currentOrgName =
@@ -80,13 +68,14 @@ export default function OrganisationSettings() {
       dispatch(
         inviteNewMember(emailId, selectedRole, currentOrgId, currentOrgName)
       );
+
     }
   };
 
   useEffect(() => {
     // fetching all members list
-    if (currentOrgUUID !== 0) dispatch(fetchMembers(currentOrgUUID));
-  }, [currentOrgUUID]);
+    if (currOrgId !== null) dispatch(fetchMembers(currOrgId));
+  }, [currOrgId]);
 
   return (
     <>
