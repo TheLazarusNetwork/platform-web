@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from "react";
-import Topnav from "../Components/Navbar/Topnav";
+import Topnav from "../Components/navbar/Topnav";
 import "./../styles/Organisation/organisation.css";
 import { BiRightTopArrowCircle } from "react-icons/bi";
+import { FiSettings } from "react-icons/fi";
 import { GoKebabVertical } from "react-icons/go";
-import Dialogform from "../Components/OrgForm";
+import Dialogform from "../Components/organisationsPage/OrgForm";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentOrg } from "../redux/actions/orgAction";
+import Button from "@material-ui/core/Button";
+import { Link, Redirect } from "react-router-dom";
 
 export default function Organisations() {
+  //create org form open or close
   const [openform, setOpenform] = useState(false);
+  //all organisations user is part of
   const { orgArray, currentOrgID } = useSelector((state) => ({
     orgArray: [...state.organisations.orgArray],
     currentOrgID: state.organisations.CurrentOrgID,
   }));
-  const [currOrg, setCurrOrg] = useState(null);
+  const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
 
-  const changeOrg = (ID) => {
-    dispatch(changeCurrentOrg(ID));
+  const changeOrg = (id) => {
+    dispatch(changeCurrentOrg(id));
   };
 
   const getcurrentOrg = () => {
-    let currentOrg = orgArray.find((org) => org.ID === currentOrgID);
+    let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
+    console.log(currentOrg);
   };
-  
+
   useEffect(() => {
     getcurrentOrg();
   }, [currentOrgID]);
@@ -63,9 +69,13 @@ export default function Organisations() {
                 <div className="name">{currOrg.name}</div>
                 <div className="country">{currOrg.country}</div>
                 <div>
-                  <icon className="btn">
-                    <GoKebabVertical />
-                  </icon>
+                  <Link to="/dash/organisationSettings">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<FiSettings />}
+                    />
+                  </Link>
                 </div>
               </div>
             )}
@@ -75,19 +85,26 @@ export default function Organisations() {
 
             {orgArray.map((organisation) => {
               return (
-                <div key={organisation.ID} className="org-box">
+                <div key={organisation.id} className="org-box">
                   <div className="name">{organisation.name}</div>
                   <div className="country">{organisation.country}</div>
-                  <div>
-                    <icon
-                      className="btn"
-                      onClick={() => changeOrg(organisation.ID)}
+                  <div className="buttons">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<BiRightTopArrowCircle />}
+                      onClick={() => changeOrg(organisation.id)}
                     >
-                      <BiRightTopArrowCircle />
-                    </icon>
-                    <icon className="btn">
-                      <GoKebabVertical />
-                    </icon>
+                      Org
+                    </Button>
+
+                    <Link to="/dash/organisationSettings">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<FiSettings />}
+                      />
+                    </Link>
                   </div>
                 </div>
               );
@@ -99,79 +116,3 @@ export default function Organisations() {
     </>
   );
 }
-
-// function Dialogform({ open, setOpen }) {
-//   const [step, setStep] = useState(1);
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   if (step == 1) {
-//     return (
-//       <div>
-//         <Dialog
-//           open={open}
-//           onClose={handleClose}
-//           aria-labelledby="form-dialog-title"
-//         >
-//           <DialogTitle id="form-dialog-title">
-//             Create New Organisation
-//           </DialogTitle>
-//           <DialogContent>
-//             {/* <DialogContentText>
-//               To subscribe to this website, please enter your email address here. We will send updates
-//               occasionally.
-//             </DialogContentText> */}
-//             <div className="divider"></div>
-//             <input placeholder="Organisation name"></input>
-//             <input placeholder="address"></input>
-//             <input placeholder="city"></input>
-//             <input placeholder="country"></input>
-//           </DialogContent>
-//           <DialogActions>
-//             <Button onClick={handleClose} color="primary">
-//               Cancel
-//             </Button>
-//             <Button onClick={() => setStep(step + 1)} color="primary">
-//               Next
-//             </Button>
-//           </DialogActions>
-//         </Dialog>
-//       </div>
-//     );
-//   }
-
-//   if (step == 2) {
-//     return (
-//       <div>
-//         <Dialog
-//           open={open}
-//           onClose={handleClose}
-//           aria-labelledby="form-dialog-title"
-//         >
-//           <DialogTitle id="form-dialog-title">
-//             Add new Members
-//           </DialogTitle>
-//           <DialogContent>
-
-//             <div className="divider"></div>
-//             <input type='email' placeholder='email to invite'></input>
-//             <input placeholder='role'></input>
-//           </DialogContent>
-//           <DialogActions>
-//             <Button onClick={()=>{setStep(step-1)}} color="primary">
-//               prev
-//             </Button>
-//             <Button onClick={handleClose} color="primary">
-//               Submit
-//             </Button>
-//           </DialogActions>
-//         </Dialog>
-//       </div>
-//     );
-//   }
-// }

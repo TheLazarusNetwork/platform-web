@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Topnav from "../Components/Navbar/Topnav";
-import { BasicTable } from "../utils/table";
+import Topnav from "../Components/navbar/Topnav";
+import { BasicTable } from "../Components/commanComponents/table";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import "./../styles/Dashboard/billing.css";

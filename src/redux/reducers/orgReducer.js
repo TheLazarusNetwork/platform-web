@@ -13,7 +13,7 @@ const initialState = {
   error: null,
   loading: false,
   numberOfOrgs: 0,
-  CurrentOrgID: 0,
+  CurrentOrgID: null,
 };
 
 export default function orgReducer(state = initialState, action) {
@@ -24,7 +24,7 @@ export default function orgReducer(state = initialState, action) {
         loading: true,
         numberOfOrgs: 0,
         error: null,
-        CurrentOrgID: 0,
+        CurrentOrgID: null,
       };
       break;
     case FETCH_ORG_SUCCESS:
@@ -33,7 +33,7 @@ export default function orgReducer(state = initialState, action) {
         loading: false,
         orgArray: [...action.payload],
         numberOfOrgs: [...action.payload].length,
-        CurrentOrgID: [...action.payload][0].ID,
+        CurrentOrgID: [...action.payload][0].id,
       };
       break;
     case FETCH_ORG_FAILURE:
@@ -58,7 +58,7 @@ export default function orgReducer(state = initialState, action) {
         error: null,
         orgArray: [...state.orgArray, action.payload],
         numberOfOrgs: state.numberOfOrgs + 1,
-        CurrentOrgID: action.payload.ID,
+        CurrentOrgID: action.payload.id,
       };
       break;
     case CREATE_ORG_FAILURE:

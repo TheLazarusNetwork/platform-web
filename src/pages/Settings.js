@@ -6,11 +6,11 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Topnav from "../Components/Navbar/Topnav";
+import Topnav from "../Components/navbar/Topnav";
 
-import OrganisationSettings from "./SettingsComponent/OrganisationSettings";
-import Personalisation from "./SettingsComponent/Personalisation";
-import Security from "./SettingsComponent/Security";
+import OrganisationSettings from "./settingsComponent/OrganisationSettings";
+import Personalisation from "./settingsComponent/Personalisation";
+import Security from "./settingsComponent/Security";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -23,7 +23,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={2}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -84,11 +84,7 @@ export default function Settings({ auth }) {
           >
             <LinkTab label="Personalisation" href="/drafts" {...a11yProps(0)} />
             <LinkTab label="Security" href="/trash" {...a11yProps(1)} />
-            <LinkTab
-              label="Organisation Settings"
-              href="/spam"
-              {...a11yProps(2)}
-            />
+           
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -97,9 +93,7 @@ export default function Settings({ auth }) {
         <TabPanel value={value} index={1}>
           <Security auth={auth} />
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          <OrganisationSettings auth={auth} />
-        </TabPanel>
+       
       </div>
     </div>
   );

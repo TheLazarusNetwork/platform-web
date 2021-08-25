@@ -8,25 +8,27 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "react-pro-sidebar";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { BiLogOut } from "react-icons/bi";
 import {
   FaUserLock,
   FaShieldAlt,
   FaFileInvoice,
   FaUser,
+  FaBuilding,
   FaCloud,
   FaDungeon,
   FaCog,
   FaColumns,
+  FaWallet
 } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import { fetchUser } from "../../redux/actions/userAction";
-// import 'react-pro-sidebar/dist/css/styles.css';
 import "./../../styles/Dashboard/dashboard.css";
 import "./../../styles/Navbar/navbar.scss";
 import { fetchOrg } from "../../redux/actions/orgAction";
 import { userLogout } from "../../redux/rootReducer";
+import { fetchPlans } from "../../redux/actions/plansAction";
+import { createActivity } from "../dashBoard/ActivityTable";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -52,15 +54,55 @@ const Sidebar = ({ auth }) => {
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchOrg());
+    dispatch(fetchPlans());
   }, []);
+
+  const getIp = async () => {
+    const request = await fetch(
+      `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
+    );
+    const jsonResponse = await request.json();
+    console.log(jsonResponse)
+    if(JSON.stringify(jsonResponse) !== localStorage.getItem('ipinfo'))
+    localStorage.setItem('ipinfo' ,JSON.stringify( jsonResponse));
+  };
+
+  useEffect(() => {getIp()}, []);
+
+  useEffect( async()=>{
+    const user = auth.getAccount();
+    let {data} = await auth.sdk.from("profiles").select("avatar_url").filter('id', 'eq', user.id)
+    if(data ==null || [0] == null)
+    { console.log("no profile data")}
+    else
+    downloadImage(data[0].avatar_url)
+  },[])
+
+  async function downloadImage(path) {
+    try {
+      const { data, error } = await auth.sdk.storage.from('avatars').download(path)
+      if (error) {
+        throw error
+      }
+      const url = URL.createObjectURL(data)
+      localStorage.setItem('avatar_url' , url)
+    } catch (error) {
+      console.log('Error downloading image: ', error.message)
+    }
+  }
 
   const history = useHistory();
 
   const signOutUser = async () => {
+
     const { error } = await auth.logout();
     if (error) console.log(error);
     dispatch(userLogout())
-    history.push("/signup");
+     //add log out activity to activity table in localstorage
+    createActivity('Logged Out')
+    localStorage.removeItem('ipinfo')
+   
+    history.push("/auth");
   };
 
   return (
@@ -74,44 +116,51 @@ const Sidebar = ({ auth }) => {
     >
       <ProSidebar collapsed={sidebarCollapsed}>
         <SidebarHeader>
-          <Menu iconShape="square">
+          <Menu iconShape='square'>
             <MenuItem
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              icon={<GiHamburgerMenu />}
+              icon={<img width={20} height={20}  src='favicon-lazarus.png' />}
             >
-              SideBar
+              Lazarus Network
             </MenuItem>
           </Menu>
         </SidebarHeader>
 
         <SidebarContent>
           <Menu iconShape="square" >
+          { !sidebarCollapsed && <p className='tag'>&nbsp; home</p>}
             <MenuItem title="Dashboard" icon={<FaColumns />}>
               Dashboard
               <Link to="/dash/" />
             </MenuItem>
 
+            <MenuItem title="Organisations" icon={<FaBuilding />}>
+              Organisations
+              <Link to="/dash/organisations" />
+            </MenuItem>
+
+           { !sidebarCollapsed && <p className='tag'>&nbsp; services</p>}
             {isUserLoggedIn && numberOfOrgs ? (
               <>
                 <MenuItem title="AVPN" icon={<FaUserLock />}>
                   Anonymous VPN
-                  <Link to="/dash/anomvpn" />
+                  <Link to="/dash/anonymousVPN" />
                 </MenuItem>
 
                 <MenuItem title="DVPN" icon={<FaShieldAlt />}>
                   Dedicated VPN
-                  <Link to="/dash/dedivpn" />
+                  <Link to="/dash/dedicatedNetwork" />
                 </MenuItem>
-
+                {/* <MenuItem title="Cloud" icon={<FaCloud />}>
+                 NextCloud
+                  <Link to="/dash/nextCloud" />
+                </MenuItem>
                 <MenuItem title="Tunnel" icon={<FaDungeon />}>
                   Tunnel
                   <Link to="/dash/tunnel" />
-                </MenuItem>
+                </MenuItem> */}
 
-                <MenuItem title="Cloud" icon={<FaCloud />}>
-                  Cloud
-                  <Link to="/dash/cloud" />
-                </MenuItem>
+              
               </>
             ) : (
               <>
@@ -121,28 +170,39 @@ const Sidebar = ({ auth }) => {
                 </MenuItem>
 
                 <MenuItem title="DVPN" className='disabled' icon={<FaShieldAlt color='grey' />}>
-                  Dedicated VPN
+                  Dedicated Network
+                
+                </MenuItem>
+
+                {/* <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
+                  NextCloud
                 
                 </MenuItem>
 
                 <MenuItem title="Tunnel" className='disabled' icon={<FaDungeon color='grey' />}>
                   Tunnel
               
-                </MenuItem>
+                </MenuItem> */}
 
-                <MenuItem title="Cloud" className='disabled' icon={<FaCloud color='grey' />}>
-                  Cloud
-                
-                </MenuItem>
+               
               </>
             )}
-            <MenuItem title="Profile" icon={<FaUser />}>
-              Profile
-              <Link to="/dash/profile" />
-            </MenuItem>
+
+{ !sidebarCollapsed && <p className='tag'>&nbsp; billing</p>}
+            
             <MenuItem title="Billing" icon={<FaFileInvoice />}>
               Billing
               <Link to="/dash/billing" />
+            </MenuItem>
+            <MenuItem title="Wallet" icon={<FaWallet />}>
+              Wallet
+              <Link to="/dash/wallet" />
+            </MenuItem>
+
+       { !sidebarCollapsed && <p className='tag'>&nbsp; settings</p>}
+            <MenuItem title="Profile" icon={<FaUser />}>
+              Profile
+              <Link to="/dash/profile" />
             </MenuItem>
             <MenuItem title="Settings" icon={<FaCog />}>
               Settings

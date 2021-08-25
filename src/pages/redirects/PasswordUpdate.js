@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PasswordStrengthMeter from "../../Components/Passwords/PasswordStrengthMeter";
-import SnackbarAlert from "../../utils/snackbar";
+import PasswordStrengthMeter from "../../Components/passwords/PasswordStrengthMeter";
+import SnackbarAlert from "../../Components/commanComponents/snackbar";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { useLocation } from "react-router";

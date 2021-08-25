@@ -102,6 +102,7 @@ Navlink:hover {
 .main {
   .grey-back {
     display: flex;
+    justify-content: space-evenly;
     background-color: $lightgrey;
     width: 80%;
     padding: 30px;

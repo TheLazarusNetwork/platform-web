@@ -7,7 +7,7 @@ const Failure = ({ auth, history, location }) => {
   useEffect(() => {
     auth.checkAuthenticated().then((val) => {
       auth.setAuthenticated(val);
-      history.push("/signup");
+      history.push("/auth");
     });
   }, []);
 

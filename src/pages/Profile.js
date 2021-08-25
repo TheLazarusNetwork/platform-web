@@ -1,49 +1,100 @@
 import React, { useEffect, useState } from "react";
-import Topnav from "../Components/Navbar/Topnav";
-import { Avatar, TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import SnackbarAlert from "../utils/snackbar";
-import { connect } from "react-redux";
-import { fetchUser } from "../redux/actions/userAction";
+import Topnav from "../Components/navbar/Topnav";
+// import { Avatar } from "@material-ui/core";
+import Avatar from "../Components/commanComponents/Avatar";
+import SnackbarAlert from "../Components/commanComponents/snackbar";
+import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-  },
-}));
+document.title = "Profile | Lazarus Network";
 
 export default function Profile({ auth }) {
   const [username, setUsername] = useState("");
   const [useremail, setUseremail] = useState("");
-  const [avatar, setavatar] = useState();
+  const [userdata, setuserdata] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const [alertopen, setAlertopen] = useState(false);
   const [alertmsg, setAlertmsg] = useState(" ");
   const [alerttype, setAlertype] = useState("error");
-  const classes = useStyles();
-  const [userdata, setuserdata] = useState({});
 
-  const fetchData = async () => {
-    const data = await auth.getAccount();
+  const [avatar_url, setAvatarUrl] = useState();
 
-    setuserdata(data);
-    setUsername(data.user_metadata.full_name);
-    setUseremail(data.email);
-    setavatar(data.user_metadata.avatar_url);
-  };
+  //platform api userdata - phone number ,address ,etc.. 
+const {userData} = useSelector((state) =>({
+  userData : state.user.currentUserData,
+}))
+
+//get profile from supabase db -username and avatar url 
+  async function getProfile() {
+    try {
+      setLoading(true);
+      const user = auth.getAccount();
+      setUseremail(user.email)
+
+      let { data , error } = await auth.sdk.from("profiles")
+                                            .select("username , avatar_url")
+                                            .filter('id', 'eq', user.id)
+
+      console.log(data[0].username ,data[0].avatar_url, error);
+
+      if (error) {
+        throw error;
+      }
+
+      setUsername(data[0].username);
+      setAvatarUrl(data[0].avatar_url);
+    } catch (error) {
+      
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  //updating user profile db supabase 
+  async function updateProfile({ username, avatar_url }) {
+    if(username === '' || username === null)
+    {
+      setAlertmsg("username cannot be null")
+      setAlertopen(true)
+    }
+    else
+    try {
+      setLoading(true);
+      const user = auth.getAccount();
+
+      const updates = {
+        id: user.id,
+        username,
+        avatar_url,
+        updated_at: new Date(),
+      };
+
+      let { error } = await auth.sdk.from("profiles").upsert(updates, {
+        returning: "minimal", // Don't return the value after inserting
+      });
+
+      if (error) {
+        throw error;
+      }
+      setAlertmsg("update name successful");
+      setAlertype('success')
+      setAlertopen(true);
+    } catch (error) {
+      setAlertmsg("update name failed");
+      setAlertype('error')
+      setAlertopen(true);
+      
+    } finally {
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    getProfile()
+  }, [userData]);
 
-  const handlesubmit = async(event) => {
+
+  const handlesubmit = async (event) => {
     event.preventDefault();
 
     if (userdata.name == username) {
@@ -63,7 +114,6 @@ export default function Profile({ auth }) {
     }
   };
 
-
   return (
     <>
       <SnackbarAlert
@@ -76,10 +126,18 @@ export default function Profile({ auth }) {
         <Topnav page="Profile" />
         <div className="profile-pic">
           <div className="pic-avatar">
-            <Avatar className={classes.large} src={avatar}></Avatar>
+            {/* <Avatar className={classes.large} src={avatar}></Avatar> */}
+            <Avatar
+              url={avatar_url}
+              size={100}
+              onUpload={(url) => {
+                setAvatarUrl(url);
+                updateProfile({ username, avatar_url: url });
+              }}
+            />
             <div className=" pic-description">
-              <h6> Your Avatar</h6>
-              <p> Png or Jpg max size 5mb </p>
+              <h4>{username}</h4>
+              <p> {useremail}</p>
             </div>
           </div>
           {/* <input type="file" onChange={filechange}></input> */}
@@ -90,11 +148,14 @@ export default function Profile({ auth }) {
         <div className="details-box shadow ">
           <div className="box-title">Personal details</div>
           <div className="inner-details">
-            <form onSubmit={handlesubmit}>
+            <form onSubmit={(e) =>{
+              e.preventDefault();
+              updateProfile({ username, avatar_url })
+              }}>
               <div className="row">
                 <input
                   className="textfield"
-                  value={username}
+                  value={username || ""}
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
@@ -105,10 +166,9 @@ export default function Profile({ auth }) {
                   value={useremail}
                   disabled
                 />
-               
               </div>
               <button type="submit" className="save-btn">
-                update changes
+                update
               </button>
             </form>
           </div>

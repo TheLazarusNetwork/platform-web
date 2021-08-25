@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, auth: auth, ...rest }) => (
       return auth.isSessionActive() ? (
         <Component {...props} auth={auth} />
       ) : (
-        <Redirect to="/signup" />
+        <Redirect to="/auth" />
       );
     }}
   />

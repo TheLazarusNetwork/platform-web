@@ -16,15 +16,15 @@ import Failure from "./pages/redirects/Failure";
 import RedirectedUrlPage from "./pages/redirects/RedirectedUrlPage";
 import VerificationPage from "./pages/redirects/VerificationPage";
 import Notfound from "./pages/redirects/404";
-import Sidebar from "./Components/Navbar/Sidebar";
+import Sidebar from "./Components/navbar/Sidebar";
 import Billing from "./pages/Billing";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import AnonymousVPN from "./pages/services/AnonymousVPN";
+import AnonymousVPN, { ShowClient } from "./pages/services/AnonymousVPN";
 import DedicatedNetwork from "./pages/services/DedicatedNetwork";
 import Tunnel from "./pages/services/Tunnel";
 import Cloud from "./pages/services/Cloud";
-import PasswordReset from "./Components/Passwords/PasswordReset";
+import PasswordReset from "./Components/passwords/PasswordReset";
 import PasswordUpdate from "./pages/redirects/PasswordUpdate";
 import Organisations from "./pages/Organisations";
 import { useSelector } from "react-redux";
@@ -33,6 +33,8 @@ import "./styles/Themes/darktheme.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Home from "./pages/Home";
 import Trialpage from "./pages/Trialpage";
+import Wallet from "./pages/Wallet";
+import OrganisationSettings from "./pages/settingsComponent/OrganisationSettings";
 
 
 const auth = new Auth();
@@ -45,11 +47,10 @@ const Muidarktheme = createMuiTheme({
      primary: {
         light: '#fff',
         main: 'rgb(23, 105, 170)',
-        dark: 'rgb(23, 105, 170)',
         contrastText: '#fff',
      },
      secondary: {
-       main: '#f1f4fe',
+       main: '#dc004e',
        contrastText: "#fff",
      },
      background:{
@@ -61,16 +62,19 @@ const Muidarktheme = createMuiTheme({
      useNextVariants: true
   }
 });
+
 const Muilighttheme = createMuiTheme({
   palette: {
      primary: {
-        light: '#fff',
         main: 'rgb(28, 12, 172)',
-        dark: '#000'
      },
      secondary: {
-       main: '#f1f4fe',
+      main: '#dc004e',
      },
+     background:{
+      paper:"#fff",
+      default: "#fff",
+    }
      
   },
   typography: { 
@@ -93,7 +97,7 @@ const App = () => {
 
   return (
     <Router>
-      <MuiThemeProvider theme={darktheme? Muidarktheme:Muilighttheme}>
+      <MuiThemeProvider theme={darktheme ? Muidarktheme : Muilighttheme}>
       <div className={darktheme ? "dark-theme" : "light-theme"}>
         <div className="body">
           <PrivateRoute path="/dash" auth={auth} component={Sidebar} />
@@ -124,14 +128,20 @@ const App = () => {
             />
             <PrivateRoute
               exact
-              path="/dash/anomvpn"
+              path="/dash/anonymousVPN"
               auth={auth}
               component={AnonymousVPN}
+            />
+             <PrivateRoute
+              exact
+              path="/dash/anonymousVPN/clients/:id"
+              auth={auth}
+              component={ShowClient}
             />
 
             <PrivateRoute
               exact
-              path="/dash/dedivpn"
+              path="/dash/dedicatedNetwork"
               auth={auth}
               component={DedicatedNetwork}
             />
@@ -143,7 +153,7 @@ const App = () => {
             />
             <PrivateRoute
               exact
-              path="/dash/cloud"
+              path="/dash/nextCloud"
               auth={auth}
               component={Cloud}
             />
@@ -153,11 +163,22 @@ const App = () => {
               auth={auth}
               component={Organisations}
             />
-      
+             <PrivateRoute
+              exact
+              path="/dash/organisationSettings"
+              auth={auth}
+              component={OrganisationSettings}
+            />
+      <PrivateRoute
+              exact
+              path="/dash/wallet"
+              auth={auth}
+              component={Wallet}
+            />
       
             <Route
               exact
-              path="/signup"
+              path="/auth"
               render={(props) => {
                 return SessionActive() ? (
                   <Redirect to="/dash" />

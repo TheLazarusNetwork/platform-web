@@ -1,10 +1,12 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
-import "./../styles/Organisation/organisation.css";
-import { BiRightTopArrowCircle } from "react-icons/bi";
+import "../../styles/Organisation/organisation.css";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Button, IconButton } from "@material-ui/core";
+import { MdSwapHoriz } from "react-icons/md";
+import { changeCurrentOrg } from "../../redux/actions/orgAction";
 
 function getModalStyle() {
   const top = 50;
@@ -29,16 +31,18 @@ const useStyles = makeStyles((theme) => ({
 export default function OrgsModal({ show, onClose }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+
   const { orgArray, currentOrgID } = useSelector((state) => ({
     orgArray: [...state.organisations.orgArray],
     currentOrgID: state.organisations.CurrentOrgID,
   }));
-  const [currOrg, setCurrOrg] = useState(null);
+
+  const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
 
   const getcurrentOrg = () => {
     //find all details of current Organisation using current Org ID
-    let currentOrg = orgArray.find((org) => org.ID === currentOrgID);
+    let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
   };
 
@@ -58,25 +62,26 @@ export default function OrgsModal({ show, onClose }) {
             {/* current org box */}
             <div className="tag">current organisation</div>
 
-            {currOrg && (
+            {currOrg ? (
               <div className="org-box">
                 <div className="name">{currOrg.name}</div>
-                <div className="country">{currOrg.country}</div>
               </div>
+            ) : (
+              <div className="org-box"> No current Organisation</div>
             )}
 
-            {/* <div className="tag">recent Organisation</div>
-            <div className="org-box">
-            
-              <div className="name">Organisation name</div>
-              <div className="role">Admin</div>
-              <div>
-                
-                <icon className="btn">
-                  <BiRightTopArrowCircle />
-                </icon>
-              </div>
-            </div> */}
+            <div className="tag">all Organisations</div>
+            {orgArray.length ? (
+              orgArray.map((organisation) => {
+                return (
+                  <div key={organisation.id} className="org-box">
+                    <Button onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="org-box">No organisations</div>
+            )}
           </div>
 
           {/* button to go to the all organisations page */}

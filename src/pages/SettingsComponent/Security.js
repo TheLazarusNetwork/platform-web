@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import Passwordbreach from "../../Components/Passwords/Passwordbreach";
-import SnackbarAlert from "../../utils/snackbar";
+import Passwordbreach from "../../Components/passwords/Passwordbreach";
+import SnackbarAlert from "../../Components/commanComponents/snackbar";
 
 //security page
 
@@ -110,6 +110,7 @@ export default function Security ({ auth }) {
               </form>
             </div>
           </div>
+          
           <div className="details-box shadow ">
             <div className="inner-details">
               <div className="box-title">Multi Factor authentication</div>

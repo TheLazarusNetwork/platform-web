@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dialogform from "./OrgForm";
+import Dialogform from "./../organisationsPage/OrgForm";
 
 
 export default function NoOrganisations() {

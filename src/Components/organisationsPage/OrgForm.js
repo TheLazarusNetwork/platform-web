@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import "./../styles/forms/orgform.css";
-import { createOrg } from "../redux/actions/createOrgAction";
+import "../../styles/forms/orgform.css";
+import { createOrg } from "../../redux/actions/createOrgAction";
 import { useDispatch } from "react-redux";
+import { fetchOrg } from "../../redux/actions/orgAction";
+
+
 export default function Dialogform({ open, setOpen }) {
 
   const [timezones, setTimezones] = useState(null);
@@ -52,7 +55,8 @@ export default function Dialogform({ open, setOpen }) {
     console.log(OrgName)
     //dispatching all new org data to create a new organisation
     dispatch(createOrg(OrgName,OrgType,Country,Timezone))
-    // handleClose();
+    dispatch(fetchOrg())
+    handleClose();
   };
 
   return (
@@ -72,7 +76,7 @@ export default function Dialogform({ open, setOpen }) {
               <div className="account-details">
                 <div>
                   <label>Name of Organization *</label>
-                  <input type="text" name="OrgName" required />
+                  <input type="text" name="OrgName" required maxLength="30" />
                 </div>
                 <div>
                   <label>Type of Organization *</label>
@@ -99,6 +103,8 @@ export default function Dialogform({ open, setOpen }) {
                     <select id="country" name="Country">
                       {countryList && 
                       countryList.map((country)=>{
+                        if(country.name ==='United States')
+                        return <option key={country.code} value= {country.name} selected>{country.name}</option>
                         return(
                           <option key ={country.code} value ={country.name}>{country.name}</option>
                         )
