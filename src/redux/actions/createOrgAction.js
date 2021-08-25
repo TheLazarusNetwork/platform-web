@@ -23,6 +23,9 @@ export function createOrg(OrgName,OrgType, Country, Timezone) {
   console.log("inside fetch CreateOrg");
 
   const orgUrl = config.platformURL +"/orgs";
+  const ipinfo = JSON.parse(localStorage.getItem('ipinfo')) ?JSON.parse(localStorage.getItem('ipinfo')).loc : '0,0'
+  const location = ipinfo.split(',');
+  console.log(location)
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${auth_token}`);
@@ -30,11 +33,11 @@ export function createOrg(OrgName,OrgType, Country, Timezone) {
 
   var raw = JSON.stringify({
     Name: OrgName.toString(),
-    type: "llc",
-    lat: 22.572645,
-    lon: 8.363892,
+    type: OrgType.toString(),
+    lat: Number( location[0]),
+    lon: Number(location[1]),
     country: Country.toString(),
-    timezone: calcTime(Timezone),
+    timezone: Timezone.toString(),
   });
   var requestOptions = {
     method: "POST",

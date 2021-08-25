@@ -6,6 +6,9 @@ import NoOrganisations from "../Components/emptySpace/NoOrganisations";
 import CreateProfile from "../Components/dashBoard/CreateProfile";
 import LoadingAnimation from "../Components/emptySpace/LoadingAnimation";
 import ActivityTable from "../Components/dashBoard/ActivityTable";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import { FiSettings } from "react-icons/fi";
 
 document.title = "Dashboard | Lazarus Network";
 
@@ -14,23 +17,38 @@ export default function Dashboard(props) {
     JSON.parse(localStorage.getItem("ipinfo"))
   );
   const [userinfo, setUserinfo] = useState({});
+  const [currOrg, setCurrOrg] = useState();
 
   const { loading, error, isUserLoggedIn } = useSelector((state) => ({
     loading: state.user.loading,
     error: state.user.error,
     isUserLoggedIn: state.user.isUserLoggedIn,
   }));
-  const { numberofOrgs, currentOrg, orgloading } = useSelector((state) => ({
-    orgloading: state.organisations.loading,
-    numberofOrgs: state.organisations.numberOfOrgs,
-  }));
+  const { numberofOrgs, currentOrgID, orgArray, orgloading } = useSelector(
+    (state) => ({
+      orgloading: state.organisations.loading,
+      numberofOrgs: state.organisations.numberOfOrgs,
+      orgArray: [...state.organisations.orgArray],
+      currentOrgID: state.organisations.CurrentOrgID,
+    })
+  );
+
+  const getcurrentOrg = () => {
+    let currentOrg = orgArray.find((org) => org.id === currentOrgID);
+    setCurrOrg(currentOrg);
+    console.log(currentOrg,orgArray,currentOrgID);
+  };
+
+  useEffect(() => {
+    getcurrentOrg();
+  }, [currentOrgID]);
 
   const getIp = async () => {
     const jsonResponse = JSON.parse(localStorage.getItem("ipinfo"));
     const userResponse = JSON.parse(
       localStorage.getItem("supabase.auth.token")
     );
-    console.log('inside dashboard : ip-',jsonResponse)
+    console.log("inside dashboard : ip-", jsonResponse);
     setIpinfo(jsonResponse === null ? {} : jsonResponse);
     setUserinfo(userResponse.currentSession.user);
   };
@@ -56,7 +74,7 @@ export default function Dashboard(props) {
         <Topnav page="Dashboard" />
         <div>
           <div className="flex-div">
-            <div className="grey-back ">
+            <div className="mid-details-box shadow ">
               {numberofOrgs === 0 ? (
                 <NoOrganisations />
               ) : (
@@ -64,9 +82,22 @@ export default function Dashboard(props) {
                   <h3>
                     Number of Organisation you are part of : {numberofOrgs}
                   </h3>
-                  <div>
-                    <p>Current Org : {} </p>
-                  </div>
+                  {currOrg && (
+                    <div className="mid-details-box">
+                      <h4>Current Org : {currOrg.name} </h4>
+                      <p>Current Org Country : {currOrg.country}</p>
+                      <div>
+                        <Link to="/dash/organisationSettings">
+                          <Button
+                            variant="contained"
+                            color= 'white'
+                            startIcon={<FiSettings />}
+                          >Settings
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

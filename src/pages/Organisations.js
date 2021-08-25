@@ -13,6 +13,7 @@ import { Link, Redirect } from "react-router-dom";
 export default function Organisations() {
   //create org form open or close
   const [openform, setOpenform] = useState(false);
+  
   //all organisations user is part of
   const { orgArray, currentOrgID } = useSelector((state) => ({
     orgArray: [...state.organisations.orgArray],

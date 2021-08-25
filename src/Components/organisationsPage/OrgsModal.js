@@ -73,6 +73,7 @@ export default function OrgsModal({ show, onClose }) {
             <div className="tag">all Organisations</div>
             {orgArray.length ? (
               orgArray.map((organisation) => {
+               
                 return (
                   <div key={organisation.id} className="org-box">
                     <Button onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>

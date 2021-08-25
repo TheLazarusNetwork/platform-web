@@ -71,15 +71,16 @@ export default function Billing() {
               >
                 {currencies.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                    {option.label} {" "} {option.value}
                   </MenuItem>
                 ))}
               </TextField>
             </div>
             <div className="divider"></div>
             <div className="mid-details-box shadow">
+              <div className='title'>Billing</div>
               <div className="filters">
-                <TextField
+                {/* <TextField
                   id="standard-select-currency"
                   select
                   value={currency}
@@ -91,8 +92,8 @@ export default function Billing() {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>{" "}
-                <TextField
+                </TextField> */}
+                {/* <TextField
                   id="standard-select-currency"
                   select
                   value={currency}
@@ -104,12 +105,14 @@ export default function Billing() {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>
+                </TextField> */}
               </div>
-              <BasicTable />
+              <div className='details-box'>
+                  No Current Bills 
+              </div>
             </div>
           </div>
-          <div className="mid-details-box ">
+          {/* <div className="mid-details-box ">
             <div className="title">My Cards</div>
             <div>
               <button className="grey-btn" onClick={() => setOpenform(true)}>
@@ -158,7 +161,7 @@ export default function Billing() {
                 <p> xxxx-xxxx-xxxx-1234</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

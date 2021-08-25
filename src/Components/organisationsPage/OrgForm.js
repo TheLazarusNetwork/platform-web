@@ -76,11 +76,15 @@ export default function Dialogform({ open, setOpen }) {
               <div className="account-details">
                 <div>
                   <label>Name of Organization *</label>
-                  <input type="text" name="OrgName" required maxLength="30" />
+                  <input type="text" name="OrgName" required maxLength="30" minLength='5'/>
                 </div>
                 <div>
                   <label>Type of Organization *</label>
-                  <input type="text" name="OrgType" required />
+                  
+                  <select name='OrgType'>
+                    <option  value='private'>private</option>
+                    <option value= 'llc'>llc</option>
+                  </select>
                 </div>
               </div>
             </fieldset>

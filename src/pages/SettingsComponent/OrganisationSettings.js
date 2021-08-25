@@ -8,10 +8,11 @@ import {
   fetchMembers,
   inviteNewMember,
 } from "../../redux/actions/membersAction";
+import { GoKebabVertical } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import SnackbarAlert from "../../Components/commanComponents/snackbar";
 import Topnav from "../../Components/navbar/Topnav";
-import { Button } from "@material-ui/core";
+import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 
 //Organisational settings
 
@@ -68,7 +69,6 @@ export default function OrganisationSettings() {
       dispatch(
         inviteNewMember(emailId, selectedRole, currentOrgId, currentOrgName)
       );
-
     }
   };
 
@@ -76,6 +76,27 @@ export default function OrganisationSettings() {
     // fetching all members list
     if (currOrgId !== null) dispatch(fetchMembers(currOrgId));
   }, [currOrgId]);
+
+  //for each member options menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+
+  //funtion to remove a member from current org
+  const removeMember = () => {
+    //function to change current membership role
+  };
+  const changeRole = (currentRole,email) => {
+    const newRole = currentRole === "member" ? "admin" : "member";
+    
+  };
 
   return (
     <>
@@ -86,7 +107,7 @@ export default function OrganisationSettings() {
         type={alerttype} // type = error, success, info ,warning
       />
       <div className="main">
-        <Topnav page='Org Settings' />
+        <Topnav page="Org Settings" />
         <div className="details-box shadow ">
           <div className="inner-details">
             <div className="box-title">Invite new member</div>
@@ -140,21 +161,49 @@ export default function OrganisationSettings() {
           {!currentMemberArray.length && (
             <div>No Members in this Organisation</div>
           )}
-          {currentMemberArray.map((members) => {
+          {currentMemberArray.map((member) => {
+            if (member.role === "owner")
+              return (
+                <div key={member.ID} className="org-box">
+                  <div className="email">{member.user_id}</div>
+                  <div className="role">{member.role}</div>
+                  <div />
+                </div>
+              );
+
             return (
-              <div key={members.ID} className="org-box">
-                <div className="email">{members.user_id}</div>
-                <div className="role">{members.role}</div>
-                <div>{}</div>
+              <div key={member.ID} className="org-box">
+                <div className="email">{member.user_id}</div>
+                <div className="role">{member.role}</div>
+                <div>
+                  <IconButton
+                    aria-label="more"
+                    aria-controls="long-menu"
+                    aria-haspopup="true"
+                    onClick={handleMenuOpen}
+                  >
+                    <GoKebabVertical />
+                  </IconButton>
+                  <Menu
+                    id={member.ID}
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                  >
+                    {/* <MenuItem onClick={removeMember}>Remove member </MenuItem> */}
+                    <MenuItem onClick={changeRole(member.role)}>
+                      change role
+                    </MenuItem>
+                  </Menu>
+                </div>
               </div>
             );
           })}
         </div>
 
-        <div className='center details-box'>
-          <Button 
-           variant="contained"
-          color="secondary" >
+        <div className="center details-box">
+          <Button variant="contained" color="secondary">
             Leave Organisation
           </Button>
         </div>
