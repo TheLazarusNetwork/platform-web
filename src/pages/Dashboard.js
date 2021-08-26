@@ -36,7 +36,7 @@ export default function Dashboard(props) {
   const getcurrentOrg = () => {
     let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
-    console.log(currentOrg,orgArray,currentOrgID);
+    // console.log(currentOrg,orgArray,currentOrgID);
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Dashboard(props) {
     const userResponse = JSON.parse(
       localStorage.getItem("supabase.auth.token")
     );
-    console.log("inside dashboard : ip-", jsonResponse);
+    // console.log("inside dashboard : ip-", jsonResponse);
     setIpinfo(jsonResponse === null ? {} : jsonResponse);
     setUserinfo(userResponse.currentSession.user);
   };

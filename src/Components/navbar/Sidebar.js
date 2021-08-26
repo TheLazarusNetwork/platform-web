@@ -62,7 +62,7 @@ const Sidebar = ({ auth }) => {
       `https://ipinfo.io/json?token=${process.env.REACT_APP_IP_TOKEN}`
     );
     const jsonResponse = await request.json();
-    console.log(jsonResponse)
+  
     if(JSON.stringify(jsonResponse) !== localStorage.getItem('ipinfo'))
     localStorage.setItem('ipinfo' ,JSON.stringify( jsonResponse));
   };
@@ -72,7 +72,7 @@ const Sidebar = ({ auth }) => {
   useEffect( async()=>{
     const user = auth.getAccount();
     let {data} = await auth.sdk.from("profiles").select("avatar_url").filter('id', 'eq', user.id)
-    console.log(data[0].avatar_url)
+
     if(data === null || data[0] == null)
     { console.log("no profile data")}
     else

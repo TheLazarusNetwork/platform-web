@@ -56,7 +56,7 @@ const user = auth.getAccount()
   async function updateProfile({ username, avatar_url }) {
     if(username === '' || username === null)
     {
-      setAlertmsg("username cannot be null")
+      setAlertmsg("user's name cannot be null")
       setAlertopen(true)
     }
     else
@@ -138,13 +138,16 @@ const user = auth.getAccount()
               updateProfile({ username, avatar_url })
               }}>
               <div className="row">
+                <div className='tag'>name</div>
                 <input
                   className="textfield"
-                  value={username || ""}
+                  label='name'
+                  value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
                 />
+                <div className='tag'>email</div>
                 <input
                   className="textfield"
                   label="email"
