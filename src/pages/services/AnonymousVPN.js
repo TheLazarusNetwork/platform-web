@@ -12,16 +12,22 @@ import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ErrorAlert from "../../Components/commanComponents/errorAlert";
 import LoadingAnimation from "../../Components/emptySpace/LoadingAnimation";
+import { useDispatch } from "react-redux";
 
 export default function AnonymousVPN() {
   const [active, setactive] = useState(true);
 
+  const dispatch = useDispatch()
   const {plans , plansError ,loading} = useSelector( state =>({
     plans : (state.plans.currentPlans !==null) ?[...state.plans.currentPlans].filter(plan => plan.service === 'anon_vpn') : null,
     plansError : state.plans.error,
     loading : state.plans.loading,
   }))
 
+  if(active)
+  {
+    // dispatch(fetchRegions());
+  }
 
   if(loading)
   return <LoadingAnimation/>

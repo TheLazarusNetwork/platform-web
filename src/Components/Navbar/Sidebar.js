@@ -72,10 +72,11 @@ const Sidebar = ({ auth }) => {
   useEffect( async()=>{
     const user = auth.getAccount();
     let {data} = await auth.sdk.from("profiles").select("avatar_url").filter('id', 'eq', user.id)
-    if(data ==null || [0] == null)
+    console.log(data[0].avatar_url)
+    if(data === null || data[0] == null)
     { console.log("no profile data")}
     else
-    downloadImage(data[0].avatar_url)
+    localStorage.setItem('avatar_url' , data[0].avatar_url)
   },[])
 
   async function downloadImage(path) {

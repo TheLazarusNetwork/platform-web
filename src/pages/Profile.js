@@ -24,11 +24,13 @@ const {userData} = useSelector((state) =>({
   userData : state.user.currentUserData,
 }))
 
+const user = auth.getAccount()
+
 //get profile from supabase db -username and avatar url 
   async function getProfile() {
     try {
       setLoading(true);
-      const user = auth.getAccount();
+      // const user = auth.getAccount();
       setUseremail(user.email)
 
       let { data , error } = await auth.sdk.from("profiles")
@@ -76,11 +78,11 @@ const {userData} = useSelector((state) =>({
       if (error) {
         throw error;
       }
-      setAlertmsg("update name successful");
+      setAlertmsg("Profile update successful");
       setAlertype('success')
       setAlertopen(true);
     } catch (error) {
-      setAlertmsg("update name failed");
+      setAlertmsg("Profile update failed");
       setAlertype('error')
       setAlertopen(true);
       
@@ -94,25 +96,7 @@ const {userData} = useSelector((state) =>({
   }, [userData]);
 
 
-  const handlesubmit = async (event) => {
-    event.preventDefault();
 
-    if (userdata.name == username) {
-      setAlertmsg("name is same as before");
-      setAlertopen(true);
-    } else {
-      const { user, error } = await auth.updateUserName(username);
-      if (user) {
-        setAlertmsg("Name Successfully changed");
-        setAlertype("success");
-        setAlertopen(true);
-      } else {
-        setAlertmsg("Name change failed");
-        setAlertype("error");
-        setAlertopen(true);
-      }
-    }
-  };
 
   return (
     <>
@@ -128,6 +112,7 @@ const {userData} = useSelector((state) =>({
           <div className="pic-avatar">
             {/* <Avatar className={classes.large} src={avatar}></Avatar> */}
             <Avatar
+              userid = {user.id}
               url={avatar_url}
               size={100}
               onUpload={(url) => {

@@ -1,4 +1,4 @@
-# Lazarus Networks
+# Lazarus Network
 
 ## Webapp for securely accessing & managing  Lazarus Network Services, Organisations, Settings, Billing and User Profile
 
@@ -6,8 +6,8 @@
 
 In the project directory, you can run:
 
-###  `npm install`
-### `npm start`
+##  `npm install`
+## `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
