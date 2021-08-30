@@ -4,6 +4,7 @@ import Switch from "@material-ui/core/Switch";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import Passwordbreach from "../../Components/passwords/Passwordbreach";
 import SnackbarAlert from "../../Components/commanComponents/snackbar";
+import { createActivity } from "../../Components/dashBoard/ActivityTable";
 
 //security page
 
@@ -48,6 +49,7 @@ export default function Security ({ auth }) {
           setAlertype("success");
           setAlertmsg("password Changed successfully");
           setAlertopen(true);
+          createActivity('Password Changed')
         } else {
           setAlertype("error");
           setAlertmsg("password Changed unsuccessful");

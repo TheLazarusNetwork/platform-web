@@ -4,6 +4,8 @@ import "../../styles/forms/orgform.css";
 import { createOrg } from "../../redux/actions/createOrgAction";
 import { useDispatch } from "react-redux";
 import { fetchOrg } from "../../redux/actions/orgAction";
+import ErrorAlert from "../commanComponents/errorAlert";
+import SnackbarAlert from "../commanComponents/snackbar";
 
 
 export default function Dialogform({ open, setOpen }) {
@@ -11,6 +13,11 @@ export default function Dialogform({ open, setOpen }) {
   const [timezones, setTimezones] = useState(null);
   const [countryList, setCountryList] = useState(null);
   const dispatch = useDispatch();
+
+  const [alertopen, setAlertopen] = useState(false);
+  const [alertmsg, setAlertmsg] = useState(" ");
+  const [alerttype, setAlertype] = useState("error");
+
 
   const getData = () => {
     //fetching list of timezones and country names form public folder
@@ -46,21 +53,42 @@ export default function Dialogform({ open, setOpen }) {
     //function after filling new organisation form
     e.preventDefault();
     
+    
     console.log("creating new Organisation");
     const OrgName = e.target.OrgName.value;
+ 
     const OrgType = e.target.OrgType.value;
     const Country = e.target.Country.value;
     const Timezone = e.target.Timezone.value;
 
-    console.log(OrgName)
-    //dispatching all new org data to create a new organisation
+    const orgName = OrgName.toString()
+    console.log(orgName, orgName.length)
+    if(orgName.length <5  || orgName.length> 30)
+    {
+       setAlertmsg("Min Org name length : 5")
+       setAlertype('error')
+       setAlertopen(true)
+    }
+    if(orgName.length> 30)
+    {
+       setAlertmsg("Max Org name length : 30")
+       setAlertype('error')
+       setAlertopen(true)
+    }
+    else
+   { //dispatching all new org data to create a new organisation
     dispatch(createOrg(OrgName,OrgType,Country,Timezone))
-    dispatch(fetchOrg())
-    handleClose();
+    handleClose();}
   };
 
   return (
     <div className="orgform">
+         <SnackbarAlert
+        message={alertmsg}
+        alertopen={alertopen}
+        setAlertopen={setAlertopen}
+        type={alerttype} // type = error, success, info ,warning
+      />
       <Dialog
         open={open}
         onClose={handleClose}
@@ -76,6 +104,7 @@ export default function Dialogform({ open, setOpen }) {
               <div className="account-details">
                 <div>
                   <label>Name of Organization *</label>
+                  
                   <input type="text" name="OrgName" required maxLength="30" minLength='5'/>
                 </div>
                 <div>

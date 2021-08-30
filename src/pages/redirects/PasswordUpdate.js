@@ -4,6 +4,7 @@ import SnackbarAlert from "../../Components/commanComponents/snackbar";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { useLocation } from "react-router";
+import { createActivity } from "../../Components/dashBoard/ActivityTable";
 
 export default function PasswordUpdate({ auth }) {
   const location = useLocation();
@@ -36,6 +37,7 @@ export default function PasswordUpdate({ auth }) {
         setAlertype("success");
         setAlertmsg("password Changed successfully");
         setAlertopen(true);
+        createActivity('Password Changed');
       } else {
         setAlertype("error");
         setAlertmsg(error.message);
@@ -43,6 +45,14 @@ export default function PasswordUpdate({ auth }) {
       }
     }
   };
+
+  const removeLocation =()=>{
+    const loc = localStorage.getItem('location');
+    if(loc)
+    {
+      localStorage.removeItem('location')
+    }
+  }
 
   return (
     <>
@@ -74,7 +84,7 @@ export default function PasswordUpdate({ auth }) {
           <button type="submit">update password</button>
         </form>
         <Link to="/dash/">
-          <a>
+          <a onClick={removeLocation}>
             <BiArrowBack />
             go back to home
           </a>

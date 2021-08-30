@@ -44,6 +44,7 @@ export default function OrgsModal({ show, onClose }) {
     //find all details of current Organisation using current Org ID
     let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
+    onClose(true)
   };
 
   useEffect(() => {
@@ -75,8 +76,9 @@ export default function OrgsModal({ show, onClose }) {
               orgArray.map((organisation) => {
                
                 return (
-                  <div key={organisation.id} className="org-box">
-                    <Button onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>
+                  <div key={organisation.id} className="">
+                    <Button fullWidth onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>
+                    <hr/>
                   </div>
                 );
               })
