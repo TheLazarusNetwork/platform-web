@@ -36,6 +36,40 @@ export const fetchUser = () => async (dispatch) => {
   }
 };
 
+export const updateUser = (cityName, phoneNumber) => async (dispatch) => {
+  //fetching supabase jwt token to fetch user details
+  let auth_token = null;
+  let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
+  if (isuserloggedin) {
+    auth_token = JSON.parse(localStorage.getItem("supabase.auth.token"))
+      .currentSession.access_token;
+  } else auth_token = null;
+
+  console.log("inside fetchUser");
+  var raw = JSON.stringify({
+
+    city: cityName.toString(),
+    phone : Number(phoneNumber),
+  })
+
+  const reqconfig = {
+    url : userUrl,
+    method: "patch",
+    headers: {
+      Authorization: `Bearer ${auth_token}`,
+    },
+    data :raw,
+  };
+
+  try {
+    dispatch(fetchUserBegin());
+    const response = await axios(reqconfig);
+    dispatch(fetchUserSuccess(response.data.payload));
+  } catch (e) {
+    dispatch(fetchUserFailure(e));
+  }
+};
+
 export function createUser(cityName, countryName, contactNumber) {
   let auth_token = null;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));

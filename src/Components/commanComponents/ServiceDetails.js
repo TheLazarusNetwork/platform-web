@@ -5,6 +5,7 @@ import NoNetwork from "../emptySpace/NoNetwork";
 
 export default function ServiceDetails({ plansArray , error})
  {
+   console.log(plansArray)
   const [month, setMonth] = useState(false);
 
   if(error)
@@ -16,7 +17,7 @@ export default function ServiceDetails({ plansArray , error})
   if(plansArray !== null)
   return (
     <>
-      <div className="details-box shadow">
+      {/* <div className="details-box shadow">
         <div className="box-title">About </div>
         <ul className="service-details">
           <li>sdkjfldsd alsdkfjlask laskdjfsladk lkajsdfd lkasdjflksdj</li>
@@ -24,9 +25,9 @@ export default function ServiceDetails({ plansArray , error})
           <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
           <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
         </ul>
-      </div>
+      </div> */}
 
-      <div className="pricing details-box shadow">
+      <div className="pricing mid-details-box shadow">
         <div className='inline'>
           <div className="box-title"> Pricing options</div>
           <icon className="btn">
@@ -41,6 +42,7 @@ export default function ServiceDetails({ plansArray , error})
         <div className="flex-div">
           {
             [...plansArray].map(plan => {
+              // console.log(JSON.parse(plan.plan_cos[0]))
               return(
                 <div className="pricing-div">
                 <div className="title center">{plan.name}</div>
@@ -49,29 +51,22 @@ export default function ServiceDetails({ plansArray , error})
                   <p>{plan.description}</p>
                 </ul>
                 <div className="divider" />
+                {/* {
+                [...JSON.parse(plan.plan_cos)].map((details,index) =>{
+                  <React.Fragment key={index}>
+                    <li>Cost :{details.cost}</li>
+                  </React.Fragment>
+                })
+                } */}
                 <div className="price font-small"><p>{plan.cost} {plan.currency_type}</p></div>
-                <button className="font-small center-btn grey-btn ">
-                  Activate Service
+                <button className="font-small center-btn  ">
+                  Select Plan
                 </button>
               </div>
               )
             })
           }
       
-          <div className="pricing-div">
-            <div className="title center">Basic</div>
-            <div className="divider" />
-            <ul className="">
-              <li>5 users</li>
-              <li>10 hours weekly</li>
-            </ul>
-            <div className="divider" />
-            <div className="price"> $10</div>
-            <button className="font-small center-btn grey-btn ">
-              
-              Activate Service
-            </button>
-          </div>
         </div>
       </div>
       <div className="details-box">

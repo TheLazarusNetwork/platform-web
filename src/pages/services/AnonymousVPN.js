@@ -15,11 +15,11 @@ import LoadingAnimation from "../../Components/emptySpace/LoadingAnimation";
 import { useDispatch } from "react-redux";
 
 export default function AnonymousVPN() {
-  const [active, setactive] = useState(true);
+  const [active, setactive] = useState(false);
 
   const dispatch = useDispatch()
   const {plans , plansError ,loading} = useSelector( state =>({
-    plans : (state.plans.currentPlans !==null) ?[...state.plans.currentPlans].filter(plan => plan.service === 'anon_vpn') : null,
+    plans : (state.plans.currentPlans !==null) ?[...state.plans.currentPlans].filter(plan => plan.service === 'anonymousnetwork') : null,
     plansError : state.plans.error,
     loading : state.plans.loading,
   }))

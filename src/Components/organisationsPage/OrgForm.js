@@ -63,13 +63,13 @@ export default function Dialogform({ open, setOpen }) {
 
     const orgName = OrgName.toString()
     console.log(orgName, orgName.length)
-    if(orgName.length <5  || orgName.length> 30)
+    if(orgName.length <5 )
     {
        setAlertmsg("Min Org name length : 5")
        setAlertype('error')
        setAlertopen(true)
     }
-    if(orgName.length> 30)
+    else if(orgName.length> 30)
     {
        setAlertmsg("Max Org name length : 30")
        setAlertype('error')
