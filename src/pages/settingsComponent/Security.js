@@ -5,23 +5,26 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 import Passwordbreach from "../../Components/passwords/Passwordbreach";
 import SnackbarAlert from "../../Components/commanComponents/snackbar";
 import { createActivity } from "../../Components/dashBoard/ActivityTable";
+import { useSelector } from "react-redux";
 
 //security page
 
 export default function Security ({ auth }) {
+
     const [alertopen, setAlertopen] = useState(false);
     const [alertmsg, setAlertmsg] = useState(" ");
     const [alerttype, setAlertype] = useState("error");
+
     const [password, setPassword] = useState(" "); //for checking the password strength using password strength meter
-    const [mfauth, setMfauth] = useState({
-      checkedA: true,
-    });
+   
+    const {userdata} = useSelector((state)=>({
+      userdata : state.user.currentUserData
+    }))
+
+    const [mfauth, setMfauth] = useState(userdata.mfa);
   
     const handleswitchChange = (event) => {
-      setMfauth({
-        ...mfauth,
-        [event.target.name]: event.target.checked,
-      });
+      setMfauth(event.target.checked );
     };
   
     const handlepasswordchange = async (event) => {
@@ -126,7 +129,8 @@ export default function Security ({ auth }) {
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={mfauth.checkedA}
+                    disabled
+                      checked={mfauth}
                       onChange={handleswitchChange}
                       name="checkedA"
                       color="primary"
@@ -158,7 +162,7 @@ export default function Security ({ auth }) {
                     <input id="email" type="email" placeholder="email"></input>
                   </div>
                 </div>
-                <button onClick={handlepasswordchange} className="save-btn">
+                <button className="save-btn">
                   save changes
                 </button>
               </form>

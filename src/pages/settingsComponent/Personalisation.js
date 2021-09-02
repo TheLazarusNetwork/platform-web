@@ -20,8 +20,8 @@ export default function Personalisation({ auth }) {
   const [language, setLanguage] = useState("English");
   const [theme, setTheme] = useState(themestate.theme);
   const [notification, setNotification] = useState({
-    checkedA: true,
-    checkedB: true,
+    checkedA: false,
+    checkedB: false,
   });
 
   const handlelanguageChange = (event) => {
@@ -99,6 +99,7 @@ export default function Personalisation({ auth }) {
               <FormControlLabel
                 control={
                   <Switch
+                  disabled
                     checked={notification.checkedA}
                     onChange={handleswitchChange}
                     name="checkedA"
@@ -110,6 +111,7 @@ export default function Personalisation({ auth }) {
               <FormControlLabel
                 control={
                   <Switch
+                  disabled
                     checked={notification.checkedB}
                     onChange={handleswitchChange}
                     name="checkedB"
