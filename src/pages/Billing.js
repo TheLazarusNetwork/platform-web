@@ -26,8 +26,8 @@ const currencies = [
     label: "฿",
   },
   {
-    value: "JPY",
-    label: "¥",
+    value: "ETH",
+    label: "Ξ",
   },
 ];
 
@@ -36,7 +36,8 @@ const onSubmit = () => {
 };
 
 export default function Billing() {
-  const [currency, setCurrency] = React.useState("EUR");
+  const [currency, setCurrency] = React.useState("USD");
+  
   const handleChange = (event) => {
     setCurrency(event.target.value);
   };

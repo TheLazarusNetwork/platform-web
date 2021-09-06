@@ -12,6 +12,24 @@ import {
 
 const languages = ["English", "Hindi"];
 const themes = ["dark", "light"];
+const currencies = [
+  {
+    value: "USD",
+    label: "$",
+  },
+  {
+    value: "EUR",
+    label: "€",
+  },
+  {
+    value: "BTC",
+    label: "฿",
+  },
+  {
+    value: "ETH",
+    label: "Ξ",
+  },
+];
 
 export default function Personalisation({ auth }) {
   const themestate = useSelector((state) => state);
@@ -19,6 +37,7 @@ export default function Personalisation({ auth }) {
 
   const [language, setLanguage] = useState("English");
   const [theme, setTheme] = useState(themestate.theme);
+  const [currency, setCurrency] = useState("USD");
   const [notification, setNotification] = useState({
     checkedA: false,
     checkedB: false,
@@ -50,12 +69,16 @@ export default function Personalisation({ auth }) {
       [event.target.name]: event.target.checked,
     });
   };
+  const handlecurrencychange =(e) =>{
+    setCurrency(e.target.value)
+  }
 
   return (
     <>
       <div>
         <div className="details-box shadow ">
           <div className="inner-details">
+                   {/* language select dropdown */}
             <div className="row">
               <div className="box-title">Change Language</div>
               <TextField
@@ -64,7 +87,7 @@ export default function Personalisation({ auth }) {
                 label=" "
                 value={language}
                 onChange={handlelanguageChange}
-                helperText="Please select your currency"
+                helperText="Please select your language"
               >
                 {languages.map((option) => (
                   <MenuItem key={option} value={option}>
@@ -73,6 +96,7 @@ export default function Personalisation({ auth }) {
                 ))}
               </TextField>
             </div>
+                   {/* theme select dropdown */}
             <div className="row">
               <div className="box-title">Change Theme</div>
               <TextField
@@ -86,6 +110,25 @@ export default function Personalisation({ auth }) {
                 {themes.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+
+            {/* currency select dropdown */}
+            <div className="row">
+              <div className="box-title">Change Currency</div>
+              <TextField
+                id="standard-select-theme"
+                select
+                label=" "
+                value={currency}
+                onChange={handlecurrencychange}
+                helperText="Please select your currency"
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}{" "}{option.value}
                   </MenuItem>
                 ))}
               </TextField>

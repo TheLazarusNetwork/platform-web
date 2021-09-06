@@ -36,7 +36,7 @@ export const fetchUser = () => async (dispatch) => {
   }
 };
 
-export const updateUser = (cityName, phoneNumber) => async (dispatch) => {
+export const updateUser = (phoneNumber) => async (dispatch) => {
   //fetching supabase jwt token to fetch user details
   let auth_token = null;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
@@ -45,28 +45,31 @@ export const updateUser = (cityName, phoneNumber) => async (dispatch) => {
       .currentSession.access_token;
   } else auth_token = null;
 
-  console.log("inside fetchUser");
-  var raw = JSON.stringify({
+  console.log("inside updateUser");
 
-    city: cityName.toString(),
-    phone : Number(phoneNumber),
+  var raw = JSON.stringify({
+    phone : phoneNumber.toString(),
   })
 
+  var myHeaders = {
+    "Authorization" :  `Bearer ${auth_token}`,
+    "Content-Type" : "application/json"
+  }
+
   const reqconfig = {
+    method: 'patch',
     url : userUrl,
-    method: "patch",
-    headers: {
-      Authorization: `Bearer ${auth_token}`,
-    },
+    headers:myHeaders,
     data :raw,
+    redirect: "follow",
   };
 
   try {
-    dispatch(fetchUserBegin());
     const response = await axios(reqconfig);
-    dispatch(fetchUserSuccess(response.data.payload));
+    console.log(response)
+    dispatch(fetchUser())
   } catch (e) {
-    dispatch(fetchUserFailure(e));
+    console.log(e)
   }
 };
 
@@ -134,3 +137,17 @@ export const fetchUserFailure = (error) => ({
   type: FETCH_USER_FAILURE,
   payload: { error },
 });
+
+// export const updateUserBegin = () => ({
+//   type: UPDATE_USER_BEGIN,
+// });
+
+// export const updateUserSuccess = (userData) => ({
+//   type: UPDATE_USER_SUCCESS,
+//   payload: userData,
+// });
+
+// export const updateUserFailure = (error) => ({
+//   type: UPDATE_USER_FAILURE,
+//   payload: { error },
+// });
