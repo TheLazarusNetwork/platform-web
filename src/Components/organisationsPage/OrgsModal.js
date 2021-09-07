@@ -77,8 +77,9 @@ export default function OrgsModal({ show, onClose }) {
                
                 return (
                   <div key={organisation.id} className="">
+                     <hr className='divider'/>
                     <Button fullWidth onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>
-                    <hr/>
+                   
                   </div>
                 );
               })

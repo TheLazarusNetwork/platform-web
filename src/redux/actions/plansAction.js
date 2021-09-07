@@ -1,3 +1,4 @@
+import axios from "axios";
 import { config } from "../../api/config";
 import {
     FETCH_PLANS_BEGIN,
@@ -5,27 +6,20 @@ import {
     FETCH_PLANS_FAILURE,
   } from "../CONSTANTS";
   
-  export function fetchPlans() {
+  export const fetchPlans = () =>async(dispatch)=> {
   
     console.log("inside fetchPlans");
     const plansUrl = config.platformURL+ "/plans";
   
-    return (dispatch) => {
-      dispatch(fetchPlansBegin());
-      return fetch(plansUrl, {
-        method: "GET",
-      })
-        .then(handleErrors)
-        .then((res) => res.json())
-        .then((json) => {
-          dispatch(fetchPlansSuccess(json.payload));
-          return json.payload;
-        })
-        .catch((error) => {
-          dispatch(fetchPlansFailure(error));
-          console.log(error);
-        });
-    };
+    try{
+      dispatch(fetchPlansBegin())
+      const response =await axios.get(plansUrl)
+      console.log(response)
+        dispatch(fetchPlansSuccess(response.data.payload))
+    }   
+    catch(e){
+      dispatch(fetchPlansFailure(e))
+    }
   }
 
   async function handleErrors(response) {

@@ -45,39 +45,46 @@ export default function ServiceDetails({ plansArray, error }) {
           </div>
           <div className="flex-div">
             {[...plansArray].map((plan) => {
-              console.log(JSON.parse(plan.features));
               return (
                 <div className="pricing-div">
                   <div className="title center">{plan.name}</div>
                   <div className="divider" />
-                  <ul className="">
+                  <div className="description">
                     <p>{plan.description}</p>
-                  </ul>
+                  </div>
                   <div className="divider" />
-                  <ul>
-                  {
-                    // JSON.parse(plan.features)
-                    
-                    Object.keys(JSON.parse(plan.features)).map((innerAttr, index) => {
+                  <ul className="features-list">
+                    {Object.keys(plan.features).map((innerAttr, index) => {
                       return (
-                      
                         <li key={index}>
-                          <span className="title"> {innerAttr}</span> :
-                          {JSON.parse(plan.features)[innerAttr]}
+                          <span className=""> {innerAttr}</span> :
+                          <span className="title">
+                            {" "}
+                            {plan.features[innerAttr]}
+                          </span>
                         </li>
                       );
-                    })
-                  }
+                    })}
                   </ul>
-                  <hr className='divider'/>
-{
-  console.log(plan.plan_cos)
-}
-                  <div className="price font-small">
-                    <p>
-                      {plan.cost} {plan.currency_type}
-                    </p>
-                  </div>
+                  <hr className="divider" />
+
+                  {month ? (
+                    <div className="center cost-div">
+                      <h1 className="center">
+                        {plan.plan_cost[0].cost}
+                        <span>{plan.plan_cost[0].currency} </span>
+                      </h1>
+                      <p className="tag">billed montly</p>
+                    </div>
+                  ) : (
+                    <div className="center cost-div">
+                      <h1 className="center">
+                        {plan.plan_cost[1].cost}
+                        <span>{plan.plan_cost[1].currency}</span>
+                      </h1>
+                      <p className="tag">billed anually</p>
+                    </div>
+                  )}
                   <button className="font-small center-btn  ">
                     Select Plan
                   </button>
@@ -95,7 +102,9 @@ export default function ServiceDetails({ plansArray, error }) {
               <li>10 hours weekly</li>
             </ul>
             <div className="divider" />
-            <div className="price"> $50</div>
+            <div className="cost-div">
+              <p>50usd</p>
+            </div>
             <button className="center-btn grey-btn "> Contact Us</button>
           </div>
         </div>

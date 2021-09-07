@@ -86,16 +86,28 @@
   font-size: large;
 }
 
+.pricing-div .description {
+  font-size: small;
+  text-align: center;
+  min-height: 80px;
+  color: #b3b5b6;
+  padding: 10px;
+}
+
 .pricing-div ul {
   list-style: none;
   font-size: small;
-  margin-top: 10px;
+  margin: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.pricing-div .price {
-  font-size: 30px;
-  margin: auto;
-  text-align: center;
+.pricing-div .cost-div {
+  margin: 10px auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .save-btn {
