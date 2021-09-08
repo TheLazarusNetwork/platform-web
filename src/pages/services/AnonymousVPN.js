@@ -13,24 +13,36 @@ import { useSelector } from "react-redux";
 import ErrorAlert from "../../Components/commanComponents/errorAlert";
 import LoadingAnimation from "../../Components/emptySpace/LoadingAnimation";
 import { useDispatch } from "react-redux";
+import { fetchSubsciption } from "../../redux/actions/subsciptionAction";
 
 export default function AnonymousVPN() {
   const [active, setactive] = useState(false);
 
-  const dispatch = useDispatch()
-  const {plans , plansError ,loading} = useSelector( state =>({
-    plans : (state.plans.currentPlans !==null) ?[...state.plans.currentPlans].filter(plan => plan.service === 'anonymousnetwork') : null,
-    plansError : state.plans.error,
-    loading : state.plans.loading,
-  }))
+  const dispatch = useDispatch();
 
-  if(active)
-  {
+  const { plans, plansError, loading } = useSelector((state) => ({
+    plans:
+      state.plans.currentPlans !== null
+        ? [...state.plans.currentPlans].filter(
+            (plan) => plan.service === "anonymousnetwork"
+          )
+        : null,
+    plansError: state.plans.error,
+    loading: state.plans.loading,
+  }));
+  const { currentOrgId } = useSelector((state) => ({
+    currentOrgId: state.organisations.CurrentOrgID,
+  }));
+
+  useEffect(() => {
+    dispatch(fetchSubsciption(currentOrgId));
+  }, []);
+
+  if (active) {
     // dispatch(fetchRegions());
   }
 
-  if(loading)
-  return <LoadingAnimation/>
+  if (loading) return <LoadingAnimation />;
 
   return (
     <>
@@ -40,12 +52,16 @@ export default function AnonymousVPN() {
             setAlertopen={setAlertopen}
             type={alerttype} // type = error, success, info ,warning
           /> */}
-        {/* {error && <ErrorAlert
+      {/* {error && <ErrorAlert
                       message ={error.message}
                       setOpen ={"true"}/>} */}
       <div className="main">
         <Topnav page="Anonymous VPN" />
-        {active ? <AVPN /> : <ServiceDetails plansArray ={plans} error={plansError} />}
+        {active ? (
+          <AVPN />
+        ) : (
+          <ServiceDetails plansArray={plans} error={plansError} />
+        )}
       </div>
     </>
   );
@@ -56,16 +72,18 @@ const AVPN = () => {
   const [ipinfo, setIpinfo] = useState({});
   const [create, setCreate] = useState(false);
 
-  const RegionName ="regionName";
+  const RegionName = "regionName";
   const Code = "code";
 
   const getIp = async () => {
-    const jsonResponse = JSON.parse(localStorage.getItem('ipinfo'))
-    console.log("inside anomvpn")
+    const jsonResponse = JSON.parse(localStorage.getItem("ipinfo"));
+    console.log("inside anomvpn");
     setIpinfo(jsonResponse ? jsonResponse : {});
   };
 
-  useEffect(() => {getIp()}, []);
+  useEffect(() => {
+    getIp();
+  }, []);
   return (
     <>
       <div className="flex-div">
@@ -101,18 +119,14 @@ const AVPN = () => {
           <div className="name">{RegionName}</div>
           <div className="role">{Code}</div>
           <div>
-            <Link to={'/dash/anonymousVPN/clients/:' +RegionName}>
-            <button className="simple-btn">
-              see all clients
-            </button>
+            <Link to={"/dash/anonymousVPN/clients/:" + RegionName}>
+              <button className="simple-btn">see all clients</button>
             </Link>
             <button className="simple-btn" onClick={() => setCreate(!create)}>
               create new client
             </button>
           </div>
         </div>
-    
-      
       </div>
       {/* <div className="center">
         <Link to="">
@@ -147,37 +161,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- export function ShowClient({RegionName, Code}) {
+export function ShowClient({ RegionName, Code }) {
   const [serviceEnabled, setServiceEnabled] = useState(false);
   return (
-    <div className='main'>
-        <div className='mid-details-box'>
-          <div className="main-title">All Clients</div>
-          <div className="divider"></div>
+    <div className="main">
+      <div className="mid-details-box">
+        <div className="main-title">All Clients</div>
+        <div className="divider"></div>
 
-          {/*AVPN client information  */}
-          <div className="org-box">
-            {/* config file download btn */}
-            <FaFileDownload />
-            <div className="name">client email</div>
-            <div className="role">device</div>
-            <div>
-              {/* button to go the this organisation */}
-              <icon className="btn">
-                {serviceEnabled ? (
-                  <BsToggleOn onClick={() => setServiceEnabled(false)} color="green" />
-                ) : (
-                  <BsToggleOff onClick={() => setServiceEnabled(true)} />
-                )}
-              </icon>
-              {/* delete this client  */}
-              <icon className="btn">
-                <AiFillDelete />
-              </icon>
-            </div>
+        {/*AVPN client information  */}
+        <div className="org-box">
+          {/* config file download btn */}
+          <FaFileDownload />
+          <div className="name">client email</div>
+          <div className="role">device</div>
+          <div>
+            {/* button to go the this organisation */}
+            <icon className="btn">
+              {serviceEnabled ? (
+                <BsToggleOn
+                  onClick={() => setServiceEnabled(false)}
+                  color="green"
+                />
+              ) : (
+                <BsToggleOff onClick={() => setServiceEnabled(true)} />
+              )}
+            </icon>
+            {/* delete this client  */}
+            <icon className="btn">
+              <AiFillDelete />
+            </icon>
           </div>
         </div>
-     
+      </div>
     </div>
   );
 }

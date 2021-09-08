@@ -4,23 +4,12 @@ import LoadingAnimation from "../emptySpace/LoadingAnimation";
 import NoNetwork from "../emptySpace/NoNetwork";
 
 export default function ServiceDetails({ plansArray, error }) {
-  console.log(plansArray);
-  const [month, setMonth] = useState(false);
+  const [month, setMonth] = useState(true);
 
   if (error) return <NoNetwork error={error.message} />;
   if (plansArray !== null)
     return (
       <>
-        {/* <div className="details-box shadow">
-        <div className="box-title">About </div>
-        <ul className="service-details">
-          <li>sdkjfldsd alsdkfjlask laskdjfsladk lkajsdfd lkasdjflksdj</li>
-          <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
-          <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
-          <li>sdkjfldsd alsdkfjlaskd lkasdjflksdj</li>
-        </ul>
-      </div> */}
-
         <div className="pricing mid-details-box shadow">
           <div className="inline">
             <div className="box-title"> Pricing options</div>
@@ -91,21 +80,6 @@ export default function ServiceDetails({ plansArray, error }) {
                 </div>
               );
             })}
-          </div>
-        </div>
-        <div className="details-box">
-          <div className="pricing-div">
-            <div className="title center">Custom</div>
-            <div className="divider" />
-            <ul className="">
-              <li>5 users</li>
-              <li>10 hours weekly</li>
-            </ul>
-            <div className="divider" />
-            <div className="cost-div">
-              <p>50usd</p>
-            </div>
-            <button className="center-btn grey-btn "> Contact Us</button>
           </div>
         </div>
       </>

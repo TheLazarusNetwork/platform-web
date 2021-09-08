@@ -220,6 +220,26 @@ Navlink:hover {
   }
 }
 
+.button-flex-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.button-flex-div .button {
+  margin: 10px;
+}
+
+.button-flex-div .grey-btn {
+  background-color: gray;
+}
+
 .main {
   width: 100%;
 }

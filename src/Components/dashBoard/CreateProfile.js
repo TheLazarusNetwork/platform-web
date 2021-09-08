@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import "../../styles/forms/orgform.css";
 import { createUser } from "./../../redux/actions/userAction";
-import SnackbarAlert from '../commanComponents/snackbar'
+import SnackbarAlert from "../commanComponents/snackbar";
 import ErrorAlert from "../commanComponents/errorAlert";
 
-export default function CreateProfile({error}) {
+export default function CreateProfile({ error }) {
   const [countryList, setCountryList] = useState(null);
   const [alertmsg, setAlertmsg] = useState("");
   const [alertopen, setAlertopen] = useState(false);
-  const [alerttype, setAlerttype]= useState("error")
+  const [alerttype, setAlerttype] = useState("error");
   const dispatch = useDispatch();
 
   const getData = () => {
@@ -24,9 +24,7 @@ export default function CreateProfile({error}) {
   useEffect(() => {
     //fetching public folder data
     getData();
-   
   }, []);
-
 
   const createNewUser = (e) => {
     //function after filling new organisation form
@@ -37,27 +35,26 @@ export default function CreateProfile({error}) {
     const Country = e.target.Country.value;
     const ContactNumber = e.target.ContactNumber.value;
 
-    console.log(ContactNumber.length !== 10 && ContactNumber.length !==0)
-    if(ContactNumber.length !== 10 && ContactNumber.length !== 0)
-    {
-      setAlertmsg("Please enter a valid contact number")
-      setAlertopen(true)
+    console.log(ContactNumber.length !== 10 && ContactNumber.length !== 0);
+    if (ContactNumber.length !== 10 && ContactNumber.length !== 0) {
+      setAlertmsg("Please enter a valid contact number");
+      setAlertopen(true);
+    } else {
+      //dispatching all new org data to create a new organisation
+      dispatch(createUser(City, Country, ContactNumber));
     }
-    else
-   { //dispatching all new org data to create a new organisation
-    dispatch(createUser(City, Country, ContactNumber));}
     // handleClose();
   };
 
   return (
     <>
-    <SnackbarAlert
+      <SnackbarAlert
         message={alertmsg}
         alertopen={alertopen}
         setAlertopen={setAlertopen}
         type={alerttype} // type = error, success, info ,warning
       />
-      {error && <ErrorAlert message = {error.message} alertopen ={'true'}/> }
+      {error && <ErrorAlert message={error.message} alertopen={"true"} />}
       <div className=" main">
         <div className=" center main-block">
           <form onSubmit={createNewUser}>
@@ -67,21 +64,32 @@ export default function CreateProfile({error}) {
                 <div>
                   <div>
                     <label>Contact Number</label>
-                    <input type="number" name="ContactNumber" minLength='10' maxLength="10" />
+                    <input
+                      type="number"
+                      name="ContactNumber"
+                      minLength="10"
+                      maxLength="10"
+                    />
                   </div>
                   <div>
                     <label>City</label>
-                    <input type="text" name="City"  />
+                    <input type="text" name="City" />
                   </div>
                   <div>
                     <label>Country</label>
                     <select id="country" name="Country">
                       {countryList &&
                         countryList.map((country) => {
-                          if(country.name === 'United States')
-                          return (
-                            <option key ={country.code} value={country.name} selected>{country.name}</option>
-                          )
+                          if (country.name === "United States")
+                            return (
+                              <option
+                                key={country.code}
+                                value={country.name}
+                                selected
+                              >
+                                {country.name}
+                              </option>
+                            );
                           return (
                             <option key={country.code} value={country.name}>
                               {country.name}
@@ -93,11 +101,13 @@ export default function CreateProfile({error}) {
                 </div>
               </div>
             </fieldset>
-            <button type="submit">Confirm </button>
-            <button type="submit">Skip for now</button>
+            <div className="button-flex-div">
+              <button className='button' type="submit">Confirm </button>
+              <button className='button grey-btn' type="submit">Skip for now</button>
+            </div>
           </form>
         </div>
-        <p className='center'>if you already have an account, please refresh</p>
+        <p className="center">if you already have an account, please refresh</p>
       </div>
     </>
   );

@@ -188,7 +188,20 @@ Navlink:hover {
     }
   }
 }
+// --------------CREATE PROFILE PAGE-------------
+.button-flex-div{
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
 
+  .button{
+    margin: 10px;
+    
+  }
+  .grey-btn{
+    background-color:gray;
+  }
+}
 //----------PROFILE PAGE--------------
 
 .main {
