@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import LoadingAnimation from "../emptySpace/LoadingAnimation";
 import NoNetwork from "../emptySpace/NoNetwork";
+import CreateSubscription from "./CreateSubscription";
 
 export default function ServiceDetails({ plansArray, error }) {
   const [month, setMonth] = useState(true);
+  const [opendialog, setOpendialog] = useState(false);
+  const [planId, setPlanId] = useState(null);
+
+  const selectPlan = (id) => {
+    setPlanId(id);
+    console.log("hello");
+    setOpendialog(true);
+  };
 
   if (error) return <NoNetwork error={error.message} />;
   if (plansArray !== null)
@@ -15,7 +24,7 @@ export default function ServiceDetails({ plansArray, error }) {
             <div className="box-title"> Pricing options</div>
             <icon className="btn">
               <label className="tag label">
-                {month ? "Monthly" : "Annual"}{" "}
+                {month ? "Monthly" : "Annual"}
               </label>
               {month ? (
                 <BsToggleOn
@@ -48,7 +57,6 @@ export default function ServiceDetails({ plansArray, error }) {
                         <li key={index}>
                           <span className=""> {innerAttr}</span> :
                           <span className="title">
-                            {" "}
                             {plan.features[innerAttr]}
                           </span>
                         </li>
@@ -74,7 +82,12 @@ export default function ServiceDetails({ plansArray, error }) {
                       <p className="tag">billed anually</p>
                     </div>
                   )}
-                  <button className="font-small center-btn  ">
+                  <button
+                    onClick={() => {
+                      selectPlan(plan.ID);
+                    }}
+                    className="font-small center-btn  "
+                  >
                     Select Plan
                   </button>
                 </div>
@@ -82,6 +95,14 @@ export default function ServiceDetails({ plansArray, error }) {
             })}
           </div>
         </div>
+        {opendialog && (
+          <CreateSubscription
+            open={opendialog}
+            setOpen={setOpendialog}
+            planId={planId}
+            month={month}
+          />
+        )}
       </>
     );
   else {

@@ -1,0 +1,32 @@
+
+.order-details{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: solid 1px gainsboro;
+    padding: 20px;
+}
+.order-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 0.5px solid rgba(220, 220, 220, 0.808);
+}
+.order-name{
+    font-weight:bold;
+    font-size: large;
+}
+.order-cost{
+    color: rgb(21, 21, 170);
+}
+.order-des{
+    margin: 10px 5px;
+    font-size: small;
+}
+.order-tag{
+    border-top: 0.5px solid rgba(220, 220, 220, 0.808);
+    margin: 10px 5px 0px ;
+    padding-top: 10px;
+    font-size: smaller;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

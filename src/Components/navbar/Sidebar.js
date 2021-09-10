@@ -29,6 +29,7 @@ import { fetchOrg } from "../../redux/actions/orgAction";
 import { userLogout } from "../../redux/rootReducer";
 import { fetchPlans } from "../../redux/actions/plansAction";
 import { createActivity } from "../dashBoard/ActivityTable";
+import { getWallet } from "../../redux/actions/walletAction";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -55,6 +56,7 @@ const Sidebar = ({ auth }) => {
     dispatch(fetchUser());
     dispatch(fetchOrg());
     dispatch(fetchPlans());
+    dispatch(getWallet())
   }, []);
 
   const getIp = async () => {
