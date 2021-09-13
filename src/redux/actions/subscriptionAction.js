@@ -11,8 +11,8 @@ import {
   CREATE_SUBS_FAILURE,
 } from "../CONSTANTS";
 
-export const fetchSubsciption = (currentOrgId) => async (dispatch) => {
-  console.log("inside fetch Subsciption");
+export const fetchSubscription = (currentOrgId) => async (dispatch) => {
+  console.log("inside fetch Subscription");
   const subsUrl = config.platformURL + "/plans/subscription/" + currentOrgId;
   let auth_token = null;
   let isuserloggedin = JSON.parse(localStorage.getItem("supabase.auth.token"));
@@ -38,7 +38,7 @@ export const fetchSubsciption = (currentOrgId) => async (dispatch) => {
   }
 };
 
-export const createSubsciption =
+export const createSubscription =
   (currentOrgId, planId, costId) => async (dispatch) => {
     let auth_token;
     let isuserloggedin = JSON.parse(
@@ -49,7 +49,7 @@ export const createSubsciption =
         .currentSession.access_token;
     } else auth_token = null;
 
-    const subsUrl = config.platformURL + "/subsciptions";
+    const subsUrl = config.platformURL + "/subscriptions";
     var myHeaders = {
       Authorization: `Bearer ${auth_token}`,
       "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const createSubsciption =
       const response = await axios(reqconfig);
       console.log(response.data.payload);
       dispatch(createSubsSuccess(response.data.payload));
-      createActivity("New Subsciption activated ");
+      createActivity("New Subscription activated ");
     } catch (e) {
       dispatch(createSubsFailure(e));
     }

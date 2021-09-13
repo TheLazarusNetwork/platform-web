@@ -13,10 +13,10 @@ import { useSelector } from "react-redux";
 import ErrorAlert from "../../Components/commanComponents/errorAlert";
 import LoadingAnimation from "../../Components/emptySpace/LoadingAnimation";
 import { useDispatch } from "react-redux";
-import { fetchSubsciption } from "../../redux/actions/subsciptionAction";
+import { fetchSubscription } from "../../redux/actions/subscriptionAction";
 
 export default function AnonymousVPN() {
-  const [active, setactive] = useState(false);
+  const [active, setActive] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -30,13 +30,30 @@ export default function AnonymousVPN() {
     plansError: state.plans.error,
     loading: state.plans.loading,
   }));
+
   const { currentOrgId } = useSelector((state) => ({
     currentOrgId: state.organisations.CurrentOrgID,
   }));
 
+  const { activeSub, subloading } = useSelector((state) => ({
+    // subloading : state.subscriptions.loading,
+    activeSub:
+      state.subscriptions.allSubscriptions != null
+        ? [...state.subscriptions.allSubscriptions].filter(
+            (sub) => sub.plan.service == "anonymousnetwork"
+          )
+        : [],
+  }));
+  console.log(activeSub);
+
   useEffect(() => {
-    dispatch(fetchSubsciption(currentOrgId));
-  }, []);
+    if (activeSub.length) {
+      setActive(true);
+    }
+    
+  }, [activeSub])
+
+
 
   if (active) {
     // dispatch(fetchRegions());

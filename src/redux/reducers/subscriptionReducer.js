@@ -5,7 +5,7 @@ import {
 } from "../CONSTANTS";
 
 const initialState = {
-  allSubsciptions: null,
+  allSubscriptions: null,
   error: null,
   loading: false,
 };
@@ -23,7 +23,7 @@ export default function subsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        allSubsciptions: [...action.payload].filter((subs) => subs.sub == true),
+        allSubscriptions: [...action.payload].filter((subs) => subs.sub == true),
       };
       break;
     case FETCH_SUBS_FAILURE:
@@ -31,7 +31,7 @@ export default function subsReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload.error,
-        allSubsciptions: null,
+        allSubscriptions: null,
       };
       break;
 

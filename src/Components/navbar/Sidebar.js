@@ -30,6 +30,7 @@ import { userLogout } from "../../redux/rootReducer";
 import { fetchPlans } from "../../redux/actions/plansAction";
 import { createActivity } from "../dashBoard/ActivityTable";
 import { getWallet } from "../../redux/actions/walletAction";
+import { fetchSubscription } from "../../redux/actions/subscriptionAction";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -44,9 +45,10 @@ const Sidebar = ({ auth }) => {
     })
   );
 
-  const { organisationList, numberOfOrgs } = useSelector((state) => ({
+  const { organisationList, numberOfOrgs, currentOrgId } = useSelector((state) => ({
     organisationList: [...state.organisations.orgArray],
     numberOfOrgs: state.organisations.numberOfOrgs,
+    currentOrgId : state.organisations.CurrentOrgID,
   }));
 
 
@@ -58,6 +60,10 @@ const Sidebar = ({ auth }) => {
     dispatch(fetchPlans());
     dispatch(getWallet())
   }, []);
+
+  useEffect(()=>{
+    dispatch(fetchSubscription(currentOrgId))
+  },[currentOrgId])
 
   const getIp = async () => {
     const request = await fetch(
