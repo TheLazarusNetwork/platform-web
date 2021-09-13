@@ -39,7 +39,7 @@ export const fetchSubscription = (currentOrgId) => async (dispatch) => {
 };
 
 export const createSubscription =
-  (currentOrgId, planId, costId) => async (dispatch) => {
+  (currentOrgId, planId, cost) => async (dispatch) => {
     let auth_token;
     let isuserloggedin = JSON.parse(
       localStorage.getItem("supabase.auth.token")
@@ -57,7 +57,7 @@ export const createSubscription =
     var raw = JSON.stringify({
       org_id: currentOrgId.toString(),
       plan_id: Number(planId),
-      cost_index: Number(costId),
+      cost_index: cost,
     });
 
     var reqconfig = {

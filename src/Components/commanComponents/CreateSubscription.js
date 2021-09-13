@@ -8,6 +8,7 @@ import { Button } from "@material-ui/core";
 import SnackbarAlert from "./snackbar";
 import "./../../styles/components/createSubscription.css";
 import { useDispatch, useSelector } from "react-redux";
+import { createSubscription } from "../../redux/actions/subscriptionAction";
 
 export default function CreateSubscription({ open, setOpen, planId, month }) {
   const dispatch = useDispatch();
@@ -22,12 +23,15 @@ export default function CreateSubscription({ open, setOpen, planId, month }) {
       (plan) => plan.ID === planId
     ),
   }));
-  const {wallet} = useSelector((state) =>({
-    wallet : state.wallet.walletData
-  }))
 
-  
-  console.log(selectedPlan);
+  const { currentOrgId } = useSelector((state) => ({
+    currentOrgId: state.organisations.CurrentOrgID,
+  }));
+
+  const { wallet } = useSelector((state) => ({
+    wallet: state.wallet.walletData,
+  }));
+
   const handleClickOpen = () => {
     //open function to open org form modal
     setOpen(true);
@@ -35,9 +39,16 @@ export default function CreateSubscription({ open, setOpen, planId, month }) {
   const handleClose = () => {
     setOpen(false);
   };
+
   const activateService = () => {
-    // dispatch(CreateSubscription());
-    setOpen(false);
+    if (currentOrgId !== null || currentOrgId !== undefined) 
+    {
+      const costId = month ? 0 : 1;
+      const cost = selectedPlan.plan_cost[costId];
+      console.log(currentOrgId, planId, cost)
+      dispatch(createSubscription(currentOrgId, planId, cost));
+    }
+    setOpen(!open);
   };
 
   return (
@@ -85,19 +96,19 @@ export default function CreateSubscription({ open, setOpen, planId, month }) {
                 </ul>
               </div>
               <div className="">
-              <div className='order-tag'>
+                <div className="order-tag">
                   <p>Available Wallet Balance :</p>
                   <div className="">
                     {wallet.balance} {wallet.currency}
                   </div>
                 </div>
-                <div className='order-tag'>
+                <div className="order-tag">
                   <p>Total :</p>
                   <div className="">
                     {month
                       ? selectedPlan.plan_cost[0].cost
-                      : selectedPlan.plan_cost[1].cost} 
-                     {" "}{selectedPlan.plan_cost[0].currency}
+                      : selectedPlan.plan_cost[1].cost}{" "}
+                    {selectedPlan.plan_cost[0].currency}
                   </div>
                 </div>
               </div>
@@ -109,7 +120,11 @@ export default function CreateSubscription({ open, setOpen, planId, month }) {
             cancel
           </Button>
           <Button
-          disable = {disable} onClick={activateService} color="primary" autoFocus>
+            disable={disable}
+            onClick={activateService}
+            color="primary"
+            autoFocus
+          >
             Activate
           </Button>
         </DialogActions>
