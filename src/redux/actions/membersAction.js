@@ -9,7 +9,7 @@ import {
   INVITE_MEMBERS_FAILURE,
 } from "../CONSTANTS";
 import { fetchOrgFailure } from "./orgAction";
-const membershipUrl = config.platformURL +'/memberships/'
+const membershipUrl = config.platformURL + "/memberships/";
 
 export const fetchMembers = (orgId) => async (dispatch) => {
   let auth_token;
@@ -20,8 +20,7 @@ export const fetchMembers = (orgId) => async (dispatch) => {
   } else auth_token = null;
 
   console.log("inside fetch members");
-  const membersUrl =
-    membershipUrl + orgId;
+  const membersUrl = membershipUrl + orgId;
 
   const config = {
     method: "get",
@@ -38,7 +37,6 @@ export const fetchMembers = (orgId) => async (dispatch) => {
   } catch (e) {
     dispatch(fetchOrgFailure(e));
   }
- 
 };
 
 export function inviteNewMember(emailId, role, orgId, orgName) {

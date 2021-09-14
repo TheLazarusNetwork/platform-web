@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SnackbarAlert from "../../Components/commanComponents/snackbar";
 import Topnav from "../../Components/navbar/Topnav";
 import { Button, IconButton, Menu, MenuItem } from "@material-ui/core";
+import { useGetOrgs } from "../../hooks/orgHooks";
 
 //Organisational settings
 
@@ -24,15 +25,12 @@ export default function OrganisationSettings() {
   const [alerttype, setAlerttype] = useState("error");
 
   // getting current Org Id from redux store
-  const { currOrgId, numberofOrgs } = useSelector((state) => ({
-    currOrgId: state.organisations.CurrentOrgID,
-    numberofOrgs: state.organisations.numberOfOrgs,
-  }));
+  const [numberofOrgs,currentOrgID,orgArray,orgloading] = useGetOrgs()
 
   //getting all Members array form redux store
   const { membersOrg, currentMemberArray, error } = useSelector((state) => ({
     currentMemberArray: [...state.memberships.membershipArray],
-    // currentMemberArray : (state.memberships.numberOfMembers > 0) ? [...[...state.memberships.membershipArray].filter((members => members.org_id === currOrgId))] : [],
+    // currentMemberArray : (state.memberships.numberOfMembers > 0) ? [...[...state.memberships.membershipArray].filter((members => members.org_id === currentOrgID))] : [],
     error: state.memberships.error,
   }));
 
@@ -44,7 +42,7 @@ export default function OrganisationSettings() {
     e.preventDefault();
     const emailId = e.target.email.value;
     const selectedRole = e.target.selectedRole.value;
-    const currentOrgId = currOrgId;
+    const currentOrgId = currentOrgID;
 
     //getting current Organisation name from current Memberships
     const currentOrgName =
@@ -74,8 +72,8 @@ export default function OrganisationSettings() {
 
   useEffect(() => {
     // fetching all members list
-    if (currOrgId !== null) dispatch(fetchMembers(currOrgId));
-  }, [currOrgId]);
+    if (currentOrgID !== null) dispatch(fetchMembers(currentOrgID));
+  }, [currentOrgID]);
 
   //for each member options menu
   const [anchorEl, setAnchorEl] = React.useState(null);

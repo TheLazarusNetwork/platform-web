@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, IconButton } from "@material-ui/core";
 import { MdSwapHoriz } from "react-icons/md";
 import { changeCurrentOrg } from "../../redux/actions/orgAction";
+import { useGetOrgs } from "../../hooks/orgHooks";
 
 function getModalStyle() {
   const top = 50;
@@ -32,10 +33,7 @@ export default function OrgsModal({ show, onClose }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
 
-  const { orgArray, currentOrgID } = useSelector((state) => ({
-    orgArray: [...state.organisations.orgArray],
-    currentOrgID: state.organisations.CurrentOrgID,
-  }));
+  const [numberofOrgs,currentOrgID,orgArray,orgloading] = useGetOrgs()
 
   const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
@@ -77,7 +75,7 @@ export default function OrgsModal({ show, onClose }) {
                
                 return (
                   <div key={organisation.id} className="">
-                     <hr className='divider'/>
+                     <hr/>
                     <Button fullWidth onClick={()=> dispatch(changeCurrentOrg(organisation.id))}>{organisation.name}</Button>
                    
                   </div>

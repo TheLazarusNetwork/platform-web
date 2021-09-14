@@ -9,34 +9,28 @@ import ActivityTable from "../Components/dashBoard/ActivityTable";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { FiSettings } from "react-icons/fi";
+import { useGetOrgs } from "../hooks/orgHooks";
 
 document.title = "Dashboard | Lazarus Network";
 
 export default function Dashboard(props) {
+
   const [ipinfo, setIpinfo] = useState(
     JSON.parse(localStorage.getItem("ipinfo"))
   );
   const [userinfo, setUserinfo] = useState({});
   const [currOrg, setCurrOrg] = useState();
+  const [numberofOrgs,currentOrgID,orgArray,orgloading] = useGetOrgs()
 
   const { loading, error, isUserLoggedIn } = useSelector((state) => ({
     loading: state.user.loading,
     error: state.user.error,
     isUserLoggedIn: state.user.isUserLoggedIn,
   }));
-  const { numberofOrgs, currentOrgID, orgArray, orgloading } = useSelector(
-    (state) => ({
-      orgloading: state.organisations.loading,
-      numberofOrgs: state.organisations.numberOfOrgs,
-      orgArray: [...state.organisations.orgArray],
-      currentOrgID: state.organisations.CurrentOrgID,
-    })
-  );
 
   const getcurrentOrg = () => {
     let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
-    // console.log(currentOrg,orgArray,currentOrgID);
   };
 
   useEffect(() => {
@@ -48,7 +42,6 @@ export default function Dashboard(props) {
     const userResponse = JSON.parse(
       localStorage.getItem("supabase.auth.token")
     );
-    // console.log("inside dashboard : ip-", jsonResponse);
     setIpinfo(jsonResponse === null ? {} : jsonResponse);
     setUserinfo(userResponse.currentSession.user);
   };

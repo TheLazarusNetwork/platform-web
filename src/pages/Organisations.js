@@ -99,13 +99,13 @@ export default function Organisations() {
                       Org
                     </Button>
 
-                    <Link to="/dash/organisationSettings">
+                    {/* <Link to="/dash/organisationSettings">
                       <Button
                         variant="contained"
                         color="primary"
                         startIcon={<FiSettings />}
                       />
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               );

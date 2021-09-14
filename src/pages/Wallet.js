@@ -7,11 +7,7 @@ import SnackbarAlert from "../Components/commanComponents/snackbar";
 import { config } from "../api/config";
 import axios from "axios";
 
-export default function Wallet() {
-  const [alertopen, setAlertopen] = useState(false);
-  const [alertmsg, setAlertmsg] = useState(" ");
-  const [alerttype, setAlertype] = useState("error");
-
+function useWalletData() {
   const { walletData, error } = useSelector((state) => ({
     walletData: state.wallet.walletData,
     error: state.wallet.error,
@@ -22,6 +18,15 @@ export default function Wallet() {
   useEffect(() => {
     dispatch(getWallet());
   }, []);
+
+  return [walletData, error];
+}
+
+export default function Wallet() {
+  const [alertopen, setAlertopen] = useState(false);
+  const [alertmsg, setAlertmsg] = useState(" ");
+  const [alerttype, setAlertype] = useState("error");
+  const [walletData, error] = useWalletData();
 
   const redeemVoucher = (e) => {
     e.preventDefault();
@@ -40,7 +45,7 @@ export default function Wallet() {
       claimVoucher(voucherCode, voucherPin);
     }
   };
-  const claimVoucher = async(voucherCode, voucherPin) => {
+  const claimVoucher = async (voucherCode, voucherPin) => {
     const voucherUrl = config.platformURL + "/vouchers";
 
     let auth_token = null;
@@ -68,17 +73,16 @@ export default function Wallet() {
     };
     try {
       const res = await axios(reqconfig);
-      console.log(res.data)
+      console.log(res.data);
       if (error) throw error;
-      setAlertmsg('voucher claimed Success,Your balance will be updated soon')
-      setAlertype('success')
-      setAlertopen(true)
-
+      setAlertmsg("voucher claimed Success,Your balance will be updated soon");
+      setAlertype("success");
+      setAlertopen(true);
     } catch (e) {
       console.log(e);
-      setAlertmsg('voucher claim failed')
-      setAlertype('error')
-      setAlertopen(true)
+      setAlertmsg("voucher claim failed");
+      setAlertype("error");
+      setAlertopen(true);
     }
   };
 
