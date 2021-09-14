@@ -32,7 +32,6 @@ import "./styles/Themes/lighttheme.css";
 import "./styles/Themes/darktheme.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Home from "./pages/Home";
-import Trialpage from "./pages/Trialpage";
 import Wallet from "./pages/Wallet";
 import OrganisationSettings from "./pages/settingsComponent/OrganisationSettings";
 
@@ -217,11 +216,7 @@ const App = () => {
               path="/emailverified"
               render={(props) => <VerificationPage auth={auth} />}
             />
-             <Route
-              exact
-              path="/trialpage"
-              render={(props) => <Trialpage />}
-            />
+            
             <Route
               path="/:type"
               render={(props) => <RedirectedUrlPage auth={auth} />}

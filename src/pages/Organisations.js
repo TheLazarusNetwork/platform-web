@@ -9,16 +9,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentOrg } from "../redux/actions/orgAction";
 import Button from "@material-ui/core/Button";
 import { Link, Redirect } from "react-router-dom";
+import { useGetOrgs } from "../hooks/orgHooks";
 
 export default function Organisations() {
   //create org form open or close
   const [openform, setOpenform] = useState(false);
   
   //all organisations user is part of
-  const { orgArray, currentOrgID } = useSelector((state) => ({
-    orgArray: [...state.organisations.orgArray],
-    currentOrgID: state.organisations.CurrentOrgID,
-  }));
+  const [numberofOrgs,currentOrgID,orgArray,orgloading] = useGetOrgs()
   const [currOrg, setCurrOrg] = useState();
   const dispatch = useDispatch();
 

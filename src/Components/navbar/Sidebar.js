@@ -31,26 +31,13 @@ import { fetchPlans } from "../../redux/actions/plansAction";
 import { createActivity } from "../dashBoard/ActivityTable";
 import { getWallet } from "../../redux/actions/walletAction";
 import { fetchSubscription } from "../../redux/actions/subscriptionAction";
+import { useGetOrgs } from "../../hooks/orgHooks";
+import { useGetUser } from "../../hooks/userHooks";
 
 const Sidebar = ({ auth }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
-  const { loading, error, userData, theme, isUserLoggedIn } = useSelector(
-    (state) => ({
-      userData: state.user.currentUserData,
-      loading: state.user.loading,
-      error: state.user.error,
-      theme: state.theme,
-      isUserLoggedIn: state.user.isUserLoggedIn,
-    })
-  );
-
-  const { organisationList, numberOfOrgs, currentOrgId } = useSelector((state) => ({
-    organisationList: [...state.organisations.orgArray],
-    numberOfOrgs: state.organisations.numberOfOrgs,
-    currentOrgId : state.organisations.CurrentOrgID,
-  }));
-
+  const [userLoading, userError, isUserLoggedIn, currentUser] = useGetUser()
+  const [numberofOrgs,currentOrgID,orgArray,orgloading] = useGetOrgs()
 
   const dispatch = useDispatch();
 
@@ -62,8 +49,9 @@ const Sidebar = ({ auth }) => {
   }, []);
 
   useEffect(()=>{
-    dispatch(fetchSubscription(currentOrgId))
-  },[currentOrgId])
+    if(currentOrgID)
+    dispatch(fetchSubscription(currentOrgID))
+  },[currentOrgID])
 
   const getIp = async () => {
     const request = await fetch(
@@ -87,18 +75,6 @@ const Sidebar = ({ auth }) => {
     localStorage.setItem('avatar_url' , data[0].avatar_url)
   },[])
 
-  async function downloadImage(path) {
-    try {
-      const { data, error } = await auth.sdk.storage.from('avatars').download(path)
-      if (error) {
-        throw error
-      }
-      const url = URL.createObjectURL(data)
-      localStorage.setItem('avatar_url' , url)
-    } catch (error) {
-      console.log('Error downloading image: ', error.message)
-    }
-  }
 
   const history = useHistory();
 
@@ -149,7 +125,7 @@ const Sidebar = ({ auth }) => {
             </MenuItem>
 
            { !sidebarCollapsed && <p className='tag'>&nbsp; services</p>}
-            {isUserLoggedIn && numberOfOrgs ? (
+            {isUserLoggedIn && numberofOrgs ? (
               <>
                 <MenuItem title="AVPN" icon={<FaUserLock />}>
                   Anonymous VPN
@@ -238,105 +214,3 @@ const Sidebar = ({ auth }) => {
 };
 
 export default Sidebar;
-
-// <CDBSidebar className="sidebar">
-// <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-//   <a
-//     href="/dash/"
-//     className="text-decoration-none"
-//     style={{ color: "inherit" }}
-//   >
-//     Sidebar
-//   </a>
-// </CDBSidebarHeader>
-
-// <CDBSidebarContent className="sidebar-content">
-//   <CDBSidebarMenu className="sidebar-menu">
-//     <NavLink exact to="/dash/" activeClassName="activeClicked">
-//       <CDBSidebarMenuItem className="menuitem" icon="columns">
-//         Dashboard
-//       </CDBSidebarMenuItem>
-//     </NavLink>
-
-// {// hide/disable all services links until user is logged in
-// isUserLoggedIn ?
-//     <div className='active-links'>
-//       <div className="label"> Services</div>
-
-//       <NavLink exact to="/dash/anomvpn" activeClassName="activeClicked">
-//         <CDBSidebarMenuItem className="menuitem" icon="user-lock">
-//           Anonymous VPN
-//         </CDBSidebarMenuItem>
-//       </NavLink>
-//       <NavLink exact to="/dash/dedivpn" activeClassName="activeClicked">
-//         <CDBSidebarMenuItem className="menuitem" icon="shield-alt">
-//           Dedicated Network
-//         </CDBSidebarMenuItem>
-//       </NavLink>
-//       <NavLink exact to="/dash/cloud" activeClassName="activeClicked">
-//         <CDBSidebarMenuItem className="menuitem" icon="cloud">
-//           Cloud
-//         </CDBSidebarMenuItem>
-//       </NavLink>
-//       <NavLink exact to="/dash/tunnel" activeClassName="activeClicked">
-//         <CDBSidebarMenuItem className="menuitem" icon="dungeon">
-//           Tunnel
-//         </CDBSidebarMenuItem>
-//       </NavLink>
-//     </div>
-//     :
-//       <div className='inactive-links'>
-//     <div className="label"> Services</div>
-
-//       <CDBSidebarMenuItem className="menuitem" icon="user-lock" iconClassName ="disabled" >
-//         Anonymous VPN
-//       </CDBSidebarMenuItem>
-
-//       <CDBSidebarMenuItem className="menuitem" icon="shield-alt">
-//         Dedicated Network
-//       </CDBSidebarMenuItem>
-
-//       <CDBSidebarMenuItem className="menuitem" icon="cloud">
-//         Cloud
-//       </CDBSidebarMenuItem>
-
-//       <CDBSidebarMenuItem className="menuitem" icon="dungeon">
-//         Tunnel
-//       </CDBSidebarMenuItem>
-
-//   </div>
-// }
-
-//     <div className="label"> User </div>
-
-//     <NavLink exact to="/dash/profile" activeClassName="activeClicked">
-//       <CDBSidebarMenuItem className="menuitem" icon="user">
-//         Profile
-//       </CDBSidebarMenuItem>
-//     </NavLink>
-//     <NavLink exact to="/dash/billing" activeClassName="activeClicked">
-//       <CDBSidebarMenuItem className="menuitem" icon="file-invoice">
-//         Billing
-//       </CDBSidebarMenuItem>
-//     </NavLink>
-//     <NavLink exact to="/dash/settings" activeClassName="activeClicked">
-//       <CDBSidebarMenuItem className="menuitem" icon="cog">
-//         Settings
-//       </CDBSidebarMenuItem>
-//     </NavLink>
-//   </CDBSidebarMenu>
-// </CDBSidebarContent>
-
-// <CDBSidebarFooter style={{ textAlign: "center" }}>
-//   <div className="logout-btn">
-//     <button
-//       type="button"
-//       onClick={signOutUser}
-//       className="btn btn-dark"
-//     >
-//       <BiLogOut />
-//       <span>Logout</span>
-//     </button>
-//   </div>
-// </CDBSidebarFooter>
-// </CDBSidebar>/

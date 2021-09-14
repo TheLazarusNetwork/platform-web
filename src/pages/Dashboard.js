@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { FiSettings } from "react-icons/fi";
 import { useGetOrgs } from "../hooks/orgHooks";
+import { useGetUser } from "../hooks/userHooks";
 
 document.title = "Dashboard | Lazarus Network";
 
@@ -21,13 +22,9 @@ export default function Dashboard(props) {
   const [userinfo, setUserinfo] = useState({});
   const [currOrg, setCurrOrg] = useState();
   const [numberofOrgs,currentOrgID,orgArray,orgloading] = useGetOrgs()
+ const [userLoading, userError, isUserLoggedIn, currentUser] = useGetUser();
 
-  const { loading, error, isUserLoggedIn } = useSelector((state) => ({
-    loading: state.user.loading,
-    error: state.user.error,
-    isUserLoggedIn: state.user.isUserLoggedIn,
-  }));
-
+ 
   const getcurrentOrg = () => {
     let currentOrg = orgArray.find((org) => org.id === currentOrgID);
     setCurrOrg(currentOrg);
@@ -50,9 +47,9 @@ export default function Dashboard(props) {
     getIp();
   }, []);
 
-  if (loading || orgloading) return <LoadingAnimation />;
+  if (userLoading || orgloading) return <LoadingAnimation />;
 
-  if (!isUserLoggedIn) return <CreateProfile error={error} />;
+  if (!isUserLoggedIn) return <CreateProfile userError={userError} />;
 
   return (
     <>
@@ -60,7 +57,7 @@ export default function Dashboard(props) {
         message={alertmsg}
         alertopen={alertopen}
         setAlertopen={setAlertopen}
-        type={alerttype} // type = error, success, info ,warning
+        type={alerttype} // type = userError, success, info ,warning
       /> */}
 
       <div className="main">
