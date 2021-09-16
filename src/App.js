@@ -33,7 +33,7 @@ import "./styles/Themes/darktheme.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import Home from "./pages/Home";
 import Wallet from "./pages/Wallet";
-import OrganisationSettings from "./pages/settingsComponent/OrganisationSettings";
+import OrganisationSettings from "./pages/settingsSubpage/OrganisationSettings";
 
 
 const auth = new Auth();

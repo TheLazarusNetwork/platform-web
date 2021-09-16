@@ -5,6 +5,7 @@ import PasswordStrengthMeter from "../Components/passwords/PasswordStrengthMeter
 import SnackbarAlert from "../Components/commanComponents/snackbar";
 import Passwordbreach from "../Components/passwords/Passwordbreach";
 import { Link } from "react-router-dom";
+import './../styles/forms/signup.module.css'
 
 document.title = " Auth | Lazarus Network";
 
@@ -128,6 +129,7 @@ export default function Signup({auth , history}) {
 
   return (
     <>
+      
       <SnackbarAlert
         message={alertmsg}
         alertopen={alertopen}
@@ -205,10 +207,11 @@ export default function Signup({auth , history}) {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h2>Welcome Back!</h2>
+              <h2>Hello!</h2>
               <p>
-                To keep connected with us please login with your personal info
+              Enter your details and start journey with us
               </p>
+              <p>- or -</p>
               <button
                 className="ghost"
                 id="signIn"
@@ -219,7 +222,9 @@ export default function Signup({auth , history}) {
             </div>
             <div className="overlay-panel overlay-right">
               <h2>Hello, Friend!</h2>
-              <p>Enter your personal details and start journey with us</p>
+              <p>To keep connected with us please login with your personal info
+               </p>
+               <p>- or -</p>
               <button
                 className="ghost"
                 id="signUp"

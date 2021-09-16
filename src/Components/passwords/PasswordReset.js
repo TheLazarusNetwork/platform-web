@@ -38,7 +38,7 @@ export default function PasswordReset({ auth }) {
           <button type="submit"> Send Magic Link</button>
         </form>
 
-        <Link to="/signup">
+        <Link to="/auth">
           <a>
             <BiArrowBack />
             go back to home

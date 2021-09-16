@@ -56,8 +56,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid $dark-blue;
-  background-color: $dark-blue;
+  border: 1px solid $darkblue;
+  background-color: $darkblue;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -92,7 +92,7 @@ button.ghost {
 }
 
 input {
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.87);
   border: none;
   padding: 12px 15px;
   margin: 8px 0;
@@ -102,7 +102,8 @@ input {
 .container {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -231,7 +232,7 @@ input {
 
 .overlay {
   background: $base-color;
-  background: linear-gradient(to right, $dark-blue, #2277d8);
+  background: linear-gradient(to right, $darkblue, #2277d8);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

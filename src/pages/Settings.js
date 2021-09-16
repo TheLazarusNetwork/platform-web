@@ -8,9 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Topnav from "../Components/navbar/Topnav";
 
-import OrganisationSettings from "./settingsComponent/OrganisationSettings";
-import Personalisation from "./settingsComponent/Personalisation";
-import Security from "./settingsComponent/Security";
+import Personalisation from "./settingsSubpage/Personalisation";
+import Security from "./settingsSubpage/Security";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

@@ -1,0 +1,6 @@
+body{
+    background-color: #fff;
+}
+.container{
+    box-shadow: 0 0 8px 0 rgb(239 239 253 / 40%), 0 22px 24px 0 rgb(239 239 253 / 32%), 0 9px 22px 0 rgb(228 228 234 / 32%);
+}

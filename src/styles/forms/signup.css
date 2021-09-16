@@ -56,8 +56,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #1769aa;
-  background-color: #1769aa;
+  border: 1px solid #1c0cac;
+  background-color: #1c0cac;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -104,7 +104,7 @@ button.ghost {
 }
 
 input {
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.87);
   border: none;
   padding: 12px 15px;
   margin: 8px 0;
@@ -114,8 +114,8 @@ input {
 .container {
   background-color: #fff;
   border-radius: 10px;
-  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -296,8 +296,8 @@ input {
 
 .overlay {
   background: #f1f4fe;
-  background: -webkit-gradient(linear, left top, right top, from(#1769aa), to(#2277d8));
-  background: linear-gradient(to right, #1769aa, #2277d8);
+  background: -webkit-gradient(linear, left top, right top, from(#1c0cac), to(#2277d8));
+  background: linear-gradient(to right, #1c0cac, #2277d8);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
