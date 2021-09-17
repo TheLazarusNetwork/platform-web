@@ -9,44 +9,61 @@ $mid: 650px;
 $small: 450px;
 
 .light-theme {
-    //sidebar
-   
-  .shadow{
+  //sidebar
+
+  .shadow {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
-    .pro-sidebar-inner {
-      background-color: $lightblue !important;
-      color: $darkgrey !important;
+  .pro-sidebar.collapsed
+    .pro-menu
+    > ul
+    > .pro-menu-item.pro-sub-menu
+    > .pro-inner-list-item {
+    background-color: #d6d7de;
 
-      :hover{
-          color: $black !important;
-      }
-    }
-   
-    .pro-icon-wrapper{
-      background-color: #dce2f5b4 !important;
-    }
-
-    .activeClicked > li {
-      background-color: $darkblue !important;
-      color: #fff !important;
-    }
-    .menuitem {
-      color: #000;
-    }
-  
-    .logout-btn {
-      button {
-        background-color: $lightgrey;
-      }
-    }
-    //top navbar
-    .top-nav{
+    .popper-inner {
       background-color: $lightblue;
     }
-    //main page
-    .main{
-      background-color: $white;
+  }
+  .pro-sidebar .pro-menu 
+  { 
+    ul > .pro-sub-menu > .pro-inner-list-item {
+    background-color: $lightblue;
+  }
+  }
+  .pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper{
+    background-color: $lightblue;
+  }
+  .pro-sidebar-inner {
+    background-color: $lightblue !important;
+    color: $darkgrey !important;
+
+    :hover {
+      color: #000 !important;
     }
   }
-  
+  .pro-menu-item {
+    background-color: $lightblue;
+  }
+  .pro-icon {
+    background-color: $lightblue;
+  }
+
+  .activeClicked > li {
+    background-color: $darkblue !important;
+    color: rgb(231, 225, 225) !important;
+  }
+  .menuitem {
+    color: #000;
+  }
+
+  //top navbar
+  .top-nav {
+    background-color: $lightblue;
+  }
+
+  //main page
+  .main {
+    background-color: $white;
+  }
+}

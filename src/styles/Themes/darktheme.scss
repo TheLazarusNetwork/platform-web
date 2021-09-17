@@ -1,5 +1,5 @@
 $lightblue: #f1f4fe;
-$darkgrey: #4d4f5c;
+$darkgrey: #292a2c;
 $darkblue: rgb(23, 105, 170);
 $lightgrey: #d6d7de;
 $white: #fff;
@@ -17,12 +17,8 @@ $darkthemegrey: #2a2a2a;
   .pro-sidebar-inner {
     background-color: $darkgrey !important;
     color: $lightblue !important;
-    border-right: #2a2a2a solid 1px;
+    border-right: #3c3a3d solid 1px;
   }
- 
-  // .pro-icon-wrapper{
-  //   background-color: $darkgrey !important;
-  // }
     .sidebar-content {
       background-color: $darkgrey;
       color: $lightgrey;

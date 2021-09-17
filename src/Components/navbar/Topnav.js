@@ -1,4 +1,4 @@
-import { Avatar } from "@material-ui/core";
+import { Avatar, IconButton } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { IoIosNotifications } from "react-icons/io";
 import { MdSwapHoriz } from "react-icons/md";
@@ -11,16 +11,15 @@ import { Link } from "react-router-dom";
 import Auth from "../../api/Auth";
 
 export default function Topnav({ page }) {
-
   const [show, setShow] = useState(false);
   const [avatar, setAvatar] = useState();
   const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();
 
-  useEffect( async()=>{
-    let url = localStorage.getItem('avatar_url');
+  useEffect(async () => {
+    let url = localStorage.getItem("avatar_url");
     setAvatar(url);
-  },[])
+  }, []);
 
   const changetheme = () => {
     if (theme === "light")
@@ -54,13 +53,12 @@ export default function Topnav({ page }) {
             <IoIosNotifications size={20} />
           </icon>
           <div className="vertical-divider"></div>
-         
+
           <icon>
-          <Link to="/dash/profile">
-            <Avatar src={avatar}/>
+            <Link to="/dash/profile">
+              <Avatar src={avatar} />
             </Link>
           </icon>
-          
         </div>
       </nav>
       <OrgsModal show={show} onClose={() => setShow(false)} />

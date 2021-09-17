@@ -4,24 +4,24 @@
 }
 
 .dark-theme .pro-sidebar-inner {
-  background-color: #4d4f5c !important;
+  background-color: #292a2c !important;
   color: #f1f4fe !important;
-  border-right: #2a2a2a solid 1px;
+  border-right: #3c3a3d solid 1px;
 }
 
 .dark-theme .sidebar-content {
-  background-color: #4d4f5c;
+  background-color: #292a2c;
   color: #d6d7de;
 }
 
 .dark-theme .sidebar-menu {
-  background-color: #4d4f5c;
+  background-color: #292a2c;
   color: #d6d7de;
 }
 
 .dark-theme .activeClicked > li {
   background-color: #d6d7de !important;
-  color: #4d4f5c !important;
+  color: #292a2c !important;
 }
 
 .dark-theme .menuitem {
@@ -29,11 +29,11 @@
 }
 
 .dark-theme .logout-btn button {
-  background-color: #4d4f5c;
+  background-color: #292a2c;
 }
 
 .dark-theme .top-nav {
-  background-color: #4d4f5c;
+  background-color: #292a2c;
 }
 
 .dark-theme .top-nav .title, .dark-theme .top-nav .icons, .dark-theme .top-nav .btn {
@@ -45,12 +45,12 @@
 }
 
 .dark-theme .details-box, .dark-theme .mid-details-box, .dark-theme mini-details-box {
-  background-color: #4d4f5c;
+  background-color: #292a2c;
   color: #d6d7de;
 }
 
 .dark-theme .org-box {
-  background-color: #4d4f5c;
+  background-color: #292a2c;
   color: #d6d7de;
 }
 /*# sourceMappingURL=darktheme.css.map */

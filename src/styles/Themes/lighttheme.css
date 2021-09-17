@@ -3,26 +3,54 @@
           box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.light-theme .pro-sidebar.collapsed
+.pro-menu
+> ul
+> .pro-menu-item.pro-sub-menu
+> .pro-inner-list-item {
+  background-color: #d6d7de;
+}
+
+.light-theme .pro-sidebar.collapsed
+.pro-menu
+> ul
+> .pro-menu-item.pro-sub-menu
+> .pro-inner-list-item .popper-inner {
+  background-color: #f1f4fe;
+}
+
+.light-theme .pro-sidebar .pro-menu ul > .pro-sub-menu > .pro-inner-list-item {
+  background-color: #f1f4fe;
+}
+
+.light-theme .pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+  background-color: #f1f4fe;
+}
+
 .light-theme .pro-sidebar-inner {
   background-color: #f1f4fe !important;
   color: #4d4f5c !important;
 }
 
-.light-theme .pro-icon-wrapper {
-  background-color: #dce2f5b4 !important;
+.light-theme .pro-sidebar-inner :hover {
+  color: #000 !important;
+}
+
+.light-theme .pro-menu-item {
+  background-color: #f1f4fe;
+}
+
+.light-theme .pro-icon {
+  background-color: #f1f4fe;
 }
 
 .light-theme .activeClicked > li {
   background-color: #1769aa !important;
-  color: #fff !important;
+  color: #e7e1e1 !important;
 }
 
 .light-theme .menuitem {
   color: #000;
-}
-
-.light-theme .logout-btn button {
-  background-color: #d6d7de;
 }
 
 .light-theme .top-nav {
